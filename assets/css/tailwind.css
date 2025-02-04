@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --primary: 215 74% 32%;
+        --isu-red: 5 78% 54%;
+        --isu-red-foreground: 210 40% 98%;
+        --isu-yellow: 40 88% 54%;
+        --isu-yellow-foreground: 210 40% 98%;
+        --isu-green: 162 98% 24%;
+        --isu-green-foreground: 210 40% 98%;
+        --isu-blue: 215 74% 32%;
+        --isu-blue-foreground: 210 40% 98%;
+    }
+}
