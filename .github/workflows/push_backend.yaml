@@ -38,7 +38,7 @@ jobs:
       run: |
         if [ -d "/home/ubuntu/prez4/" ]; then
           cd /home/ubuntu/prez4/
-          docker compose -f prez-compose.yaml stop prez
+          docker compose -f prez-compose.yaml stop prez4
         fi
     - name: Copy files
       run: |
