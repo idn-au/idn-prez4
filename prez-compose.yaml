@@ -1,0 +1,20 @@
+version: "3"
+name: idn-prez4
+services:
+  prez4:
+    image: "ghcr.io/rdflib/prez:${version}"
+    restart: always
+    ports:
+      - "8001:8000"
+    environment:
+      SPARQL_ENDPOINT: "http://fuseki:3030/prez4"
+      SPARQL_USERNAME: $SPARQL_USERNAME
+      SPARQL_PASSWORD: $SPARQL_PASSWORD
+      ENABLE_SPARQL_ENDPOINT: true
+    networks:
+      - network
+
+networks:
+  network:
+    name: idn_network
+    external: true

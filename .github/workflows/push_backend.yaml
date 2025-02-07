@@ -1,0 +1,49 @@
+name: Deploys Prez API to Docker on VM
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: [trigger-workflow]
+  workflow_dispatch:
+
+jobs:
+  # Detects changes in specific directories
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          backend:
+            - 'prez-compose.yaml'
+            - '.github/workflows/push_backend.yaml'
+  # Deploy if files have changed, or if workflow was triggered by another repo/manually
+  deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' || github.event_name != 'push' }}
+    runs-on: self-hosted
+    env:
+      version: 4.4.2
+      SPARQL_USERNAME: ${{ secrets.SPARQL_USERNAME }}
+      SPARQL_PASSWORD: ${{ secrets.SPARQL_PASSWORD }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Stop current Prez if exists
+      run: |
+        if [ -d "/home/ubuntu/prez4/" ]; then
+          cd /home/ubuntu/prez4/
+          docker compose -f prez-compose.yaml stop prez
+        fi
+    - name: Copy files
+      run: |
+        mkdir -p /home/ubuntu/prez4/
+        cp -Rf prez-compose.yaml /home/ubuntu/prez4/
+    - name: Deploy Prez
+      working-directory: /home/ubuntu/prez4/
+      run: docker compose -f prez-compose.yaml up -d

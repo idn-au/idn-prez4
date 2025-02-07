@@ -63,7 +63,12 @@ onBeforeMount(() => {
         <!-- Navigation -->
         <div class="border-b relative">
             <nav class="container mx-auto px-4 py-4 hidden md:flex md:flex-row gap-2 text-lg">
-                <Button v-for="{ label, url } in menu.filter(item => item.active !== false)" variant="ghost" :class="`rounded-none border-b-2 ${(url === '/' && route.path === '/') || (url !== '/' && route.path.startsWith(url)) ? 'border-b-isu-red' : 'border-b-transparent'}`">
+                <Button
+                    v-for="{ label, url } in menu.filter(item => item.active !== false)"
+                    variant="ghost"
+                    :class="`rounded-none border-b-2 ${(url === '/' && route.path === '/') || (url !== '/' && route.path.startsWith(url)) ? 'border-b-isu-red' : 'border-b-transparent'}`"
+                    as-child
+                >
                     <NuxtLink :to="url">{{ label }}</NuxtLink>
                 </Button>
                 <div v-if="runtimeConfig.public.prezDebug" class="!ml-auto">
