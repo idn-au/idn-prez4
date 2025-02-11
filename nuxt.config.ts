@@ -12,6 +12,7 @@ export default defineNuxtConfig({
             link: [
                 { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap", type: "text/css" }
             ]
-        }
+        },
+        baseURL: "/v1/AUTH_0a23562e67e04297b1dc3ce25a30858d/prezui4/",
     },
 });
