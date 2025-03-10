@@ -7,6 +7,10 @@ module.exports = {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
                 },
+                link: {
+                    DEFAULT: "hsl(var(--link))",
+                    foreground: "hsl(var(--link-foreground))",
+                },
                 "isu-red": {
                     DEFAULT: "hsl(var(--isu-red))",
                     foreground: "hsl(var(--isu-red-foreground))",
