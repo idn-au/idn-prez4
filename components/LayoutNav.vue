@@ -4,7 +4,6 @@ import { Cog } from "lucide-vue-next";
 const route = useRoute();
 const runtimeConfig = useRuntimeConfig();
 const appConfig = useAppConfig();
-const globalConfig = useGlobalConfig(); // needs to be called to check if SPARQL is enabled
 
 const showDebugPanel = defineModel<boolean>();
 </script>
