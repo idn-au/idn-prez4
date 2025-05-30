@@ -29,7 +29,7 @@ jobs:
     if: ${{ needs.changes.outputs.backend == 'true' || github.event_name != 'push' }}
     runs-on: self-hosted
     env:
-      version: 4.7.5
+      version: 4.9.2
       SPARQL_USERNAME: ${{ secrets.SPARQL_USERNAME }}
       SPARQL_PASSWORD: ${{ secrets.SPARQL_PASSWORD }}
     steps:
