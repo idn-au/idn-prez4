@@ -1,0 +1,88 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX ex: <http://example.org/>
+PREFIX ont: <https://prez.dev/ont/>
+PREFIX prez: <https://prez.dev/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <https://schema.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+prez:systemGraph {
+    ex:catalogs-listing a ont:DynamicEndpoint,
+            ont:ListingEndpoint ;
+        rdfs:label "Catalogs Listing" ;
+        prez:label "Catalogs Listing" ;
+        ont:apiPath "/catalogs" ;
+        ont:relevantShapes ex:shape-R0-HL1 .
+
+    ex:catalogs-object a ont:DynamicEndpoint,
+            ont:ObjectEndpoint ;
+        rdfs:label "Catalogs Object" ;
+        prez:label "Catalogs Object" ;
+        ont:apiPath "/catalogs/{catalogId}" ;
+        ont:relevantShapes ex:shape-R0-HL1 .
+
+    ex:collections-listing a ont:DynamicEndpoint,
+            ont:ListingEndpoint ;
+        rdfs:label "Collections Listing" ;
+        prez:label "Collections Listing" ;
+        ont:apiPath "/catalogs/{catalogId}/collections" ;
+        ont:relevantShapes ex:shape-R0-HL2 .
+
+    ex:collections-object a ont:DynamicEndpoint,
+            ont:ObjectEndpoint ;
+        rdfs:label "Collections Object" ;
+        prez:label "Collections Object" ;
+        ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}" ;
+        ont:relevantShapes ex:shape-R0-HL2 .
+
+    ex:items-listing a ont:DynamicEndpoint,
+            ont:ListingEndpoint ;
+        rdfs:label "Items Listing" ;
+        prez:label "Items Listing" ;
+        ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items" ;
+        ont:relevantShapes ex:shape-R0-HL3,
+            ex:shape-R0-HL3-1 .
+
+    ex:items-object a ont:DynamicEndpoint,
+            ont:ObjectEndpoint ;
+        rdfs:label "Items Object" ;
+        prez:label "Items Object" ;
+        ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}" ;
+        ont:relevantShapes ex:shape-R0-HL3,
+            ex:shape-R0-HL3-1 .
+
+    ex:shape-R0-HL1 a sh:NodeShape ;
+        sh:property [ sh:or ( [ sh:class skos:Collection ] [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] [ sh:class dcat:Resource ] [ sh:class schema:CreativeWork ] [ sh:class skos:ConceptScheme ] ) ;
+                sh:path dcterms:hasPart ] ;
+        sh:targetClass dcat:Catalog, schema:DataCatalog ;
+        ont:hierarchyLevel 1 .
+
+    ex:shape-R0-HL2 a sh:NodeShape ;
+        sh:property [ sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
+                sh:path [ sh:inversePath dcterms:hasPart ] ] ;
+        sh:targetClass skos:Collection,
+            skos:ConceptScheme,
+            dcat:Dataset,
+            schema:Dataset,
+            dcat:Resource ,
+            schema:CreativeWork ;
+        ont:hierarchyLevel 2 .
+
+    ex:shape-R0-HL3 a sh:NodeShape ;
+        sh:property [ sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
+                sh:path ( skos:inScheme [ sh:inversePath dcterms:hasPart ] ) ],
+            [ sh:class skos:ConceptScheme ;
+                sh:path skos:inScheme ] ;
+        sh:targetClass skos:Concept ;
+        ont:hierarchyLevel 3 .
+
+    ex:shape-R0-HL3-1 a sh:NodeShape ;
+        sh:property [ sh:class skos:Collection ;
+                sh:path [ sh:inversePath skos:member ] ],
+            [ sh:class dcat:Catalog ;
+                sh:path ( [ sh:inversePath skos:member ] [ sh:inversePath dcterms:hasPart ] ) ] ;
+        sh:targetClass skos:Concept ;
+        ont:hierarchyLevel 3 .
+}
