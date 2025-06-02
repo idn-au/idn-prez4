@@ -13,8 +13,6 @@ services:
       ENABLE_SPARQL_ENDPOINT: true
       PROTOCOL: https
       CUSTOM_ENDPOINTS: true
-      ENDPOINT_STRUCTURE: '["catalogs","collections","items"]'
-      ORDER_LISTS_BY_LABEL: true
     networks:
       - network
 
