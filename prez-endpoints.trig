@@ -55,13 +55,13 @@ prez:systemGraph {
 
     ex:shape-R0-HL1 a sh:NodeShape ;
         sh:property [ sh:or ( [ sh:class skos:Collection ] [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] [ sh:class dcat:Resource ] [ sh:class schema:CreativeWork ] [ sh:class skos:ConceptScheme ] ) ;
-                sh:path dcterms:hasPart ] ;
+                sh:path dcterms:hasPart, schema:hasPart ] ;
         sh:targetClass dcat:Catalog, schema:DataCatalog ;
         ont:hierarchyLevel 1 .
 
     ex:shape-R0-HL2 a sh:NodeShape ;
         sh:property [ sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
-                sh:path [ sh:inversePath dcterms:hasPart ] ] ;
+                sh:path [ sh:inversePath dcterms:hasPart, schema:hasPart ] ] ;
         sh:targetClass skos:Collection,
             skos:ConceptScheme,
             dcat:Dataset,
@@ -72,7 +72,7 @@ prez:systemGraph {
 
     ex:shape-R0-HL3 a sh:NodeShape ;
         sh:property [ sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
-                sh:path ( skos:inScheme [ sh:inversePath dcterms:hasPart ] ) ],
+                sh:path ( skos:inScheme [ sh:inversePath dcterms:hasPart, schema:hasPart ] ) ],
             [ sh:class skos:ConceptScheme ;
                 sh:path skos:inScheme ] ;
         sh:targetClass skos:Concept ;
@@ -82,7 +82,7 @@ prez:systemGraph {
         sh:property [ sh:class skos:Collection ;
                 sh:path [ sh:inversePath skos:member ] ],
             [ sh:class dcat:Catalog ;
-                sh:path ( [ sh:inversePath skos:member ] [ sh:inversePath dcterms:hasPart ] ) ] ;
+                sh:path ( [ sh:inversePath skos:member ] [ sh:inversePath dcterms:hasPart, schema:hasPart ] ) ] ;
         sh:targetClass skos:Concept ;
         ont:hierarchyLevel 3 .
 }
