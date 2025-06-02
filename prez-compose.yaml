@@ -12,6 +12,7 @@ services:
       SPARQL_PASSWORD: $SPARQL_PASSWORD
       ENABLE_SPARQL_ENDPOINT: true
       PROTOCOL: https
+      CUSTOM_ENDPOINTS: true
     networks:
       - network
 
