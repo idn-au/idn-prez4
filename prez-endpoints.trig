@@ -11,39 +11,34 @@ PREFIX schema: <https://schema.org/>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-prez:systemGraph {
+prez:SystemGraph {
     ex:catalogs-listing a ont:DynamicEndpoint,
             ont:ListingEndpoint ;
         rdfs:label "Catalogs Listing" ;
-        prez:label "Catalogs Listing" ;
         ont:apiPath "/catalogs" ;
         ont:relevantShapes ex:shape-R0-HL1 .
 
     ex:catalogs-object a ont:DynamicEndpoint,
             ont:ObjectEndpoint ;
         rdfs:label "Catalogs Object" ;
-        prez:label "Catalogs Object" ;
         ont:apiPath "/catalogs/{catalogId}" ;
         ont:relevantShapes ex:shape-R0-HL1 .
 
     ex:collections-listing a ont:DynamicEndpoint,
             ont:ListingEndpoint ;
         rdfs:label "Collections Listing" ;
-        prez:label "Collections Listing" ;
         ont:apiPath "/catalogs/{catalogId}/collections" ;
         ont:relevantShapes ex:shape-R0-HL2 .
 
     ex:collections-object a ont:DynamicEndpoint,
             ont:ObjectEndpoint ;
         rdfs:label "Collections Object" ;
-        prez:label "Collections Object" ;
         ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}" ;
         ont:relevantShapes ex:shape-R0-HL2 .
 
     ex:items-listing a ont:DynamicEndpoint,
             ont:ListingEndpoint ;
         rdfs:label "Items Listing" ;
-        prez:label "Items Listing" ;
         ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items" ;
         ont:relevantShapes ex:shape-R0-HL3,
             ex:shape-R0-HL3-1 .
@@ -51,7 +46,6 @@ prez:systemGraph {
     ex:items-object a ont:DynamicEndpoint,
             ont:ObjectEndpoint ;
         rdfs:label "Items Object" ;
-        prez:label "Items Object" ;
         ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}" ;
         ont:relevantShapes ex:shape-R0-HL3,
             ex:shape-R0-HL3-1 .
