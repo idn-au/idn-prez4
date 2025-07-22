@@ -8,7 +8,7 @@
     <ListPage v-else-if="matchResult.isListingMatch">
         <template v-if="route.path === '/catalogs'" #top>
             <p>
-                Listed below are the catalogues available in the Indigenous Data Network's data catalogue.
+                These catalogues contain Indigenous data and reference data relevant to Indigenous data cataloging. They are managed by the <a href="https://idnau.org/" target="_blank" rel="noopener noreferrer">Indigenous Data Network (IDN)</a> on behalf of the IDN's partners.
             </p>
         </template>
     </ListPage>

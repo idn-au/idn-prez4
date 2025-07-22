@@ -20,13 +20,10 @@ const navLinks: { label: string; url: string }[] = [
     <header class="bg-background p-4 flex justify-between items-center">
         <div class="flex flex-row gap-3">
             <a href="https://idnau.org/" target="_blank" rel="noopener noreferrer">
-                <img src="/img/idn-logo-250.png" alt="IDN Logo" class="h-[80px]">
+                <img src="/img/idn-logo-250.png" alt="IDN Logo" class="h-[60px]">
             </a>
             <div class="flex flex-col justify-center gap-1">
                 <a href="https://idnau.org/" target="_blank" rel="noopener noreferrer" class="text-2xl">The Indigenous Data Network</a>
-                <div class="flex flex-row">
-                    <NuxtLink to="/" class="text-xl">IDN Catalogue</NuxtLink>
-                </div>
             </div>
         </div>
         <nav>

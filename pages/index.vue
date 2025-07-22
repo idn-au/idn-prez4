@@ -5,25 +5,11 @@ import { ArrowRight } from "lucide-vue-next";
 <template>
     <NuxtLayout contentonly>
         <template #default>
-            <h1 class="text-3xl mt-4 mb-6">The Indigenous Data Network Catalogue</h1>
+            <h1 class="text-3xl mt-4 mb-6">The Indigenous Data Network Catalogues</h1>
             <p>
-                The Indigenous Data Network (IDN) catalogue is a data catalogue which uses metadata to allow for discoverability, reusability and interoperability of datasets. While a data catalogue doesn't hold data itself, it can point to where the data can be accessed. The IDN catalogue acts as a "catalogue of catalogues", containing multiple catalogues important to the IDN.
+                These catalogues contain data held by the <a href="https://idnau.org/" target="_blank" rel="noopener noreferrer">Indigenous Data Network (IDN)</a> and the <a href="https://mspgh.unimelb.edu.au/centres-institutes/onemda/research-group/indigenous-studies-unit" target="_blank" rel="noopener noreferrer">University of Melbourne's Indigenous Studies Unit</a> on behalf of partner organisations. Some of this data is only catalogued here and is held by the IDN for safekeeping. Other data is to be used as reference material for Indigenous data cataloging elsewhere, such as vocabularies of Indigenous data terms.
             </p>
-            <ul class="list-disc ml-8 mb-4">
-                <li>
-                    The <NuxtLink to="/catalogs/ns3:vocabs">IDN reference data catalogue</NuxtLink> contains publicly available vocabularies that are used throughout other IDN systems.
-                </li>
-                <li>
-                    The IDN demonstration catalogue (to be added) contains simple datasets to demonstrate improved metadata models and rating systems for data and metadata in order to improve Indigenous Data Governance.
-                </li>
-                <li>
-                    The ISU catalogue (to be added) is a catalogue for datasets managed by the Indigenous Studies Unit (ISU) at the University of Melbourne.
-                </li>
-                <li>
-                    The keeping place catalogue (to be added) is for Indigenous datasets that do not have a home elsewhere.
-                </li>
-            </ul>
-            <Button as-child>
+            <Button as-child class="mt-4">
                 <NuxtLink to="/catalogs">Go to catalogs<ArrowRight class="size-4" /></NuxtLink>
             </Button>
         </template>

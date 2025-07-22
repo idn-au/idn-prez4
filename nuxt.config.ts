@@ -9,6 +9,13 @@ export default defineNuxtConfig({
     vite: {
         optimizeDeps: {
             include: ["@triply/yasgui"]
+        },
+        vue: {
+            template: {
+                compilerOptions: {
+                    whitespace: 'preserve' // for preserving whitespace in pre tag in slot
+                }
+            }
         }
     },
     app: {
