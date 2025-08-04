@@ -15,6 +15,7 @@ export default defineAppConfig({
     ],
     nameSubstitutions: {
         "catalogs": "Catalogues",
+        "features": "Features",
     },
 });
 

@@ -41,14 +41,26 @@ prez:SystemGraph {
         rdfs:label "Items Listing" ;
         ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items" ;
         ont:relevantShapes ex:shape-R0-HL3,
-            ex:shape-R0-HL3-1 .
+            ex:shape-R0-HL3-1, ex:shape-R0-HL3-2 .
 
     ex:items-object a ont:DynamicEndpoint,
             ont:ObjectEndpoint ;
         rdfs:label "Items Object" ;
         ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}" ;
         ont:relevantShapes ex:shape-R0-HL3,
-            ex:shape-R0-HL3-1 .
+            ex:shape-R0-HL3-1, ex:shape-R0-HL3-2 .
+    
+    ex:features-listing a ont:DynamicEndpoint,
+            ont:ListingEndpoint ;
+        rdfs:label "Features Listing" ;
+        ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}/features" ;
+        ont:relevantShapes ex:shape-R0-HL4 .
+
+    ex:features-object a ont:DynamicEndpoint,
+            ont:ObjectEndpoint ;
+        rdfs:label "Features Object" ;
+        ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}/features/{featureId}" ;
+        ont:relevantShapes ex:shape-R0-HL4 .
 
     ex:shape-R0-HL1 a sh:NodeShape ;
         sh:property [ sh:or ( [ sh:class skos:Collection ] [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] [ sh:class dcat:Resource ] [ sh:class schema:CreativeWork ] [ sh:class skos:ConceptScheme ] ) ;
@@ -82,67 +94,97 @@ prez:SystemGraph {
                 sh:path ( [ sh:inversePath skos:member ] [ sh:alternativePath ( [ sh:inversePath dcterms:hasPart ] [ sh:inversePath schema:hasPart ] ) ] ) ] ;
         sh:targetClass skos:Concept ;
         ont:hierarchyLevel 3 .
-
-    ogcfeat:feature-collections
-        a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:FeatureCollections ;
-    .
-
-    ogcfeat:feature-collection
-        a ont:ObjectEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:FeatureCollections ;
-    .
-
-    ogcfeat:features
-        a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:Feature ;
-    .
-
-    ogcfeat:feature
-        a ont:ObjectEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:Feature ;
-    .
-
-    ogcfeat:queryables-global
-        a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:QueryablesGlobal ;
-    .
-
-    ogcfeat:queryables-local
-        a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
-        ont:relevantShapes exns:QueryablesLocal ;
-    .
-
-    exns:FeatureCollections
-        a sh:NodeShape ;
-        sh:property [ sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
-                sh:path [ sh:inversePath rdfs:member ] ;
+    
+    ex:shape-R0-HL3-2 a sh:NodeShape ;
+        sh:property 
+            [ 
+                sh:class dcat:Dataset ;
+                sh:path [ sh:inversePath rdfs:member ] 
+            ],
+            [ 
+                sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
+                sh:path ( [ sh:inversePath rdfs:member ] [ sh:alternativePath ( [ sh:inversePath dcterms:hasPart ] [ sh:inversePath schema:hasPart ] ) ] ) 
             ] ;
         sh:targetClass geo:FeatureCollection ;
-        ont:hierarchyLevel 1 .
-
-    exns:Feature
-        a                  sh:NodeShape ;
-        sh:property        [ sh:class geo:FeatureCollection ;
-                            sh:path  [ sh:inversePath rdfs:member ] ] ;
-        sh:property        [ sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
-                            sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] ) ] ;
-        sh:targetClass     geo:Feature ;
-        ont:hierarchyLevel 2 .
-
-    exns:Object
-        a                  sh:NodeShape ;
-        ont:hierarchyLevel 1 .
-
-    exns:QueryablesGlobal
-        a sh:NodeShape ;
+        ont:hierarchyLevel 3 .
+    
+    ex:shape-R0-HL4 a sh:NodeShape ;
+        sh:property 
+            [
+                sh:class geo:FeatureCollection ;
+                sh:path [ sh:inversePath rdfs:member ] 
+            ],
+            [
+                sh:class dcat:Dataset ;
+                sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] ) 
+            ],
+            [
+                sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
+                sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] [ sh:alternativePath ( [ sh:inversePath dcterms:hasPart ] [ sh:inversePath schema:hasPart ] ) ] )
+            ] ;
         sh:targetClass geo:Feature ;
-        ont:hierarchyLevel 1 ;
-    .
+        ont:hierarchyLevel 4 .
 
-    exns:QueryablesLocal
-        a sh:NodeShape ;
-        sh:targetClass geo:Feature ;
-        ont:hierarchyLevel 2 ;
-    .
+    # ogcfeat:feature-collections
+    #     a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:FeatureCollections ;
+    # .
+
+    # ogcfeat:feature-collection
+    #     a ont:ObjectEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:FeatureCollections ;
+    # .
+
+    # ogcfeat:features
+    #     a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:Feature ;
+    # .
+
+    # ogcfeat:feature
+    #     a ont:ObjectEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:Feature ;
+    # .
+
+    # ogcfeat:queryables-global
+    #     a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:QueryablesGlobal ;
+    # .
+
+    # ogcfeat:queryables-local
+    #     a ont:ListingEndpoint , ont:OGCFeaturesEndpoint ;
+    #     ont:relevantShapes exns:QueryablesLocal ;
+    # .
+
+    # exns:FeatureCollections
+    #     a sh:NodeShape ;
+    #     sh:property [ sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
+    #             sh:path [ sh:inversePath rdfs:member ] ;
+    #         ] ;
+    #     sh:targetClass geo:FeatureCollection ;
+    #     ont:hierarchyLevel 3 .
+
+    # exns:Feature
+    #     a                  sh:NodeShape ;
+    #     sh:property        [ sh:class geo:FeatureCollection ;
+    #                         sh:path  [ sh:inversePath rdfs:member ] ] ;
+    #     sh:property        [ sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
+    #                         sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] ) ] ;
+    #     sh:targetClass     geo:Feature ;
+    #     ont:hierarchyLevel 4 .
+
+    # exns:Object
+    #     a                  sh:NodeShape ;
+    #     ont:hierarchyLevel 1 .
+
+    # exns:QueryablesGlobal
+    #     a sh:NodeShape ;
+    #     sh:targetClass geo:Feature ;
+    #     ont:hierarchyLevel 1 ;
+    # .
+
+    # exns:QueryablesLocal
+    #     a sh:NodeShape ;
+    #     sh:targetClass geo:Feature ;
+    #     ont:hierarchyLevel 2 ;
+    # .
 }

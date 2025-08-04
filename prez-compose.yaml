@@ -11,8 +11,10 @@ services:
       SPARQL_USERNAME: $SPARQL_USERNAME
       SPARQL_PASSWORD: $SPARQL_PASSWORD
       ENABLE_SPARQL_ENDPOINT: true
+      PREZ_TITLE: IDN Catalogue
       PROTOCOL: https
       CUSTOM_ENDPOINTS: true
+      ENDPOINT_STRUCTURE: '["catalogs","collections","items","features"]'
     networks:
       - network
 

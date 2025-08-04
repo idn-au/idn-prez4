@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezNode } from 'prez-lib';
+import Map from "@/components/Map.vue";
 
 const appConfig = useAppConfig();
 const { globalProfiles } = useGlobalProfiles();
@@ -13,6 +14,29 @@ const isConceptScheme = computed(()=> data.value?.data.rdfTypes?.find(n=>n.value
 const topConceptsUrl = computed(()=>isConceptScheme.value ? getTopConceptsUrl(data.value!.data) : '');
 const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
 const currentProfile = computed(()=>data.value ? data.value.profiles.find(p=>p.current) : undefined);
+
+const geomPredicates = [
+    "http://www.opengis.net/ont/geosparql#hasGeometry",
+    "http://www.opengis.net/ont/geosparql#hasBoundingBox",
+];
+const geomLayers = computed(() => {
+    const layers = [];
+    if (data.value?.data.properties) {
+        const geomProps = Object.keys(data.value?.data.properties).filter(p => geomPredicates.includes(p));
+        geomProps.forEach(p => {
+            data.value.data.properties[p].objects.forEach(o => {
+                layers.push({
+                    "type": "FeatureCollection",
+                    "features": [{
+                        type: "Feature",
+                        wkt: o.properties["http://www.opengis.net/ont/geosparql#asWKT"].objects[0].value
+                    }]
+                })
+            })
+        });
+    }
+    return layers;
+});
 
 // Watch for changes in both globalProfiles and currentProfile
 // Apply profile to item uses the current profile to order properties
@@ -83,7 +107,19 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                     </slot>
                     <div class="mt-4 mb-12 overflow-auto">
                         <slot name="item-section" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
-                            <slot name="item-top" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
+                            <slot name="item-top" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
+                                <div v-if="geomLayers.length > 0" class="h-[500px]">
+                                    <Map
+                                        :center="[133.7751, -25.2744]"
+                                        :zoom="4"
+                                        :rotation="0"
+                                        :projection="'EPSG:4326'"
+                                        :layers="geomLayers"
+                                        :drawEnabled="false"
+                                        :clearDrawingsOnLayerChange="false"
+                                        :fitAddedLayersToExtent="true" />
+                                </div>
+                            </slot>
                             <slot name="item-table" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 
                                 <ItemTable
@@ -144,3 +180,10 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 
     </NuxtLayout>
 </template>
+
+<!-- <style>
+/* disabled controls for now as Tailwind CSS cannot be loaded into Prez UI due to Tailwind version conflicts */
+.kai-map .ol-control, .kai-map .ol-scale-line {
+    display: none !important;
+}
+</style> -->
