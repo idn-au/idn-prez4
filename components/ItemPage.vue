@@ -15,6 +15,14 @@ const topConceptsUrl = computed(()=>isConceptScheme.value ? getTopConceptsUrl(da
 const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
 const currentProfile = computed(()=>data.value ? data.value.profiles.find(p=>p.current) : undefined);
 
+const nonMemberTypes = [
+    "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+    "http://www.w3.org/2004/02/skos/core#Concept",
+    "https://schema.org/CreativeWork",
+    "http://www.w3.org/ns/dcat#Resource",
+    "http://www.opengis.net/ont/geosparql#Feature",
+];
+
 const geomPredicates = [
     "http://www.opengis.net/ont/geosparql#hasGeometry",
     "http://www.opengis.net/ont/geosparql#hasBoundingBox",
@@ -134,7 +142,7 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 
                             <slot name="item-members" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
                                 <Button
-                                    v-if="currentProfile?.uri !== 'https://prez.dev/OGCSchemesObjectProfile' && !data.data.rdfTypes?.find(t => t.value === 'https://schema.org/CreativeWork') && data.data.members"
+                                    v-if="currentProfile?.uri !== 'https://prez.dev/OGCSchemesObjectProfile' && !data.data.rdfTypes?.some(t => nonMemberTypes.includes(t.value)) && data.data.members"
                                     class="mt-6"
                                     as-child
                                 >
