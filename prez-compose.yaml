@@ -5,9 +5,9 @@ services:
     image: "ghcr.io/rdflib/prez:${version}"
     restart: always
     ports:
-      - "8001:8000"
+      - 8001:8000
     environment:
-      SPARQL_ENDPOINT: "http://fuseki:3030/prez4"
+      SPARQL_ENDPOINT: http://fuseki:3030/prez4
       SPARQL_USERNAME: $SPARQL_USERNAME
       SPARQL_PASSWORD: $SPARQL_PASSWORD
       ENABLE_SPARQL_ENDPOINT: true
@@ -15,6 +15,8 @@ services:
       PROTOCOL: https
       CUSTOM_ENDPOINTS: true
       ENDPOINT_STRUCTURE: '["catalogs","collections","items","features"]'
+      ORDER_LISTS_BY_LABEL: true
+      SEARCH_METHOD: fts_fuseki
     networks:
       - network
 
