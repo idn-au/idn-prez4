@@ -15,6 +15,7 @@ services:
       PROTOCOL: https
       CUSTOM_ENDPOINTS: true
       ENDPOINT_STRUCTURE: '["catalogs","collections","items","features"]'
+      OTHER_PREDICATES: '["https://schema.org/color","https://schema.org/status"]'
       ORDER_LISTS_BY_LABEL: true
       SEARCH_METHOD: fts_fuseki
     networks:
