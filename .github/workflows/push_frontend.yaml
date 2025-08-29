@@ -68,11 +68,11 @@ jobs:
           path: .output/public
       - name: Clear Swift container
         run: |
-          objectList=$(swift list prezui4)
+          objectList=$(swift list prez_ui)
           if [ ! -z "$objectList" ]
           then
-          swift delete prezui4 $objectList
+          swift delete prez_ui $objectList
           fi
       - name: Upload to Swift container
         working-directory: .output/public
-        run: swift upload prezui4 ./*
+        run: swift upload prez_ui ./*

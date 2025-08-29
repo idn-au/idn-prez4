@@ -5,7 +5,7 @@ services:
     image: "ghcr.io/rdflib/prez:${version}"
     restart: always
     ports:
-      - 8001:8000
+      - 8000:8000
     environment:
       SPARQL_ENDPOINT: http://fuseki:3030/prez4
       SPARQL_USERNAME: $SPARQL_USERNAME
