@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezNode } from 'prez-lib';
-import Map from "@/components/Map.vue";
 
 const appConfig = useAppConfig();
 const { globalProfiles } = useGlobalProfiles();
@@ -35,9 +34,14 @@ const geomLayers = computed(() => {
             data.value.data.properties[p].objects.forEach(o => {
                 layers.push({
                     "type": "FeatureCollection",
+                    title: data.value?.data.label?.value || "",
                     "features": [{
                         type: "Feature",
-                        wkt: o.properties["http://www.opengis.net/ont/geosparql#asWKT"].objects[0].value
+                        wkt: o.properties["http://www.opengis.net/ont/geosparql#asWKT"].objects[0].value,
+                        name: data.value?.data.label?.value || "",
+                        data: {
+                            iri: data.value?.data.value
+                        }
                     }]
                 })
             })

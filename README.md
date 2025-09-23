@@ -1,5 +1,5 @@
 # IDN Prez UI v4 Theme
-The [Prez UI](https://github.com/RDFLib/prez-ui) v4 theme for the IDN, available at [dev.data.idnau.org](https://dev.data.idnau.org/).
+The [Prez UI](https://github.com/RDFLib/prez-ui) v4 theme for the IDN, available at [data.idnau.org](https://data.idnau.org/).
 
 ## Development
 To install:
