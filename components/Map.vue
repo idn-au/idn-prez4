@@ -321,7 +321,7 @@ watch(() => props.layers, (newVal: any) => {
         clearDrawings();
     }
     escapeOverlay(-1);
-});
+}, { deep: true });
 
 // this ensures that when the tooltip for an underlying feature is clicked, the feature is brought to the foreground of the map
 function overrideStyleFunction(feature: FeatureLike, currentStyle: Style) {
@@ -351,6 +351,13 @@ function layersOverrideStyleFunction(feature: FeatureLike, currentStyle: Style, 
     }
     return currentStyle;
 }
+
+onMounted(() => {
+    processLayers(props.layers);
+    if (props.fitAddedLayersToExtent) {
+        fitToLayerExtent();
+    }
+});
 </script>
 
 <template>
