@@ -1,14 +1,19 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from "vue";
+import { X, Focus } from "lucide-vue-next";
+import type Feature from "ol/Feature";
+import type Geometry from "ol/geom/Geometry";
 
 const props = defineProps<{
     type?: string;
     iri?: string; // the object iri to link to
     queryString?: string; // an optional querystring that will be included with the object uri. E.g., an alternate prez profile
-    selectedFeature: any;
+    selectedFeature: Feature<Geometry>;
 }>();
 
-const emit = defineEmits(["deselect", "select"]);
+const emit = defineEmits<{
+    deselect: [feature: Feature<Geometry>];
+    select: [selectedFeature: Feature<Geometry>, fitFeatureToExtent: boolean];
+}>();
 
 function select(fitToFeatureExtent: boolean) {
     emit("select", props.selectedFeature, fitToFeatureExtent);
@@ -24,12 +29,11 @@ function onEscape(e: KeyboardEvent) {
     }
 }
 
-// convert a camelCase property to a human readable Title Case property
 function convertToTitleCase(text: string) {
-  if (text?.length > 1) {
-    return text.charAt(0).toUpperCase() + text.replace(/([A-Z])/g, " $1").slice(1);
-  }
-  return text;
+    if (text.length > 1) {
+        return text.charAt(0).toUpperCase() + text.replace(/([A-Z])/g, " $1").slice(1);
+    }
+    return text;
 }
 
 onMounted(() => {
@@ -43,16 +47,18 @@ onUnmounted(() => {
 
 <template>
     <div class="tooltip-content">
-        <div class="title flex flex-row">
-            <span class="self-start flex-1" @click="select(false)"><slot name="title">{{ props.selectedFeature.name }}</slot></span>
-            <button class="self-end flex-0 map-tooltip-select-btn" aria-label="Select and zoom" title="Select and zoom" @click="select(true)">&#128269;</button>
-            <button class="self-end flex-0 map-tooltip-close-btn" aria-label="Close" title="Close" @click="deselect">&times;</button>
+        <div class="font-bold flex flex-row items-center justify-between">
+            <span class="" @click="select(false)"><slot name="title">{{ props.selectedFeature.name }}</slot></span>
+            <div class="flex flex-row items-center gap-2">
+                <Button variant="ghost" size="icon" class="" aria-label="Select and zoom" title="Select and zoom" @click="select(true)"><Focus class="size-4" /></Button>
+                <Button variant="ghost" size="icon" class="" aria-label="Close" title="Close" @click="deselect"><X class="size-4" /></Button>
+            </div>
         </div>
         <div v-if="props.selectedFeature.type" class="type">{{ props.selectedFeature.type }}</div>
         <div class="tooltip-attribute" v-if="props.selectedFeature.data && props.selectedFeature.data.iri">
-          <a class="tooltip-iri" :href="`/object?uri=${props.selectedFeature.data.iri}${props.queryString? '&' + props.queryString : ''}`" target="_blank">{{props.selectedFeature.data.iri}}</a>
+            <a class="tooltip-iri" :href="`/object?uri=${props.selectedFeature.data.iri}${props.queryString? '&' + props.queryString : ''}`" target="_blank">{{props.selectedFeature.data.iri}}</a>
         </div>
-        <div class="metadata">
+        <!-- <div class="metadata">
             <slot name="metadata">
               <div v-if="props.selectedFeature.data" v-for="item in Object.keys(props.selectedFeature.data)">
                 <div class="tooltip-attribute flex flex-row" v-if="['iri', 'name', 'wktGeometry'].indexOf(item) === -1">
@@ -63,7 +69,7 @@ onUnmounted(() => {
                 </div>
               </div>
             </slot>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -134,9 +140,9 @@ $arrow-size: 8px;
     }
 
     .tooltip-attribute {
-      .tooltip-iri {
-        font-size: smaller;
-      }
+        .tooltip-iri {
+            font-size: smaller;
+        }
     }
 }
 </style>

@@ -9,10 +9,10 @@ const { getPageUrl } = usePageInfo();
 const urlPath = ref(getPageUrl());
 const apiEndpoint = useGetPrezAPIEndpoint();
 const { status, error, data } = useGetItem(apiEndpoint, urlPath);
-const isConceptScheme = computed(()=> data.value?.data.rdfTypes?.find(n=>n.value == SYSTEM_PREDICATES.skosConceptScheme));
-const topConceptsUrl = computed(()=>isConceptScheme.value ? getTopConceptsUrl(data.value!.data) : '');
-const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
-const currentProfile = computed(()=>data.value ? data.value.profiles.find(p=>p.current) : undefined);
+const isConceptScheme = computed(() => data.value?.data.rdfTypes?.find(n => n.value == SYSTEM_PREDICATES.skosConceptScheme));
+const topConceptsUrl = computed(() => isConceptScheme.value ? getTopConceptsUrl(data.value!.data) : "");
+const apiUrl = (apiEndpoint + urlPath.value).split("?")[0];
+const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
 
 const nonMemberTypes = [
     "http://www.w3.org/2004/02/skos/core#ConceptScheme",
@@ -26,6 +26,7 @@ const geomPredicates = [
     "http://www.opengis.net/ont/geosparql#hasGeometry",
     "http://www.opengis.net/ont/geosparql#hasBoundingBox",
 ];
+
 const geomLayers = computed(() => {
     const layers = [];
     if (data.value?.data.properties) {
@@ -122,14 +123,10 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                             <slot name="item-top" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
                                 <div v-if="geomLayers.length > 0" class="h-[500px]">
                                     <Map
-                                        :center="[133.7751, -25.2744]"
-                                        :zoom="4"
-                                        :rotation="0"
-                                        :projection="'EPSG:4326'"
                                         :layers="geomLayers"
-                                        :drawEnabled="false"
-                                        :clearDrawingsOnLayerChange="false"
-                                        :fitAddedLayersToExtent="true" />
+                                        :animationDuration="1000"
+                                        fitAddedLayersToExtent
+                                    />
                                 </div>
                             </slot>
                             <slot name="item-table" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">

@@ -37,6 +37,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                 sh:targetClass
                     geo:FeatureCollection ,
                     geo:Feature ;
+            ] ,
+            [
+                a sh:NodeShape ;
+                sh:targetClass prez:CQLFilterResult ;
+                altr-ext:hasDefaultProfile prez:CustomCQLListProfile ;
             ] ;
         altr-ext:hasResourceFormat
             "application/json",
@@ -100,6 +105,30 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         altr-ext:constrainsClass
             geo:FeatureCollection ,
             geo:Feature ;
+    .
+
+    prez:CustomCQLListProfile
+        a prof:Profile , prez:ListingProfile ;
+        dcterms:identifier "cqllist"^^xsd:token ;
+        dcterms:description "A CQL profile targeted towards listing CQL results, including geospatial information." ;
+        dcterms:title "CQL List profile" ;
+        altr-ext:constrainsClass prez:CQLFilterResult ;
+        altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+        altr-ext:hasResourceFormat "application/geo+json" ,
+            "application/ld+json" ,
+            "application/anot+ld+json" ,
+            "application/rdf+xml" ,
+            "text/anot+turtle" ,
+            "text/turtle" ;
+        sh:property [
+            sh:path [
+                sh:union (
+                    [ shext:bNodeDepth "2" ]
+                    shext:allPredicateValues
+                    ( geo:hasGeometry geo:asWKT )
+                )
+            ]
+        ] ;
     .
 
     # facet profiles
