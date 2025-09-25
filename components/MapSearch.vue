@@ -28,7 +28,7 @@ const features = computed(() => {
     return {
         "type": "FeatureCollection",
         "title": "Search",
-        "features": searchResults.value.filter(f => f.properties && Object.keys(f.properties).filter(p => geomPredicates.includes(p))).map(f => {
+        "features": searchResults.value.filter(f => f.properties && Object.keys(f.properties).some(p => geomPredicates.includes(p))).map(f => {
             return {
                 type: "Feature",
                 wkt: (f.properties!["http://www.opengis.net/ont/geosparql#hasGeometry"] || f.properties!["http://www.opengis.net/ont/geosparql#hasBoundingBox"]).objects[0].properties["http://www.opengis.net/ont/geosparql#asWKT"].objects[0].value,
