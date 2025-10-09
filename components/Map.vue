@@ -366,7 +366,7 @@ onMounted(() => {
             ref="mapRef"
             :loadTilesWhileAnimating="true"
             :loadTilesWhileInteracting="true"
-            style="height: 100%; width: 100%; min-height: 400px; min-width: 400px; position: relative;"
+            style="height: 100%; width: 100%; min-height: 400px; position: relative;"
         >
             <OlView
                 ref="viewRef"
@@ -441,7 +441,7 @@ onMounted(() => {
                     <button
                         type="button"
                         name="drawButton"
-                        :class="`!flex !items-center !justify-center ${drawModeEnabled ? 'active' : ''}`"
+                        :class="`${drawModeEnabled ? 'active' : ''}`"
                         title="Draw an area on the map"
                         @click="toggleDrawMode"
                     >
@@ -449,7 +449,7 @@ onMounted(() => {
                     </button>
                     <button
                         type="button"
-                        class="!flex !items-center !justify-center"
+                        class=""
                         name="clearDrawingsButton"
                         title="Clear all drawn features from the map"
                         @click="clearDrawings"
@@ -468,7 +468,7 @@ onMounted(() => {
                 </button>
                 <button
                     v-if="enableClearFeatures"
-                    class="!flex !items-center !justify-center"
+                    class=""
                     type="button"
                     name="clearButton"
                     title="Clear all features from the map"
@@ -520,7 +520,35 @@ onMounted(() => {
     gap: 8px;
 }
 
-button.active {
-    background-color: lightgrey;
+.ol-bar.ol-control button:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.ol-bar.ol-control button:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.ol-bar.ol-control button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-property: color, background-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.ol-bar.ol-control button:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    outline: none;
+}
+
+.ol-bar.ol-control button.active {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
 }
 </style>
