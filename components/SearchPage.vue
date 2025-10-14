@@ -114,10 +114,10 @@ function disableFacets() {
                             <div class="mb-8">
                                 <h1 class="text-2xl mt-8 mb-4 text-center">Map Search</h1>
                                 <p class="inline">
-                                    You can search on the map by drawing a polygon by selecting the <Pentagon class="size-4 mx-1 inline" /> tool on the map, which will search items that are within it.
+                                    You can search on the map by drawing a polygon by selecting the <Pentagon class="size-4 mx-1 inline" /> tool on the map, which will search items that are within it. You can also filter by dataset.
                                 </p>
                             </div>
-                            <MapSearch />
+                            <MapSearchTemp />
                         </div>
                     </TabsContent>
                 </Tabs>
