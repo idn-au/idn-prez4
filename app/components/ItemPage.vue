@@ -1,5 +1,16 @@
 <script lang="ts" setup>
-import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezNode } from 'prez-lib';
+import { ChevronDown, ChevronRight } from "lucide-vue-next";
+import {
+	applyProfileToItem,
+	dumpNodeArray,
+	getTopConceptsUrl,
+	SYSTEM_PREDICATES,
+	type PrezConceptSchemeNode,
+	type PrezDataItem,
+	type PrezNode,
+	type PrezBBlockNode, type PrezOntologyNode
+} from 'prez-lib';
+import { DependencyViewer, ProvenanceDiagram } from "prez-components";
 
 const appConfig = useAppConfig();
 const { globalProfiles } = useGlobalProfiles();
@@ -10,9 +21,20 @@ const urlPath = ref(getPageUrl());
 const apiEndpoint = useGetPrezAPIEndpoint();
 const { status, error, data } = useGetItem(apiEndpoint, urlPath);
 const isConceptScheme = computed(() => data.value?.data.rdfTypes?.find(n => n.value == SYSTEM_PREDICATES.skosConceptScheme));
+const isOntology = computed(()=> data.value?.data.rdfTypes?.find(n=>n.value == SYSTEM_PREDICATES.owlOntology));
+const isBBlock = computed(()=> {
+	if (data.value?.data) {
+		const prezBBlockNode: PrezBBlockNode = { dependsOn: [], isBBlock: false, ...data.value?.data };//this little hack is necessary for TypeScript
+		return prezBBlockNode.isBBlock;
+	}
+	return false;
+});
 const topConceptsUrl = computed(() => isConceptScheme.value ? getTopConceptsUrl(data.value!.data) : "");
 const apiUrl = (apiEndpoint + urlPath.value).split("?")[0];
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
+const resourceUri = computed(()=>data.value ? data.value.data.value : undefined);
+const resourceLabel = computed(()=>data.value?.data.label ? data.value.data.label.value : undefined);
+const provenance = ref(await getProvenance(resourceUri.value, resourceLabel.value, apiEndpoint));
 
 const nonMemberTypes = [
     "http://www.w3.org/2004/02/skos/core#ConceptScheme",
@@ -51,6 +73,10 @@ const geomLayers = computed(() => {
     return layers;
 });
 
+watch([() => resourceUri.value, () => resourceLabel.value], async ([newResourceUri, newResourceLabel]) => {
+	provenance.value = await getProvenance(resourceUri.value, resourceLabel.value, apiEndpoint);
+})
+
 // Watch for changes in both globalProfiles and currentProfile
 // Apply profile to item uses the current profile to order properties
 // To do: use a loader to show that the profile is being applied
@@ -62,6 +88,30 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
     }
   }
 });
+
+// toggle functionality for ontologies
+const open = ref<string[]>([]);
+const page = ref(1);
+
+function toggleOpen(value:string) {
+	const idx = open.value.indexOf(value);
+	if(idx >= 0) {
+		open.value.splice(idx, 1);
+	} else {
+		open.value.push(value);
+	}
+}
+const navigateToNode = (bblockNode: any) => {
+	if (bblockNode?.links?.length > 0 && bblockNode.links[0].value) {
+		router.push({ path: bblockNode.links[0].value });
+	}
+}
+
+const navigateToUri = (uri?: string) => {
+	if (uri && uri.length) {
+		window.location.href = `/object?uri=${uri}`; // this needs a full refresh to reload the data
+	}
+}
 </script>
 
 <template>
@@ -129,6 +179,51 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                                     />
                                 </div>
                             </slot>
+
+	                        <div class="ontology-widget" v-if="isOntology">
+		                        <slot name="item-ontology-classes" :data="data" :is-concept-scheme="isConceptScheme" :is-ontology="isOntology">
+			                        <div class="mt-6" v-if="isOntology && (data.data as PrezOntologyNode).ontologyClasses.length > 0">
+				                        <div class="pz-concept-node h-9">
+					                        <b>Classes</b>
+					                        <Button variant="ghost" size="icon" @click="toggleOpen('classes')">
+						                        <ChevronRight v-if="!open.includes('classes')" class="size-4" />
+						                        <ChevronDown v-else class="size-4" />
+					                        </Button>
+				                        </div>
+				                        <div v-if="open.includes('classes')" class="mt-4 flex flex-col gap-2 pz-concept-children">
+					                        <Node v-for="ontologyClass in (data.data as PrezOntologyNode).ontologyClasses" :term="ontologyClass" />
+				                        </div>
+			                        </div>
+		                        </slot>
+
+		                        <slot name="item-ontology-properties" :data="data" :is-concept-scheme="isConceptScheme" :is-ontology="isOntology">
+			                        <div class="mt-6" v-if="isOntology && (data.data as PrezOntologyNode).ontologyProperties.length > 0">
+				                        <div class="pz-concept-node h-9">
+					                        <b>Properties</b>
+					                        <Button variant="ghost" size="icon" @click="toggleOpen('properties')">
+						                        <ChevronRight v-if="!open.includes('properties')" class="size-4" />
+						                        <ChevronDown v-else class="size-4" />
+					                        </Button>
+				                        </div>
+				                        <div v-if="open.includes('properties')" class="mt-4 flex flex-col gap-2 pz-concept-children">
+					                        <Node v-for="ontologyProperty in (data.data as PrezOntologyNode).ontologyProperties" :term="ontologyProperty" />
+				                        </div>
+			                        </div>
+		                        </slot>
+	                        </div>
+
+	                        <slot name="item-bblock-dependencies" :data="data">
+		                        <div class="mt-6" v-if="isBBlock && (data.data as PrezBBlockNode).dependsOn?.length > 0">
+			                        <p><b>Dependencies</b></p>
+			                        <div class="mt-4 flex flex-col gap-2">
+				                        <DependencyViewer v-if="isBBlock"
+				                                          :data="data.data"
+				                                          @node:click="navigateToNode"
+				                        />
+			                        </div>
+		                        </div>
+	                        </slot>
+
                             <slot name="item-table" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 
                                 <ItemTable
@@ -172,6 +267,15 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                                 </div>
                             </slot>
 
+	                        <slot name="item-provenance" :data="data">
+		                        <div class="mt-6" v-if="provenance?.wasDerivedFrom?.length">
+			                        <p><b>Provenance</b></p>
+			                        <div class="mt-4 flex flex-col gap-2">
+				                        <ProvenanceDiagram :data="provenance" @node:click="(n)=>{ navigateToUri(n.id); }" />
+			                        </div>
+		                        </div>
+	                        </slot>
+
                             <slot name="item-bottom" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
                         </slot>
                     </div>
@@ -196,3 +300,19 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
     display: none !important;
 }
 </style> -->
+
+<style scoped>
+.pz-concept-node {
+	place-items: end;
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	/* margin-bottom: 10px; */
+}
+.pz-concept .pz-concept {
+	padding-left:20px;
+}
+.ontology-widget {
+	margin-bottom: 1em;
+}
+</style>

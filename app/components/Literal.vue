@@ -149,10 +149,7 @@ const geoDatatypes = [
                     <span v-else-if="isHtml" :class="htmlClass" v-html="sanitizedHtml"></span>
                     <span v-else :class="class">
                         <a v-if="term.value.startsWith('http')" :href="term.value" target="_blank" rel="noopener noreferrer" class="inline-flex gap-1 items-center">{{ term.value }} <Link class="size-4" /></a>
-                        <div v-else-if="term.datatype && geoDatatypes.includes(term.datatype.value)" class="flex flex-row items-center gap-2">
-                            <span class="line-clamp-1 font-mono">{{ term.value }}</span>
-                            <CopyButton :value="term.value" iconOnly size="sm" variant="outline" />
-                        </div>
+                        <GeoString v-else-if="term.datatype && geoDatatypes.includes(term.datatype.value)" :value="term.value" />
                         <template v-else>{{ term.value }}</template>
                     </span>
                 </slot>

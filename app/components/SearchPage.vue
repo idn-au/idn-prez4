@@ -63,8 +63,8 @@ function disableFacets() {
             <div>
                 <Tabs v-model="tab">
                     <TabsList class="grid grid-cols-2 max-w-2xl mx-auto text-foreground">
-                        <TabsTrigger value="text" class="data-[state=active]:bg-[background]">Text Search</TabsTrigger>
-                        <TabsTrigger value="map" class="data-[state=active]:bg-[background]">Map Search</TabsTrigger>
+                        <TabsTrigger value="text" class="data-[state=active]:!bg-background">Text Search</TabsTrigger>
+                        <TabsTrigger value="map" class="data-[state=active]:!bg-background">Map Search</TabsTrigger>
                     </TabsList>
                     <TabsContent value="text">
                         <div class="mx-auto max-w-4xl">

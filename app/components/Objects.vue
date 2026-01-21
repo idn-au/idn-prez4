@@ -7,7 +7,7 @@ const props = defineProps<ObjectsProps>();
 <template>
     <!-- Objects -->
     <slot>
-        <div v-for="(obj, index) of props.objects" :key="index" class="objects">
+        <div v-for="(obj, index) of props.objects" :key="index" class="objects flex flex-row">
             <Status
                 v-if="props.predicate.value === 'https://schema.org/status'"
                 :term="obj"
