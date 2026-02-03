@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-vue-next";
                 These catalogues contain data held by the <a href="https://idnau.org/" target="_blank" rel="noopener noreferrer">Indigenous Data Network (IDN)</a> and the <a href="https://mspgh.unimelb.edu.au/centres-institutes/onemda/research-group/indigenous-studies-unit" target="_blank" rel="noopener noreferrer">University of Melbourne's Indigenous Studies Unit</a> on behalf of partner organisations. Some of this data is only catalogued here and is held by the IDN for safekeeping. Other data is to be used as reference material for Indigenous data cataloging elsewhere, such as vocabularies of Indigenous data terms.
             </p>
             <Button as-child class="mt-4">
-                <NuxtLink to="/catalogs">Go to catalogs<ArrowRight class="size-4" /></NuxtLink>
+                <NuxtLink to="/catalogs">Go to catalogues<ArrowRight class="size-4" /></NuxtLink>
             </Button>
         </template>
     </NuxtLayout>
