@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ChevronRight, ChevronLeft } from "lucide-vue-next";
+import MainNav from "../components/MainNav.vue";
 
 const props = defineProps<{
     sidepanel?: boolean;
@@ -22,7 +23,7 @@ onBeforeMount(() => {
 
 <template>
     <div class="flex flex-col min-h-screen">
-        <IDNNav />
+        <MainNav />
 
         <!-- page heading -->
         <slot v-if="!contentonly" name="header">
