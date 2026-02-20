@@ -24,6 +24,7 @@ onBeforeMount(() => {
 <template>
     <div class="flex flex-col min-h-screen">
         <MainNav />
+        <IDNNav />
 
         <!-- page heading -->
         <slot v-if="!contentonly" name="header">

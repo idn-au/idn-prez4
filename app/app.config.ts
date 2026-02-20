@@ -2,7 +2,7 @@ export default defineAppConfig({
     // nav menu, name substitutions, breadcrumbs prepend & pagination config goes here
     // @ts-ignore
     menu: () => [
-        { "label": "Home", "url": "/", "active": true },
+        { "label": "NIDC", "url": "/", "active": true },
         // currently, the /catalogs root listing endpoint menu option can be overridden by the global config from PrezAPI, 
         // this occurs when PrezAPI is configured to use different listings endpoints
         // if you overwrite the appConfig to not include /catalogs, the global config will leave your custom listings endpoint menu option in place

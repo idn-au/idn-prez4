@@ -66,24 +66,24 @@ router.beforeEach((from, to) => {
                     </nav>
                 </SheetContent>
             </Sheet>
-            <a href="https://idnau.org" target="_blank" rel="noopener noreferrer">
+            <!-- <a href="https://idnau.org" target="_blank" rel="noopener noreferrer">
                 <div class="flex flex-row gap-2 items-center justify-center">
                     <img src="/img/idn-logo-250.png" alt="IDN Logo" class="h-[40px] md:h-[54px]" />
                     <span class="hidden md:inline text-xl">The Indigenous Data Network</span>
                     <span class="md:hidden text-xl">IDN</span>
                 </div>
-            </a>
+            </a> -->
             <!-- desktop -->
-            <nav class="hidden md:flex ml-auto">
+            <!-- <nav class="hidden md:flex ml-auto">
                 <Button v-for="link in externalLinks" variant="ghost" class="rounded-none" as-child>
                     <a :href="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
                 </Button>
-            </nav>
-            <div class="flex flex-row justify-end">
+            </nav> -->
+            <!-- <div class="flex flex-row justify-end">
                 <Button variant="ghost" size="icon" title="Search the catalogue" as-child>
                     <NuxtLink to="/search"><Search /></NuxtLink>
                 </Button>
-            </div>
+            </div> -->
         </div>
         <div class="container hidden md:flex mx-auto">
             <nav class="flex flex-row gap-2">
