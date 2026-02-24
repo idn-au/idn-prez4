@@ -22,8 +22,10 @@ onBeforeMount(() => {
 
 <template>
     <div class="flex flex-col min-h-screen">
+        <div class="w-full bg-yellow-300 text-black text-center py-1 px-4 text-sm font-medium">
+             We are pleased to inform you that this site is under construction and will be updated as soon as possible
+        </div>
         <IDNNav />
-
         <!-- page heading -->
         <slot v-if="!contentonly" name="header">
             <div class="bg-muted">
