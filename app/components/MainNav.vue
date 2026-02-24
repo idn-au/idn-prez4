@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { ChevronDown, ChevronUp, Sun, Moon, SunMoon, Menu, ExternalLink, ChevronRight } from "lucide-vue-next";
-import { NavigationMenuSub } from "reka-ui";
+import { ChevronDown, ChevronUp, Sun, Moon, SunMoon, Menu, ExternalLink, ChevronRight, Search } from "lucide-vue-next";
 import {navigationMenuTriggerStyle} from "~/components/ui/navigation-menu";
-import type {ContentNavigationItem} from "@nuxt/content";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,7 +20,7 @@ const externalLinks: {title: string; url: string}[] = [
 const navigation = [
     {
         "title": "Home",
-        "path": "/",
+        "path": "https://idnau.org/",
         "stem": "1.index",
         "description": "",
         "websiteURL": "https://idnau.org/"
@@ -90,7 +88,7 @@ const navigation = [
             }
         ],
         "description": "",
-        "websiteURL": null
+        "websiteURL": "https://idnau.org/idc"
     },
     {
         "title": "Resources",
@@ -148,7 +146,7 @@ const navigation = [
             }
         ],
         "description": "",
-        "websiteURL": null
+        "websiteURL": "https://idnau.org/resources"
     },
     {
         "title": "Tools",
@@ -185,7 +183,7 @@ const navigation = [
             }
         ],
         "description": "",
-        "websiteURL": null
+        "websiteURL": "https://idnau.org/tools"
     }
 ]
 
@@ -308,8 +306,8 @@ router.beforeEach((from, to) => {
 						    <ul class="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                                 <li v-if="link.children?.find(c => c.path === link.path)" class="md:col-span-2">
                                     <NavigationMenuLink asChild :active="route.path === link.path">
-                                        <NuxtLink :to="link.path" class="font-bold">
-                                            {{ link.children.find(c => c.path === link.path)?.title }} Home
+                                        <NuxtLink :to="link.websiteURL" class="font-bold">
+                                            {{ link.children.find(c => c.path === link.path)?.title }} 
                                         </NuxtLink>
                                     </NavigationMenuLink>
                                 </li>
@@ -323,9 +321,9 @@ router.beforeEach((from, to) => {
 												    <div class="text-sm leading-none font-medium">
 													    {{ grandchild.title }}
 												    </div>
-												    <p v-if="child.description" class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+												    <!-- <p v-if="child.description" class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 													    {{ grandchild.description }}
-												    </p>
+												    </p> -->
 											    </NuxtLink>
 										    </NavigationMenuLink>
 									    </div>
@@ -335,9 +333,9 @@ router.beforeEach((from, to) => {
 										    <div class="text-sm leading-none font-medium">
 											    {{ child.title }}
 										    </div>
-										    <p v-if="child.description" class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+										    <!-- <p v-if="child.description" class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 											    {{ child.description }}
-										    </p>
+										    </p> -->
 									    </NuxtLink>
 								    </NavigationMenuLink>
 							    </li>
@@ -361,11 +359,11 @@ router.beforeEach((from, to) => {
                     <NuxtLink to="/search"><Search /></NuxtLink>
                 </Button>
             </div>
-	        <Button variant="ghost" size="icon" @click="!colorMode.unknown ? colorMode.value === 'dark' ? colorMode.preference = 'light' : colorMode.preference = 'dark' : undefined">
+	        <!-- <Button variant="ghost" size="icon" @click="!colorMode.unknown ? colorMode.value === 'dark' ? colorMode.preference = 'light' : colorMode.preference = 'dark' : undefined">
 		        <SunMoon v-show="colorMode.unknown" />
 		        <Sun v-show="colorMode.value === 'dark'" class="w-4 h-4" />
 		        <Moon v-show="colorMode.value === 'light'" class="w-4 h-4" />
-	        </Button>
+	        </Button> -->
         </div>
     </header>
 </template>

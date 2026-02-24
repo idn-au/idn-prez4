@@ -5,21 +5,6 @@ const router = useRouter();
 const route = useRoute();
 const appConfig = useAppConfig();
 
-const externalLinks: { label: string; url: string }[] = [
-    {
-        label: "About Us",
-        url: "https://idnau.org/about",
-    },
-    {
-        label: "Resources",
-        url: "https://idnau.org/resources",
-    },
-    {
-        label: "Contact Us",
-        url: "https://idnau.org/contact",
-    },
-];
-
 const showSidenav = ref(false);
 
 router.beforeEach((from, to) => {
@@ -29,7 +14,7 @@ router.beforeEach((from, to) => {
 
 <template>
     <header class="sticky md:relative top-0 bg-background/60 p-2 z-50 backdrop-blur-sm flex flex-col gap-4">
-        <div class="grid grid-cols-3 md:flex md:flex-row items-center gap-2">
+        <!-- <div class="grid grid-cols-3 md:flex md:flex-row items-center gap-2"> -->
             <!-- mobile -->
             <Sheet v-model:open="showSidenav">
                 <SheetTrigger as-child>
@@ -84,7 +69,7 @@ router.beforeEach((from, to) => {
                     <NuxtLink to="/search"><Search /></NuxtLink>
                 </Button>
             </div> -->
-        </div>
+        <!-- </div> -->
         <div class="container hidden md:flex mx-auto">
             <nav class="flex flex-row gap-2">
                 <Button
