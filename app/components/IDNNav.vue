@@ -16,7 +16,7 @@ router.beforeEach((from, to) => {
     <header class="sticky md:relative top-0 bg-background/60 p-2 z-50 backdrop-blur-sm flex flex-col gap-4">
         <!-- <div class="grid grid-cols-3 md:flex md:flex-row items-center gap-2"> -->
             <!-- mobile -->
-            <Sheet v-model:open="showSidenav">
+            <!-- <Sheet v-model:open="showSidenav">
                 <SheetTrigger as-child>
                     <Button variant="ghost" size="icon" class="md:hidden">
                         <Menu class="size-4" />
@@ -50,7 +50,7 @@ router.beforeEach((from, to) => {
                         </Button>
                     </nav>
                 </SheetContent>
-            </Sheet>
+            </Sheet> -->
             <!-- <a href="https://idnau.org" target="_blank" rel="noopener noreferrer">
                 <div class="flex flex-row gap-2 items-center justify-center">
                     <img src="/img/idn-logo-250.png" alt="IDN Logo" class="h-[40px] md:h-[54px]" />
@@ -70,12 +70,12 @@ router.beforeEach((from, to) => {
                 </Button>
             </div> -->
         <!-- </div> -->
-        <div class="container hidden md:flex mx-auto">
+        <div class="container md:flex mx-auto">
             <nav class="flex flex-row gap-2">
                 <Button
                     v-for="{ label, url } in appConfig.menu.filter(item => item.active !== false)"
                     variant="ghost"
-                    :class="`hidden md:flex rounded-none border-b-2 ${(url === '/' && route.path === '/') || (url !== '/' && route.path.startsWith(url)) ? 'border-b-isu-red' : 'border-b-transparent'}`"
+                    :class="`md:flex rounded-none border-b-2 ${(url === '/' && route.path === '/') || (url !== '/' && route.path.startsWith(url)) ? 'border-b-isu-red' : 'border-b-transparent'}`"
                     as-child
                 >
                     <NuxtLink :to="url">{{ label }}</NuxtLink>
