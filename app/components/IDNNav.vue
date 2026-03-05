@@ -13,7 +13,7 @@ router.beforeEach((from, to) => {
 </script>
 
 <template>
-    <header class="sticky md:relative top-0 bg-background/60 p-2 z-50 backdrop-blur-sm flex flex-col gap-4">
+    <header class="sticky md:relative top-0 bg-background/60 p-2 z-40 backdrop-blur-sm flex flex-col gap-4">
         <!-- <div class="grid grid-cols-3 md:flex md:flex-row items-center gap-2"> -->
             <!-- mobile -->
             <!-- <Sheet v-model:open="showSidenav">
@@ -71,10 +71,11 @@ router.beforeEach((from, to) => {
             </div> -->
         <!-- </div> -->
         <div class="container md:flex mx-auto">
-            <nav class="flex flex-row gap-2">
+            <nav class="flex flex-row">
                 <Button
                     v-for="{ label, url } in appConfig.menu.filter(item => item.active !== false)"
                     variant="ghost"
+                    class="flex-1 justify-center rounded-none border-b-2 text-xs md:text-sm px-1 md:px-3"
                     :class="`md:flex rounded-none border-b-2 ${(url === '/' && route.path === '/') || (url !== '/' && route.path.startsWith(url)) ? 'border-b-isu-red' : 'border-b-transparent'}`"
                     as-child
                 >

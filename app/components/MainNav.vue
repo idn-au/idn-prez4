@@ -196,7 +196,7 @@ router.beforeEach((to, from) => {
 </script>
 
 <template>
-    <header class="top-nav sticky top-0 bg-background/40 grid grid-cols-3 md:flex md:flex-row md:justify-between items-center p-2 z-50 gap-2 backdrop-sm backdrop-blur-sm">
+    <header class="top-nav sticky top-0 bg-background/40 grid grid-cols-2 md:flex md:flex-row md:justify-between items-center p-2 z-50 gap-2 backdrop-sm backdrop-blur-sm">
         <!-- mobile nav -->
         <Sheet v-model:open="showSidenav">
             <SheetTrigger asChild>
@@ -204,7 +204,7 @@ router.beforeEach((to, from) => {
                     <Menu class="size-8" />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" class="p-2 bg-red-500" hideClose>
+            <SheetContent side="left" class="p-2 w-84" hideClose>
                 <SheetHeader class="grid grid-cols-3 gap-2 mb-4">
                     <SheetClose asChild>
                         <Button variant="ghost" size="icon">
@@ -215,7 +215,7 @@ router.beforeEach((to, from) => {
                         <div class="flex flex-col gap-3 items-center justify-center">                            
                             <NuxtImg v-show="colorMode.unknown || colorMode.value === 'light'" src="/apple-touch-icon.png" alt="The Indigenous Data Commons Logo" class="h-[40px]" />
                             <NuxtImg v-show="!colorMode.unknown && colorMode.value === 'dark'" src="/apple-touch-icon.png" alt="The Indigenous Data Commons Logo" class="h-[40px]" />
-                            <span class="text-xs whitespace-nowrap">The Indigenous Data Commons</span>
+                            <!-- <span class="text-xs whitespace-nowrap">The Indigenous Data Commons</span> -->
                         </div>
                     </NuxtLink>
                 </SheetHeader>
@@ -234,8 +234,8 @@ router.beforeEach((to, from) => {
                                     <Button variant="ghost" :class="`rounded-none border-l-2 border-l-transparent ${route.path === link.path ? 'border-l-isu-red' : ''}`" asChild>
                                         
                                     </Button>
-                                    <Separator />
                                 </template>
+                                <Separator />
                                 <Button v-for="child in link.children" variant="ghost" :class="`rounded-none border-l-2 border-l-transparent ${route.path.startsWith(child.path) ? 'border-l-isu-red' : ''}`" asChild>
                                     <NuxtLink v-if="child.path !== link.path" :to="child.websiteURL || child.path">{{ child.title }} </NuxtLink>
                                 </Button>
@@ -246,7 +246,7 @@ router.beforeEach((to, from) => {
                         </Button>
                     </template>
                     <Button v-for="extLink in externalLinks" variant="ghost" asChild>
-                        <a :href="extLink.url" target="_blank" rel="noopener noreferrer">{{ extLink.title }} <ExternalLink class="size-4" /></a>
+                        <a class="w-full flex justify-start items-center" :href="extLink.url" target="_blank" rel="noopener noreferrer">{{ extLink.title }} <ExternalLink class="size-4" /></a>
                     </Button>
                 </nav>
             </SheetContent>
@@ -295,12 +295,12 @@ router.beforeEach((to, from) => {
            </Button>
        </nav> -->
         
-        <div class="flex flex-row justify-end items-center gap-2">
-            <div class="flex flex-row justify-end">
+        <div class="flex w-full flex-row justify-end items-center gap-2">
+            
                 <Button variant="ghost" size="icon" title="Search the catalogue" as-child>
                     <NuxtLink to="/search"><Search /></NuxtLink>
                 </Button>
-            </div>
+            
 	        <!-- <Button variant="ghost" size="icon" @click="!colorMode.unknown ? colorMode.value === 'dark' ? colorMode.preference = 'light' : colorMode.preference = 'dark' : undefined">
 		        <SunMoon v-show="colorMode.unknown" />
 		        <Sun v-show="colorMode.value === 'dark'" class="w-4 h-4" />
