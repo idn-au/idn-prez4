@@ -18,6 +18,9 @@
     --primary: var(--isu-blue);
     --primary-foreground: var(--isu-blue-foreground);
 
+    --secondary: oklch(0.968 0.007 247.896);
+    --secondary-foreground: oklch(0.208 0.042 265.755);
+
     --link: var(--isu-blue);
     --link-foreground: var(--isu-blue-foreground);
 }
