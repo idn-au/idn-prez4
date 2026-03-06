@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ChevronRight, ChevronLeft } from "lucide-vue-next";
+import MainNav from "../components/MainNav.vue";
 
 const props = defineProps<{
     sidepanel?: boolean;
@@ -22,6 +23,7 @@ onBeforeMount(() => {
 
 <template>
     <div class="flex flex-col min-h-screen">
+        <MainNav />
         <div class="w-full bg-yellow-300 text-black text-center py-1 px-4 text-sm font-medium">
              We are pleased to inform you that this site is under construction and will be updated as soon as possible
         </div>
