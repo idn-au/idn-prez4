@@ -5,7 +5,41 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    /* overridden or new CSS variables go here, in hsl() without commas */
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(228.82 85% 5%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(228.82 85% 5%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(228.82 85% 5%);
+    --primary: var(--isu-blue);
+    --primary-foreground: var(--isu-blue-foreground);
+
+    --secondary: oklch(0.968 0.007 247.896);
+    --secondary-foreground: oklch(0.208 0.042 265.755);
+    --muted: hsl(210 41% 96%);
+    --muted-foreground: hsl(215.38 18% 47%);
+    --accent: hsl(210 41% 96%);
+    --accent-foreground: hsl(222.34 49% 11%);
+    --destructive: hsl(357.18 100% 45%);
+    --destructive-foreground: hsl(210 40% 98%);
+    --border: hsl(214.28 33% 91%);
+    --input: hsl(214.28 33% 91%);
+    --ring: var(--primary);
+    --chart-1: hsl(18.01 100% 48%);
+    --chart-2: hsl(174.71 100% 29%);
+    --chart-3: hsl(195.82 72% 23%);
+    --chart-4: hsl(43.66 100% 50%);
+    --chart-5: hsl(36.49 100% 50%);
+    --radius: 0.625rem;
+    --sidebar: hsl(210 35% 98%);
+    --sidebar-foreground: hsl(228.82 85% 5%);
+    --sidebar-primary: hsl(222.34 49% 11%);
+    --sidebar-primary-foreground: hsl(210 35% 98%);
+    --sidebar-accent: hsl(210 41% 96%);
+    --sidebar-accent-foreground: hsl(222.34 49% 11%);
+    --sidebar-border: hsl(214.28 33% 91%);
+    --sidebar-ring: var(--primary);
+
     --isu-red: hsl(5 78% 54%);
     --isu-red-foreground: hsl(210 40% 98%);
     --isu-yellow: hsl(40 88% 54%);
@@ -14,12 +48,6 @@
     --isu-green-foreground: hsl(210 40% 98%);
     --isu-blue: hsl(215 74% 32%);
     --isu-blue-foreground: hsl(210 40% 98%);
-
-    --primary: var(--isu-blue);
-    --primary-foreground: var(--isu-blue-foreground);
-
-    --secondary: oklch(0.968 0.007 247.896);
-    --secondary-foreground: oklch(0.208 0.042 265.755);
 
     --link: var(--isu-blue);
     --link-foreground: var(--isu-blue-foreground);
