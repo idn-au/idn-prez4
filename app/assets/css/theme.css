@@ -1,3 +1,7 @@
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
+
+table.item-table tr > td:last-child {
+    white-space: normal;
+}
