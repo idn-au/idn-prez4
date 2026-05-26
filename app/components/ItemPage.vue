@@ -137,6 +137,10 @@ const navigateToUri = (uri?: string) => {
             </slot>
         </template>
 
+	    <template #profiles>
+		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+	    </template>
+
         <template #default>
             <slot :data="data" :status="status" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 

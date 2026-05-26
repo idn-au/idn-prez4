@@ -23,6 +23,13 @@ const props = defineProps<ObjectsProps>();
 		        :renderHtml="props.renderHtml"
 		        :renderMarkdown="props.renderMarkdown"
 	        />
+	        <Keyword
+		        v-else-if="props.predicate.value === 'https://schema.org/keywords'"
+		        :term="obj"
+		        :variant="props.variant"
+		        :renderHtml="props.renderHtml"
+		        :renderMarkdown="props.renderMarkdown"
+	        />
             <Term
                 v-else
                 :term="obj"
