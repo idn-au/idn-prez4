@@ -12,6 +12,8 @@ import { ArrowRight } from "lucide-vue-next";
             <Button as-child class="mt-4">
                 <NuxtLink to="/catalogs">Go to catalogues<ArrowRight class="size-4" /></NuxtLink>
             </Button>
+	        <PortalSearch />
+<!--	        <CatalogueList />-->
         </template>
     </NuxtLayout>
 </template>
