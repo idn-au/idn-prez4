@@ -46,5 +46,7 @@ export default defineNuxtConfig({
         prefix: "",
         componentDir: "./app/components/ui"
     },
-
+    image: {
+        provider: "none",
+    },
 });
