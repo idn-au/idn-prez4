@@ -1,4 +1,5 @@
 import type {AcceptableValue} from "reka-ui";
+import type {ButtonVariants} from "~/components/ui/button";
 
 export type Result = {
     iri: string;
@@ -35,3 +36,7 @@ export type SPARQLResultsJSON = {
     },
     boolean?: boolean;
 };
+
+export type CustomIDCButtonVariants = "red" | "yellow" | "green" | "blue" | "black" | "dark-ghost";
+
+export type IDCButtonVariants = ButtonVariants["variant"] | CustomIDCButtonVariants;

@@ -81,12 +81,12 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 
 <template>
 	<div :class="cn('profile-selector flex flex-col gap-1', props.class)">
-		<div class="flex flex-row items-center justify-between gap-2">
-			<span>Alternate Views &amp; Formats</span>
+		<div class="flex flex-row items-center justify-between gap-2 text-white">
+			<span class="text-white">Alternate Views &amp; Formats</span>
 			<HoverCard>
 				<HoverCardTrigger asChild>
 					<Button variant="link" size="icon" class="cursor-help">
-						<CircleQuestionMark class="size-4 text-muted-foreground" />
+						<CircleQuestionMark class="size-4 text-white" />
 					</Button>
 				</HoverCardTrigger>
 				<HoverCardContent class="text-sm p-3">

@@ -4,10 +4,9 @@
 
 <template>
 	<NuxtLayout contentonly>
-		<template #default>
-			<div>
-				<PortalSearch />
-			</div>
-		</template>
+		<template #header-text>Search</template>
+		<div>
+			<PortalSearch />
+		</div>
 	</NuxtLayout>
 </template>
