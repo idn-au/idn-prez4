@@ -39,7 +39,7 @@ const map = useTemplateRef("map");
 
 const searchKey = computed(() => `${JSON.stringify(formData.value)}-${page.value}-${perPage.value}`);
 
-const innerQuery = computed(() => `${formData.value.q ? `(?iri ?score) text:query "${formData.value.q}" .` : ""}
+const innerQuery = computed(() => `${formData.value.q ? `(?iri ?score) text:query (sdo:name skos:prefLabel skos:altLabel "${formData.value.q}") .` : ""}
 ${formData.value.type.length > 0 ? `VALUES ?_type {${formData.value.type.map(t => `<${t}>`).join(" ")}}
 ?iri a ?_type .` : ""}
 ${formData.value.additionalType.length > 0 ? `VALUES ?_additionalType {${formData.value.additionalType.map(t => `<${t}>`).join(" ")}}
