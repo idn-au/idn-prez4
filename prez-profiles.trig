@@ -180,6 +180,7 @@ prez:ProfilesGraph {
         sh:property [
             sh:path [
                 sh:union (
+                    shext:allPredicateValues
                     rdf:type
                     dcterms:title
                     schema:name
