@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Draft IDN Prez page design for the RiC-O Record presentation profile.">
+  <title>RiC-O Record profile — page design mockup</title>
+  <style>
+    :root {
+      --red: hsl(4.55 58.23% 48.82%);
+      --yellow: hsl(44.46 79.42% 47.65%);
+      --green: hsl(152.11 42.51% 32.75%);
+      --blue: hsl(219.23 100% 30.59%);
+      --ink: hsl(228.82 85% 5%);
+      --muted-ink: hsl(215.38 18% 43%);
+      --page: hsl(0 0% 94.9%);
+      --card: white;
+      --soft: hsl(210 41% 96%);
+      --border: hsl(214.28 33% 88%);
+      --shadow: 0 12px 34px rgb(15 23 42 / 8%);
+      --radius: .625rem;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.55 "Open Sans", Inter, system-ui, sans-serif; }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    button, select { font: inherit; }
+    code { font-size: .9em; }
+    .draft { padding: .55rem 1rem; color: #3d2a00; background: color-mix(in srgb, var(--yellow) 22%, white); border-bottom: 1px solid color-mix(in srgb, var(--yellow) 50%, white); font-size: .78rem; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: .04em; }
+    .site-header { min-height: 74px; display: flex; align-items: center; gap: 2rem; padding: .85rem max(1rem, calc((100vw - 1400px) / 2)); background: white; border-bottom: 1px solid var(--border); }
+    .site-header img { width: min(250px, 52vw); }
+    .site-header nav { margin-left: auto; display: flex; gap: 1.4rem; }
+    .site-header nav a, .product-nav a { color: var(--ink); font-size: .86rem; font-weight: 650; text-decoration: none; }
+    .product-nav { display: flex; padding-inline: max(1rem, calc((100vw - 1400px) / 2)); overflow-x: auto; background: white; }
+    .product-nav a { padding: .7rem 1rem .6rem; border-bottom: 2px solid transparent; }
+    .product-nav a[aria-current="page"] { border-color: var(--red); }
+    .hero { min-height: 300px; display: flex; align-items: flex-end; position: relative; isolation: isolate; padding: 2rem max(1rem, calc((100vw - 1400px) / 2)) 2.35rem; background: url("../../public/img/Milky_Way_IDN_Logo_75percent-fpng.webp") center/cover; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(2 6 23 / 84%), rgb(2 6 23 / 28%)); }
+    .hero-inner { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; }
+    .eyebrow { margin: 0 0 .55rem; color: color-mix(in srgb, var(--yellow) 86%, white); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 980px; margin: 0; color: white; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 500; line-height: 1.12; }
+    .profile-control { display: grid; gap: .35rem; color: white; font-size: .76rem; }
+    .profile-control span { font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+    .profile-control select { max-width: 320px; padding: .65rem .8rem; border: 1px solid white; border-radius: .5rem; }
+    .shell { width: min(1400px, calc(100% - 2rem)); margin: auto; padding: 1.25rem 0 5rem; }
+    .breadcrumb { margin-bottom: 1.2rem; color: var(--muted-ink); font-size: .84rem; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: start; gap: 1.5rem; }
+    .content { min-width: 0; display: grid; gap: 1rem; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .identity { padding: 1.25rem 1.35rem; }
+    .identity-grid { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: .9rem 1rem; align-items: start; }
+    .badge { width: fit-content; display: inline-flex; padding: .2rem .55rem; color: hsl(215 28% 27%); background: var(--soft); border: 1px solid var(--border); border-radius: .4rem; font-size: .72rem; font-weight: 800; }
+    .iri { overflow-wrap: anywhere; }
+    .types, .chips { display: flex; flex-wrap: wrap; gap: .45rem .9rem; }
+    .section-heading { display: flex; align-items: center; gap: .7rem; margin: 1.15rem 0 .75rem; font-size: 1.05rem; }
+    .section-heading::after { content: ""; height: 1px; flex: 1; background: var(--border); }
+    dl { margin: 0; }
+    .field { display: grid; grid-template-columns: minmax(150px, 24%) minmax(0, 1fr); border-top: 1px solid var(--border); }
+    .field:first-child { border-top: 0; }
+    .field dt, .field dd { margin: 0; padding: 1rem 1.35rem; }
+    .field dt { color: hsl(215 24% 31%); background: hsl(210 35% 98%); font-weight: 750; }
+    .field dd { min-width: 0; }
+    .description { font-size: 1rem; line-height: 1.65; }
+    .linked { display: grid; gap: .15rem; text-decoration: none; }
+    .linked strong { color: var(--blue); }
+    .linked small { color: var(--muted-ink); overflow-wrap: anywhere; }
+    .date-summary { display: grid; gap: .25rem; }
+    .date-summary strong { font-size: 1rem; }
+    .date-summary small { color: var(--muted-ink); }
+    .instantiation-card { border-top: 4px solid var(--green); }
+    .instantiation-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1.15rem 1.35rem; background: linear-gradient(90deg, color-mix(in srgb, var(--green) 9%, white), white); border-bottom: 1px solid var(--border); }
+    .instantiation-icon { width: 44px; height: 44px; flex: 0 0 auto; display: grid; place-items: center; color: white; background: var(--green); border-radius: 50%; font-weight: 850; }
+    .instantiation-header h2 { margin: .1rem 0 .25rem; font-size: 1.25rem; }
+    .instantiation-header a { display: block; overflow-wrap: anywhere; font-size: .78rem; }
+    .source-key { margin: 0; padding: 1rem 1.2rem; background: color-mix(in srgb, var(--green) 6%, white); border-left: 4px solid var(--green); border-radius: .35rem; font-size: .84rem; }
+    .annotation { position: sticky; top: 1rem; border-color: color-mix(in srgb, var(--yellow) 46%, var(--border)); }
+    .annotation header { padding: 1rem 1.1rem; color: #3d2a00; background: color-mix(in srgb, var(--yellow) 18%, white); border-bottom: 1px solid var(--border); }
+    .annotation h2 { margin: 0; font-size: 1rem; }
+    .annotation header p { margin: .35rem 0 0; font-size: .78rem; }
+    .annotation ol { margin: 0; padding: 0; list-style: none; counter-reset: anatomy; }
+    .annotation li { counter-increment: anatomy; display: grid; grid-template-columns: 25px 1fr; gap: .65rem; padding: .85rem 1.05rem; border-top: 1px solid var(--border); font-size: .8rem; }
+    .annotation li::before { content: counter(anatomy); width: 23px; height: 23px; display: grid; place-items: center; color: white; background: var(--red); border-radius: 50%; font-size: .7rem; font-weight: 800; }
+    .annotation strong { display: block; margin-bottom: .15rem; }
+    .annotation-note { margin: 0; padding: 1rem 1.1rem; color: var(--muted-ink); background: hsl(210 35% 98%); border-top: 1px solid var(--border); font-size: .77rem; }
+    footer { padding: 2rem 1rem; color: white; background: hsl(222 34% 14%); text-align: center; font-size: .8rem; }
+    @media (max-width: 960px) { .site-header nav { display: none; } .hero-inner, .layout { grid-template-columns: 1fr; } .annotation { position: static; } }
+    @media (max-width: 620px) { .identity-grid, .field { grid-template-columns: 1fr; } .field dt { padding-bottom: .4rem; } .field dd { padding-top: .4rem; } }
+  </style>
+</head>
+<body>
+  <div class="draft">Draft page design · RiC-O Record presentation profile · not a production implementation</div>
+  <header class="site-header">
+    <a href="https://indigenousdatacommons.org"><img src="../../public/img/idc-logo.png" alt="Indigenous Data Commons"></a>
+    <nav aria-label="Main navigation"><a href="#">About</a><a href="#">Indigenous Data Network</a><a href="#">Services</a><a href="#">Projects</a><a href="#">News</a></nav>
+  </header>
+  <nav class="product-nav" aria-label="Catalogue navigation"><a href="#">Home</a><a href="#" aria-current="page">Catalogue</a><a href="#">Vocabularies</a><a href="#">SPARQL</a><a href="#">About</a></nav>
+
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-inner">
+      <div><p class="eyebrow">Archival record</p><h1 id="page-title">Commonwealth of Australia — Minute Paper, and Bureau of Census and Statistics Forms</h1></div>
+      <label class="profile-control"><span>Presentation profile</span><select><option selected>RiC-O Record presentation profile</option><option>Default object profile</option></select></label>
+    </div>
+  </section>
+
+  <main class="shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="#">Briscoe Smith Archive</a> / <a href="#">ATSI Material from Commonwealth Census</a> / Record</nav>
+    <div class="layout">
+      <div class="content">
+        <section class="panel identity" aria-label="Resource identity">
+          <div class="identity-grid">
+            <span class="badge">IRI</span><a class="iri" href="https://data.idnau.org/pid/resource/192d7605-e0ed-5eef-b6a1-71b5513fbefb">https://data.idnau.org/pid/resource/192d7605-e0ed-5eef-b6a1-71b5513fbefb</a>
+            <span class="badge">Type</span><div class="types"><a href="https://www.ica.org/standards/RiC/ontology#Record">RiC-O Record</a><a href="https://schema.org/Dataset">Dataset</a></div>
+          </div>
+        </section>
+
+        <section aria-labelledby="record-heading">
+          <h2 class="section-heading" id="record-heading">Record details</h2>
+          <div class="panel">
+            <dl>
+              <div class="field"><dt>Description</dt><dd class="description">Includes a photocopied minute paper on the availability of documents from Census Operations to the librarian in charge of the Treasury Building, and related operational forms regarding police district returns, the Bureau of Census and Statistics archives, and various control systems.</dd></div>
+              <div class="field"><dt>Identifiers</dt><dd><div class="chips"><span>ATSI00194</span><span>ANUA 549/00099</span></div></dd></div>
+              <div class="field"><dt>Record dates</dt><dd><div class="date-summary"><strong>1927–1972</strong><small>Documents primarily from 1971–1972, relating to documents from the 1920s to 1940s.</small><small>Normalized boundaries: 1 Jan 1927 – 31 Dec 1972</small></div></dd></div>
+              <div class="field"><dt>Formats</dt><dd><div class="chips"><a href="#">Correspondence</a><a href="#">Form</a><a href="#">News clipping</a><a href="#">Photocopy</a></div></dd></div>
+              <div class="field"><dt>Extent</dt><dd>1 file</dd></div>
+              <div class="field"><dt>Location note</dt><dd>Box 4, Folder 22 of 23</dd></div>
+              <div class="field"><dt>Access</dt><dd><a href="https://linked.data.gov.au/def/data-access-rights/open">Open</a></dd></div>
+              <div class="field"><dt>Series</dt><dd><a class="linked" href="https://data.idnau.org/pid/resource/d3a7cd62-2f55-56a4-8e2c-8fcc533c5c9e"><strong>ATSI Material from Commonwealth Census</strong><small>Label fetched from linked RecordSet · ATSS0002</small></a></dd></div>
+              <div class="field"><dt>Creator</dt><dd><a class="linked" href="https://orcid.org/0000-0002-5477-0874"><strong>Leonard R. Smith</strong><small>Label fetched from linked Person</small></a></dd></div>
+              <div class="field"><dt>Catalogue dates</dt><dd>Created 11 May 2010 · modified 17 April 2015, 8:41 am</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section aria-labelledby="instantiation-heading">
+          <h2 class="section-heading" id="instantiation-heading">Instantiation</h2>
+          <article class="panel instantiation-card">
+            <header class="instantiation-header"><div class="instantiation-icon" aria-hidden="true">I</div><div><span class="badge">RiC-O Instantiation</span><h2>Aboriginal Census</h2><a href="https://data.idnau.org/pid/resource/2e7eef09-aa72-580e-aef0-e53c0eacad46">https://data.idnau.org/pid/resource/2e7eef09-aa72-580e-aef0-e53c0eacad46</a></div></header>
+            <dl>
+              <div class="field"><dt>Description</dt><dd>Binders recorded from left to right, top to bottom.</dd></div>
+              <div class="field"><dt>Accession identifier</dt><dd>ATSI2009-E004</dd></div>
+              <div class="field"><dt>Instantiation dates</dt><dd><div class="date-summary"><strong>1939–1976</strong><small>Normalized boundaries: 1 Jan 1939 – 31 Dec 1976</small></div></dd></div>
+              <div class="field"><dt>Extent</dt><dd>23 items — 21 ring binders, 1 magazine box, 1 folder</dd></div>
+              <div class="field"><dt>Physical location</dt><dd>Bookshelves, Verandah room, Australian Demographic and Social Research Institute, Building 65 (20 Balmain Crescent)</dd></div>
+              <div class="field"><dt>Collector</dt><dd><a class="linked" href="https://orcid.org/0000-0002-5477-0874"><strong>Leonard R. Smith</strong><small>Label fetched from linked Person</small></a></dd></div>
+              <div class="field"><dt>Catalogue dates</dt><dd>Created 27 July 2009 · modified 1 August 2025, 10:15 am</dd></div>
+            </dl>
+          </article>
+        </section>
+
+        <p class="source-key"><strong>Profile reach:</strong> direct Record properties and the displayed Instantiation triples are supplied by the RiC-O Record profile. Labels for linked Series, agents and controlled concepts may be resolved by Prez or fetched on demand; their full descriptions are not copied into this response.</p>
+      </div>
+
+      <aside class="panel annotation" aria-labelledby="anatomy-heading">
+        <header><h2 id="anatomy-heading">Page anatomy</h2><p>Design notes only — not part of the production page.</p></header>
+        <ol>
+          <li><div><strong>Explicit UI order</strong>Render identity → Record description → identifiers and dates → classification and context → Instantiations. Profile path order does not control this.</div></li>
+          <li><div><strong>Record as page focus</strong>The `rico:Record` remains the page resource. Its `schema:Dataset` type remains visible but does not create a second page section.</div></li>
+          <li><div><strong>Date presentation</strong>Lead with `rico:expressedDate`; retain qualifiers beside it. Normalized boundaries are secondary machine-oriented detail.</div></li>
+          <li><div><strong>Duplicate predicates</strong>Where schema.org and RiC-O carry the same value, render one human-facing row rather than duplicate rows.</div></li>
+          <li><div><strong>Instantiation grouping</strong>Render each linked Instantiation as a card with its own IRI, identity and fields. Repeat the card for multiple Instantiations.</div></li>
+          <li><div><strong>Linked resource labels</strong>Series, agents, access concepts and formats remain links. Resolve a label for display, but fetch full linked-resource data only on demand.</div></li>
+          <li><div><strong>Fallbacks</strong>If an Instantiation lacks `schema:name`, use `rico:name`, then its identifier, then “Instantiation”. Omit empty optional rows.</div></li>
+          <li><div><strong>Separate pages remain</strong>Instantiation IRIs remain navigable. `rico:RecordSet` and `schema:Person` keep their normal object pages and profiles.</div></li>
+        </ol>
+        <p class="annotation-note">This mockup shows one Instantiation. The backend response may contain generic, analogue, digital or derived Instantiation links; the UI groups all four consistently.</p>
+      </aside>
+    </div>
+  </main>
+  <footer>Static design mockup for review · Indigenous Data Network · RiC-O Record presentation profile</footer>
+</body>
+</html>

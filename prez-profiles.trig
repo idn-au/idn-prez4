@@ -245,6 +245,16 @@ prez:ProfilesGraph {
                     ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:endDate )
                     ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:dateQualifier )
                     ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:normalizedDateValue )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rdf:type )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:expressedDate )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:dateQualifier )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:normalizedDateValue )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rdf:type )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:expressedDate )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:dateQualifier )
+                    ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:normalizedDateValue )
                 )
             ]
         ] ;
