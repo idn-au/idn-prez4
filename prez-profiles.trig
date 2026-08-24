@@ -49,6 +49,11 @@ prez:ProfilesGraph {
             ] ,
             [
                 a sh:NodeShape ;
+                sh:targetClass odrl:Agreement ;
+                altr-ext:hasDefaultProfile prez:odrl-agreement ;
+            ] ,
+            [
+                a sh:NodeShape ;
                 sh:targetClass rico:Record ;
                 altr-ext:hasDefaultProfile prez:RiCORecordProfile ;
             ] ;
@@ -163,7 +168,38 @@ prez:ProfilesGraph {
                 )
             ]
         ] ;
-    .    
+    .
+
+    prez:odrl-agreement
+        a prof:Profile , prez:ObjectProfile ;
+        dcterms:identifier "odrl-agreement"^^xsd:token ;
+        dcterms:title "ODRL Agreement presentation profile"@en ;
+        dcterms:description "Presents an ODRL Agreement with its named Permission rules and their actions, parties and targets."@en ;
+        altr-ext:constrainsClass odrl:Agreement ;
+        altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+        altr-ext:hasResourceFormat
+            "application/anot+ld+json" ,
+            "application/ld+json" ,
+            "text/anot+turtle" ,
+            "text/turtle" ;
+        sh:property [
+            sh:path [
+                sh:union (
+                    rdf:type
+                    dcterms:title
+                    schema:name
+                    odrl:permission
+                    ( odrl:permission rdf:type )
+                    ( odrl:permission dcterms:title )
+                    ( odrl:permission schema:name )
+                    ( odrl:permission odrl:action )
+                    ( odrl:permission odrl:assigner )
+                    ( odrl:permission odrl:assignee )
+                    ( odrl:permission odrl:target )
+                )
+            ]
+        ] ;
+    .
 
     prez:OdrlAgreement
         a prof:Profile , prez:ObjectProfile ;
