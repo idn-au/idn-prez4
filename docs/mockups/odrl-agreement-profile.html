@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Draft IDN Prez page design for the ODRL Agreement presentation profile.">
+  <title>ODRL Agreement profile — page design mockup</title>
+  <style>
+    :root {
+      --isu-red: hsl(4.55 58.23% 48.82%);
+      --isu-yellow: hsl(44.46 79.42% 47.65%);
+      --isu-green: hsl(152.11 42.51% 32.75%);
+      --isu-blue: hsl(219.23 100% 30.59%);
+      --body-background: hsl(0 0% 94.9%);
+      --foreground: hsl(228.82 85% 5%);
+      --card: white;
+      --muted: hsl(210 41% 96%);
+      --muted-foreground: hsl(215.38 18% 43%);
+      --border: hsl(214.28 33% 88%);
+      --link: hsl(221.09 100% 43%);
+      --radius: 0.625rem;
+      --shadow: 0 12px 34px rgb(15 23 42 / 8%);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--foreground);
+      background: var(--body-background);
+      font-family: "Open Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--isu-blue); text-decoration-thickness: 2px; }
+    button, select { font: inherit; }
+
+    .draft-ribbon {
+      padding: 0.55rem 1rem;
+      color: #3d2a00;
+      background: color-mix(in srgb, var(--isu-yellow) 22%, white);
+      border-bottom: 1px solid color-mix(in srgb, var(--isu-yellow) 50%, white);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .site-header {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0.85rem max(1rem, calc((100vw - 1400px) / 2));
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header img { width: min(250px, 52vw); height: auto; display: block; }
+    .site-header nav { margin-left: auto; display: flex; gap: 1.5rem; }
+    .site-header nav a { color: var(--foreground); font-size: 0.9rem; font-weight: 650; text-decoration: none; }
+    .site-header nav a:hover { color: var(--isu-red); }
+
+    .product-nav {
+      display: flex;
+      gap: 0;
+      padding-inline: max(1rem, calc((100vw - 1400px) / 2));
+      overflow-x: auto;
+      background: white;
+    }
+
+    .product-nav a {
+      padding: 0.7rem 1rem 0.6rem;
+      color: var(--foreground);
+      border-bottom: 2px solid transparent;
+      font-size: 0.86rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .product-nav a[aria-current="page"] { border-color: var(--isu-red); font-weight: 700; }
+
+    .hero {
+      min-height: 300px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      padding: 2rem max(1rem, calc((100vw - 1400px) / 2)) 2.35rem;
+      overflow: hidden;
+      isolation: isolate;
+      background-image: url("../../public/img/Milky_Way_IDN_Logo_75percent-fpng.webp");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(90deg, rgb(2 6 23 / 82%) 0%, rgb(2 6 23 / 44%) 64%, rgb(2 6 23 / 18%) 100%);
+    }
+
+    .hero-inner {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 2rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.55rem;
+      color: color-mix(in srgb, var(--isu-yellow) 86%, white);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 0;
+      color: white;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+    }
+
+    .profile-control { display: grid; gap: 0.35rem; color: white; font-size: 0.76rem; }
+    .profile-control span { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .profile-control select {
+      max-width: 320px;
+      padding: 0.65rem 2.2rem 0.65rem 0.8rem;
+      color: var(--foreground);
+      background: white;
+      border: 1px solid rgb(255 255 255 / 70%);
+      border-radius: 0.5rem;
+    }
+
+    .page-shell {
+      width: min(1400px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.25rem 0 5rem;
+    }
+
+    .breadcrumb { margin-bottom: 1.2rem; color: var(--muted-foreground); font-size: 0.84rem; }
+    .breadcrumb a { color: inherit; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      align-items: start;
+      gap: 1.5rem;
+    }
+
+    .content-column { min-width: 0; display: grid; gap: 1rem; }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .identity { padding: 1.25rem 1.35rem; }
+    .identity-grid { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 0.9rem 1rem; align-items: start; }
+
+    .badge {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 0.18rem 0.55rem;
+      color: hsl(215 28% 27%);
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .iri-line { display: flex; align-items: flex-start; gap: 0.5rem; min-width: 0; }
+    .iri-line a { overflow-wrap: anywhere; }
+    .copy-button {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      display: inline-grid;
+      place-items: center;
+      color: var(--muted-foreground);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 0.4rem;
+      cursor: pointer;
+    }
+    .copy-button:hover { color: var(--isu-blue); background: var(--muted); border-color: var(--border); }
+
+    .type-list { display: flex; flex-wrap: wrap; gap: 0.45rem 0.9rem; }
+
+    .agreement-details { overflow: hidden; }
+    .description-block {
+      display: grid;
+      grid-template-columns: minmax(130px, 24%) minmax(0, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .description-label, .description-copy { padding: 1.15rem 1.35rem; }
+    .description-label { background: hsl(210 35% 98%); }
+    .description-copy p { margin: 0; font-size: 1rem; line-height: 1.65; }
+    .metadata-fields { margin: 0; }
+    .value-list { display: grid; gap: 0.7rem; }
+    .literal-value { display: block; }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 1.15rem 0 0.75rem;
+      font-size: 1.05rem;
+    }
+
+    .section-heading::after { content: ""; height: 1px; flex: 1; background: var(--border); }
+
+    .permission-card { overflow: hidden; }
+    .permission-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.15rem 1.35rem;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--isu-blue) 8%, white), white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .permission-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--isu-blue);
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .permission-title { min-width: 0; }
+    .permission-title h2 { margin: 0.05rem 0 0.3rem; font-size: 1.25rem; line-height: 1.3; }
+    .permission-title .resource-link { display: block; overflow-wrap: anywhere; font-size: 0.78rem; }
+
+    .permission-fields { margin: 0; }
+    .field {
+      display: grid;
+      grid-template-columns: minmax(130px, 24%) minmax(0, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .field:first-child { border-top: 0; }
+    .field dt, .field dd { margin: 0; padding: 1rem 1.35rem; }
+    .field dt { color: hsl(215 24% 31%); background: hsl(210 35% 98%); font-weight: 750; }
+    .field dd { min-width: 0; }
+
+    .value-link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+    .value-link strong { display: block; color: var(--link); font-size: 0.96rem; }
+    .value-link small { display: block; margin-top: 0.15rem; color: var(--muted-foreground); overflow-wrap: anywhere; }
+    .external { color: var(--link); font-size: 1rem; }
+
+    .target-value { display: grid; gap: 0.85rem; }
+    .target-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem 1rem; }
+    .map-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.75rem;
+      color: white;
+      background: var(--isu-blue);
+      border: 1px solid var(--isu-blue);
+      border-radius: 0.45rem;
+      font-size: 0.82rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .map-toggle:hover { background: color-mix(in srgb, var(--isu-blue) 84%, black); }
+    .detail-link { font-size: 0.82rem; font-weight: 700; }
+    .target-map[hidden] { display: none; }
+    .target-map {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: hsl(43 38% 93%);
+    }
+    .map-canvas {
+      min-height: 265px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background-color: hsl(202 45% 88%);
+      background-image:
+        linear-gradient(24deg, transparent 48%, rgb(255 255 255 / 44%) 49%, transparent 51%),
+        linear-gradient(114deg, transparent 48%, rgb(255 255 255 / 36%) 49%, transparent 51%),
+        radial-gradient(circle at 18% 30%, hsl(44 31% 82%) 0 12%, transparent 12.5%),
+        radial-gradient(circle at 73% 72%, hsl(44 31% 82%) 0 18%, transparent 18.5%);
+      background-size: 54px 54px, 54px 54px, auto, auto;
+    }
+    .map-canvas::before {
+      content: "";
+      width: min(58%, 420px);
+      aspect-ratio: 1.25;
+      position: absolute;
+      inset: 50% auto auto 50%;
+      z-index: 1;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      clip-path: polygon(16% 11%, 67% 4%, 92% 23%, 87% 61%, 69% 88%, 28% 94%, 7% 69%, 12% 38%);
+      background: color-mix(in srgb, var(--isu-red) 23%, transparent);
+      border: 4px solid var(--isu-red);
+      filter: drop-shadow(0 3px 5px rgb(15 23 42 / 18%));
+    }
+    .map-label {
+      position: absolute;
+      inset: auto 0.75rem 0.75rem auto;
+      z-index: 2;
+      padding: 0.3rem 0.5rem;
+      color: hsl(215 28% 22%);
+      background: rgb(255 255 255 / 90%);
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .map-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 0.8rem;
+      color: var(--muted-foreground);
+      background: white;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+    }
+
+    .annotation-panel {
+      position: sticky;
+      top: 1rem;
+      overflow: hidden;
+      border-color: color-mix(in srgb, var(--isu-yellow) 46%, var(--border));
+    }
+    .annotation-panel header {
+      padding: 1rem 1.1rem;
+      color: #3d2a00;
+      background: color-mix(in srgb, var(--isu-yellow) 18%, white);
+      border-bottom: 1px solid color-mix(in srgb, var(--isu-yellow) 38%, white);
+    }
+    .annotation-panel h2 { margin: 0; font-size: 1rem; }
+    .annotation-panel header p { margin: 0.35rem 0 0; font-size: 0.78rem; }
+    .annotation-panel ol { margin: 0; padding: 0; list-style: none; counter-reset: anatomy; }
+    .annotation-panel li {
+      counter-increment: anatomy;
+      display: grid;
+      grid-template-columns: 25px 1fr;
+      gap: 0.65rem;
+      padding: 0.85rem 1.05rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    .annotation-panel li:first-child { border-top: 0; }
+    .annotation-panel li::before {
+      content: counter(anatomy);
+      width: 23px;
+      height: 23px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--isu-red);
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .annotation-panel strong { display: block; margin-bottom: 0.15rem; }
+    .annotation-note {
+      margin: 0;
+      padding: 1rem 1.1rem;
+      color: var(--muted-foreground);
+      background: hsl(210 35% 98%);
+      border-top: 1px solid var(--border);
+      font-size: 0.77rem;
+    }
+
+    .scope-note {
+      padding: 1rem 1.2rem;
+      color: hsl(215 25% 27%);
+      background: color-mix(in srgb, var(--isu-green) 7%, white);
+      border-left: 4px solid var(--isu-green);
+      border-radius: 0.35rem;
+      font-size: 0.84rem;
+    }
+    .scope-note strong { color: var(--isu-green); }
+
+    footer {
+      padding: 2rem 1rem;
+      color: white;
+      background: hsl(222 34% 14%);
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 960px) {
+      .site-header nav { display: none; }
+      .hero-inner, .layout { grid-template-columns: 1fr; }
+      .profile-control { justify-self: start; }
+      .annotation-panel { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { min-height: 350px; }
+      .identity-grid, .description-block, .field { grid-template-columns: 1fr; gap: 0.4rem; }
+      .description-label { padding-bottom: 0.45rem; }
+      .description-copy { padding-top: 0.45rem; }
+      .field dt { padding-bottom: 0.45rem; }
+      .field dd { padding-top: 0.45rem; }
+      .permission-header { align-items: center; }
+      .site-header { min-height: 64px; }
+    }
+
+    @media print {
+      .draft-ribbon, .site-header nav, .product-nav, .copy-button { display: none; }
+      .hero { min-height: 190px; print-color-adjust: exact; }
+      .layout { grid-template-columns: 1fr 280px; }
+      .annotation-panel { position: static; }
+      .panel { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="draft-ribbon">Draft page design · ODRL Agreement presentation profile · not a production implementation</div>
+
+  <header class="site-header">
+    <a href="https://indigenousdatacommons.org" aria-label="Indigenous Data Commons home">
+      <img src="../../public/img/idc-logo.png" alt="Indigenous Data Commons">
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#">About</a>
+      <a href="#">Indigenous Data Network</a>
+      <a href="#">Services</a>
+      <a href="#">Projects</a>
+      <a href="#">News</a>
+    </nav>
+  </header>
+
+  <nav class="product-nav" aria-label="Catalogue navigation">
+    <a href="#">Home</a>
+    <a href="#" aria-current="page">Catalogue</a>
+    <a href="#">Vocabularies</a>
+    <a href="#">SPARQL</a>
+    <a href="#">About</a>
+  </nav>
+
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Agreement</p>
+        <h1 id="page-title">Telstra Ngaanyatjarra ILUA — demonstration ODRL Agreement</h1>
+      </div>
+      <label class="profile-control">
+        <span>Presentation profile</span>
+        <select aria-label="Presentation profile">
+          <option selected>ODRL Agreement presentation profile</option>
+          <option>Default object profile</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Demonstration catalogue</a> <span aria-hidden="true">/</span> Agreement
+    </nav>
+
+    <div class="layout">
+      <div class="content-column">
+        <section class="panel identity" aria-label="Resource identity">
+          <div class="identity-grid">
+            <span class="badge">IRI</span>
+            <div class="iri-line">
+              <a href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua</a>
+              <button class="copy-button" type="button" data-copy="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua" aria-label="Copy agreement IRI" title="Copy IRI">⧉</button>
+            </div>
+
+            <span class="badge">Type</span>
+            <div class="type-list">
+              <a href="http://www.w3.org/ns/odrl/2/Agreement">Agreement</a>
+              <a href="http://www.w3.org/ns/dcat#Resource">Catalogued resource</a>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="agreement-details-heading">
+          <h2 class="section-heading" id="agreement-details-heading">Agreement details</h2>
+
+          <div class="panel agreement-details">
+            <div class="description-block">
+              <div class="description-label"><span class="badge">Description</span></div>
+              <div class="description-copy">
+                <p>A demonstration ODRL interpretation of the Telstra Ngaanyatjarra Indigenous Land Use Agreement. It uses public ATNS and IDN reference data to demonstrate navigation between an agreement record, a policy expression, signatory parties and the registered agreement area. It is not an authoritative transcription of the legal agreement.</p>
+              </div>
+            </div>
+
+            <dl class="metadata-fields">
+              <div class="field">
+                <dt>Created</dt>
+                <dd><time class="literal-value" datetime="2026-07-30">30 July 2026</time></dd>
+              </div>
+
+              <div class="field">
+                <dt>Modified</dt>
+                <dd><time class="literal-value" datetime="2026-08-13">13 August 2026</time></dd>
+              </div>
+
+              <div class="field">
+                <dt>Source</dt>
+                <dd class="value-list">
+                  <a class="value-link" href="https://data.idnau.org/pid/resource/dd9b004b-1c22-5b53-8381-bd93760ee922">
+                    <span><strong>Telstra Ngaanyatjarra Indigenous Land Use Agreement (ILUA)</strong><small>ATNS entity record</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>Conditions of access</dt>
+                <dd><span class="literal-value">Public</span></dd>
+              </div>
+
+              <div class="field">
+                <dt>Conforms to</dt>
+                <dd>
+                  <a class="value-link" href="https://www.w3.org/TR/odrl-model/">
+                    <span><strong>ODRL Information Model 2.2</strong><small>W3C Recommendation</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>ODRL UID</dt>
+                <dd><a href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua</a></dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section aria-labelledby="permissions-heading">
+          <h2 class="section-heading" id="permissions-heading">Permission</h2>
+
+          <article class="panel permission-card">
+            <header class="permission-header">
+              <div class="permission-icon" aria-hidden="true">P</div>
+              <div class="permission-title">
+                <span class="badge">Permission</span>
+                <h2>Use of the Telstra Ngaanyatjarra ILUA agreement area</h2>
+                <a class="resource-link" href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-permission-access">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-permission-access</a>
+              </div>
+            </header>
+
+            <dl class="permission-fields">
+              <div class="field">
+                <dt>Action</dt>
+                <dd>
+                  <a class="value-link" href="http://www.w3.org/ns/odrl/2/use">
+                    <span><strong>Use</strong><small>odrl:use</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>Assigner</dt>
+                <dd>
+                  <a class="value-link" href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-party-ngaanyatjarra-signatories">
+                    <span><strong>Ngaanyatjarra signatory parties</strong><small>ODRL Party Collection</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>Assignee</dt>
+                <dd>
+                  <a class="value-link" href="https://data.idnau.org/pid/resource/9c0487c1-a143-57e0-874f-d3566a1b71e3">
+                    <span><strong>Telstra Corporation Limited</strong><small>ODRL Party · ATNS entity</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>Target</dt>
+                <dd class="target-value">
+                  <a class="value-link" href="https://data.idnau.org/pid/nntt/WI2004-006">
+                    <span><strong>Telstra Ngaanyatjarra ILUA</strong><small>Registered agreement area · WI2004-006</small></span>
+                    <span class="external" aria-hidden="true">↗</span>
+                  </a>
+
+                  <div class="target-actions">
+                    <button class="map-toggle" type="button" aria-expanded="false" aria-controls="target-map-wi2004-006" data-map-toggle>
+                      <span aria-hidden="true">⌖</span> Show map
+                    </button>
+                    <a class="detail-link" href="https://data.idnau.org/pid/nntt/WI2004-006">View full feature details →</a>
+                  </div>
+
+                  <figure class="target-map" id="target-map-wi2004-006" hidden>
+                    <div class="map-canvas" role="img" aria-label="Map preview of the Telstra Ngaanyatjarra ILUA registered agreement area">
+                      <span class="map-label">WI2004-006</span>
+                    </div>
+                    <figcaption class="map-caption">
+                      <span>Geometry loaded on demand from the target feature</span>
+                      <span>Design placeholder</span>
+                    </figcaption>
+                  </figure>
+                </dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+
+        <aside class="scope-note">
+          <strong>Profile reach:</strong> all direct Agreement properties are available through <code>shext:allPredicateValues</code>. The profile follows selected paths into each Permission but stops at the Target IRI. For a spatial Target, the page may fetch its feature representation and geometry on demand; the geometry is not copied into the Agreement response.
+        </aside>
+      </div>
+
+      <aside class="panel annotation-panel" aria-labelledby="anatomy-heading">
+        <header>
+          <h2 id="anatomy-heading">Page anatomy</h2>
+          <p>Design notes only — not part of the production page.</p>
+        </header>
+        <ol>
+          <li><div><strong>Hero title</strong>Use `dcterms:title`, falling back to `schema:name`. The profile selector remains visible in the hero.</div></li>
+          <li><div><strong>Resource identity</strong>Show the agreement IRI, copy control and RDF types before policy details.</div></li>
+          <li><div><strong>Agreement metadata</strong>Present description first, followed by all other direct properties made available by `shext:allPredicateValues`.</div></li>
+          <li><div><strong>Permission grouping</strong>Render each named `odrl:Permission` as a separate card rather than flattening nested predicates into one table.</div></li>
+          <li><div><strong>Permission identity</strong>Use the permission’s title/name as the card heading, with its IRI and type immediately beneath or beside it.</div></li>
+          <li><div><strong>Rule order</strong>Use Action → Assigner → Assignee → Target as the intended presentation order; the profile selects these paths but does not guarantee their visual order.</div></li>
+          <li><div><strong>Spatial target preview</strong>Keep the map inside the Target field. Fetch geometry only after the user requests it and only when the linked Target is a spatial feature. Always retain a link to the full feature page.</div></li>
+          <li><div><strong>Linked values</strong>Prefer resolved labels; retain a compact type or identifier hint so similarly named resources remain distinguishable.</div></li>
+        </ol>
+        <p class="annotation-note">If multiple permissions are returned, repeat the card for each one. Missing optional values should remove the row rather than leave an empty placeholder. Non-spatial Targets retain the ordinary linked-resource treatment and do not show a map control.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    Static design mockup for review · Indigenous Data Network · ODRL Agreement presentation profile
+  </footer>
+
+  <script>
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          const original = button.textContent;
+          button.textContent = "✓";
+          button.setAttribute("aria-label", "IRI copied");
+          window.setTimeout(() => {
+            button.textContent = original;
+            button.setAttribute("aria-label", "Copy agreement IRI");
+          }, 1400);
+        } catch {
+          button.title = "Copy unavailable in this preview";
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-map-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const map = document.getElementById(button.getAttribute("aria-controls"));
+        const opening = button.getAttribute("aria-expanded") === "false";
+        button.setAttribute("aria-expanded", String(opening));
+        map.hidden = !opening;
+        button.innerHTML = opening
+          ? '<span aria-hidden="true">×</span> Hide map'
+          : '<span aria-hidden="true">⌖</span> Show map';
+      });
+    });
+  </script>
+</body>
+</html>
