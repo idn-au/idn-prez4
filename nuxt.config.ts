@@ -10,9 +10,6 @@ export default defineNuxtConfig({
     ],
     vite: {
         plugins: [tailwindcss()],
-        optimizeDeps: {
-            include: ["@triply/yasgui"]
-        },
         vue: {
             template: {
                 compilerOptions: {

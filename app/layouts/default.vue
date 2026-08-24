@@ -54,14 +54,19 @@ const showDebugPanel = ref(false);
 		    <div class="min-h-[300px] py-0 px-2 flex flex-col justify-end bg-cover bg-no-repeat bg-center relative mb-6" :style="{backgroundImage: `url(${defaultImage})`}">
 <!--			    <IDCLogo class="fill-isu-yellow absolute h-[750px] w-auto -top-[50px] right-0 opacity-30 dark:opacity-10 saturate-10 brightness-140 -z-1" />-->
 			    <div class="mx-auto max-w-[1400px] w-full flex flex-row items-end">
-				    <h1 class="text-white text-5xl mt-6 mb-10.5"><slot name="header-text" /></h1>
-<!--				    <p class="text-white font-bold my-5"><slot name="description" /></p>-->
+				    <div class="flex flex-col">
+					    <h1 class="text-white text-5xl mt-6 mb-10.5"><slot name="header-text" /></h1>
+					    <!--				    <p class="text-white font-bold my-5"><slot name="description" /></p>-->
+				    </div>
 				    <div class="self-end ml-auto mb-4">
 					    <slot name="profiles" />
 				    </div>
 			    </div>
 		    </div>
 		    <div class="mx-auto px-2 max-w-[1400px]">
+			    <div class="mb-6">
+				    <slot name="breadcrumb" />
+			    </div>
 			    <slot />
 		    </div>
 	    </main>
@@ -152,6 +157,6 @@ footer {
 	background-position-x: right;
 	background-position-y: top;
 	background-blend-mode: lighten;
-	//background-blend-mode: luminosity;
+	/* background-blend-mode: luminosity; */
 }
 </style>

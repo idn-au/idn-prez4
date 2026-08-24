@@ -279,9 +279,6 @@ function handleResultMapFocus(iri: string) {
 			</div>
 			<div class="sticky top-[calc(52px+36px)] flex-1">
 				<Map v-model="formData.within" :features="features" :loading="status === 'pending'" ref="map" />
-<!--				<pre class="flex-1 whitespace-pre-wrap">{{countQuery}}</pre>-->
-<!--				<hr class="my-4 border-2">-->
-<!--				<pre class="flex-1 whitespace-pre-wrap">{{listQuery}}</pre>-->
 			</div>
 		</div>
 		<div v-if="data.count > 0">
