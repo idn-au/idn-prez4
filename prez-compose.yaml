@@ -18,6 +18,7 @@ services:
       OTHER_PREDICATES: '["https://schema.org/color","https://schema.org/status"]'
       ORDER_LISTS_BY_LABEL: true
       SEARCH_METHOD: fts_fuseki
+      DISABLE_PREFIX_GENERATION: true
     networks:
       - network
 
