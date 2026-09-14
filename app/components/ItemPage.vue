@@ -49,6 +49,64 @@ const geomPredicates = [
     "http://www.opengis.net/ont/geosparql#hasBoundingBox",
 ];
 
+const SCHEMA_CREATIVE_WORK = "https://schema.org/CreativeWork";
+const SCHEMA_SPATIAL_COVERAGE = "https://schema.org/spatialCoverage";
+const SCHEMA_NAME = "https://schema.org/name";
+const GEO_AS_WKT = "http://www.opengis.net/ont/geosparql#asWKT";
+
+const isCreativeWork = computed(() =>
+    data.value?.data.rdfTypes?.some(type => type.value === SCHEMA_CREATIVE_WORK),
+);
+
+function termProperties(term: any) {
+    return {
+        ...(data.value?.store.getProperties(term) || {}),
+        ...(term?.properties || {}),
+    };
+}
+
+function nestedGeometryWkt(feature: any): string | undefined {
+    const featureProperties = termProperties(feature);
+    for (const predicate of geomPredicates) {
+        const geometries = featureProperties[predicate]?.objects || [];
+        for (const geometry of geometries) {
+            const wkt = termProperties(geometry)[GEO_AS_WKT]?.objects?.[0]?.value;
+            if (wkt) return wkt;
+        }
+    }
+    return undefined;
+}
+
+const relatedSpatialFeatures = computed(() => {
+    const features = data.value?.data.properties?.[SCHEMA_SPATIAL_COVERAGE]?.objects || [];
+    return features.map((term: any) => {
+        const properties = termProperties(term);
+        return {
+            term,
+            iri: term.value,
+            name: term.label?.value || properties[SCHEMA_NAME]?.objects?.[0]?.value || term.value,
+            wkt: nestedGeometryWkt(term),
+            detailUrl: term.links?.[0]?.value,
+        };
+    });
+});
+
+const spatialCoverageLayers = computed(() => [{
+    type: "FeatureCollection",
+    title: "Agreement area",
+    features: relatedSpatialFeatures.value
+        .filter(feature => feature.wkt)
+        .map(feature => ({
+            type: "Feature",
+            id: feature.iri,
+            wkt: feature.wkt,
+            name: feature.name,
+            data: { iri: feature.iri },
+        })),
+}]);
+
+const spatialMapSection = ref<string>();
+
 const geomLayers = computed(() => {
     const layers = [];
     if (data.value?.data.properties) {
@@ -182,6 +240,46 @@ const navigateToUri = (uri?: string) => {
                                         fitAddedLayersToExtent
                                     />
                                 </div>
+                                <Accordion
+                                    v-if="isCreativeWork && relatedSpatialFeatures.length > 0"
+                                    v-model="spatialMapSection"
+                                    type="single"
+                                    collapsible
+                                    class="mt-6 rounded-md border"
+                                >
+                                    <AccordionItem value="spatial-coverage-map" class="border-0">
+                                        <AccordionTrigger class="px-4 py-3">
+                                            Agreement area map
+                                        </AccordionTrigger>
+                                        <AccordionContent class="border-t px-4 pb-4 pt-3">
+                                            <div class="mb-3 flex flex-col gap-2">
+                                                <div
+                                                    v-for="feature in relatedSpatialFeatures"
+                                                    :key="feature.iri"
+                                                    class="flex flex-wrap items-baseline justify-between gap-2"
+                                                >
+                                                    <strong>{{ feature.name }}</strong>
+                                                    <ItemLink v-if="feature.detailUrl" :to="feature.detailUrl">
+                                                        See full details
+                                                    </ItemLink>
+                                                </div>
+                                            </div>
+                                            <div
+                                                v-if="spatialMapSection === 'spatial-coverage-map' && spatialCoverageLayers[0].features.length > 0"
+                                                class="h-[500px] overflow-hidden rounded-md border"
+                                            >
+                                                <Map
+                                                    :layers="spatialCoverageLayers"
+                                                    :animationDuration="1000"
+                                                    fitAddedLayersToExtent
+                                                />
+                                            </div>
+                                            <p v-else class="text-sm text-muted-foreground">
+                                                Map geometry is not available from this catalogue.
+                                            </p>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
                             </slot>
 
 	                        <div class="ontology-widget" v-if="isOntology">
