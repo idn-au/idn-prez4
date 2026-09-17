@@ -1,9 +1,11 @@
 PREFIX altr-ext: <http://www.w3.org/ns/dx/connegp/altr-ext#>
+PREFIX atns: <https://linked.data.gov.au/def/atns/model/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
 PREFIX prez: <https://prez.dev/>
 PREFIX prof: <http://www.w3.org/ns/dx/prof/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
@@ -51,6 +53,11 @@ prez:ProfilesGraph {
                 a sh:NodeShape ;
                 sh:targetClass odrl:Agreement ;
                 altr-ext:hasDefaultProfile prez:odrl-agreement ;
+            ] ,
+            [
+                a sh:NodeShape ;
+                sh:targetClass atns:Entity ;
+                altr-ext:hasDefaultProfile prez:AtnsEntityProfile ;
             ] ,
             [
                 a sh:NodeShape ;
@@ -196,6 +203,49 @@ prez:ProfilesGraph {
                     ( odrl:permission odrl:assigner )
                     ( odrl:permission odrl:assignee )
                     ( odrl:permission odrl:target )
+                )
+            ]
+        ] ;
+    .
+
+    prez:AtnsEntityProfile
+        a prof:Profile , prez:ObjectProfile ;
+        dcterms:identifier "atns-entity"^^xsd:token ;
+        dcterms:title "ATNS Entity presentation profile"@en ;
+        dcterms:description "Presents an ATNS entity with its descriptive metadata, references, relationships, reviewed attributions and spatial coverage. A linked spatial feature's name and geometry are requested for an on-demand map without treating the feature as an ODRL target."@en ;
+        altr-ext:constrainsClass atns:Entity ;
+        altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+        altr-ext:hasResourceFormat
+            "application/anot+ld+json" ,
+            "application/ld+json" ,
+            "text/anot+turtle" ,
+            "text/turtle" ;
+        sh:property [
+            sh:path [
+                sh:union (
+                    shext:allPredicateValues
+                    ( schema:spatialCoverage rdf:type )
+                    ( schema:spatialCoverage schema:name )
+                    ( schema:spatialCoverage schema:description )
+                    ( schema:spatialCoverage geo:hasGeometry )
+                    ( schema:spatialCoverage geo:hasGeometry geo:asWKT )
+                    ( schema:spatialCoverage geo:hasBoundingBox )
+                    ( schema:spatialCoverage geo:hasBoundingBox geo:asWKT )
+                    ( prov:qualifiedAttribution rdf:type )
+                    ( prov:qualifiedAttribution schema:agent )
+                    ( prov:qualifiedAttribution schema:roleName )
+                    ( prov:qualifiedAttribution schema:agent rdf:type )
+                    ( prov:qualifiedAttribution schema:agent schema:name )
+                    ( dcterms:references rdf:type )
+                    ( dcterms:references atns:referenceType )
+                    ( dcterms:references schema:name )
+                    ( dcterms:references schema:url )
+                    ( [ sh:inversePath atns:subjectEntity ] rdf:type )
+                    ( [ sh:inversePath atns:subjectEntity ] atns:relationshipType )
+                    ( [ sh:inversePath atns:subjectEntity ] atns:objectEntity )
+                    ( [ sh:inversePath atns:objectEntity ] rdf:type )
+                    ( [ sh:inversePath atns:objectEntity ] atns:relationshipType )
+                    ( [ sh:inversePath atns:objectEntity ] atns:subjectEntity )
                 )
             ]
         ] ;
