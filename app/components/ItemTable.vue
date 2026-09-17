@@ -13,6 +13,7 @@ const hiddenPredicates = [
     "http://www.w3.org/2004/02/skos/core#prefLabel",
     "http://purl.org/dc/terms/title",
     "http://www.w3.org/2000/01/rdf-schema#label",
+	"https://olis.dev/includes",
 ];
 
 const descPredicates = [

@@ -280,7 +280,9 @@ const navigateToUri = (uri?: string) => {
 		                        </div>
 	                        </slot>
 
-                            <slot name="item-bottom" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
+                            <slot name="item-bottom" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
+	                            <StandaloneMembersList v-if="data.data.members" :membersUrl="data.data.members.value" />
+                            </slot>
                         </slot>
                     </div>
                 </div>
