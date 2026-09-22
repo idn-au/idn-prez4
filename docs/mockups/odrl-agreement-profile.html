@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Draft IDN Prez page design for the ODRL Agreement presentation profile.">
-  <title>ODRL Agreement profile — page design mockup</title>
+  <meta name="description" content="Future-state IDN Prez page design for a combined ATNS CreativeWork and ODRL Agreement.">
+  <title>Combined ATNS and ODRL Agreement — page design mockup</title>
   <style>
     :root {
       --isu-red: hsl(4.55 58.23% 48.82%);
@@ -228,6 +228,15 @@
     .section-heading::after { content: ""; height: 1px; flex: 1; background: var(--border); }
 
     .permission-card { overflow: hidden; }
+    .policy-boundary {
+      padding: 1rem 1.2rem;
+      background: color-mix(in srgb, var(--isu-blue) 7%, white);
+      border-left: 4px solid var(--isu-blue);
+      border-radius: 0.35rem;
+      font-size: 0.84rem;
+    }
+    .policy-boundary strong { color: var(--isu-blue); }
+    .status-badge { background: color-mix(in srgb, var(--isu-yellow) 20%, white); }
     .permission-header {
       display: flex;
       align-items: flex-start;
@@ -442,7 +451,7 @@
   </style>
 </head>
 <body>
-  <div class="draft-ribbon">Draft page design · ODRL Agreement presentation profile · not a production implementation</div>
+  <div class="draft-ribbon">Future-state design · one ATNS CreativeWork and ODRL Agreement resource · not yet implemented</div>
 
   <header class="site-header">
     <a href="https://indigenousdatacommons.org" aria-label="Indigenous Data Commons home">
@@ -468,13 +477,13 @@
   <section class="hero" aria-labelledby="page-title">
     <div class="hero-inner">
       <div>
-        <p class="eyebrow">Agreement</p>
-        <h1 id="page-title">Telstra Ngaanyatjarra ILUA — demonstration ODRL Agreement</h1>
+        <p class="eyebrow">ATNS agreement record · proposed ODRL enrichment</p>
+        <h1 id="page-title">Wickham Motorcross Indigenous Land Use Agreement (ILUA)</h1>
       </div>
       <label class="profile-control">
         <span>Presentation profile</span>
         <select aria-label="Presentation profile">
-          <option selected>ODRL Agreement presentation profile</option>
+          <option selected>Combined ATNS and ODRL presentation profile (proposed)</option>
           <option>Default object profile</option>
         </select>
       </label>
@@ -483,7 +492,7 @@
 
   <main class="page-shell">
     <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="#">Demonstration catalogue</a> <span aria-hidden="true">/</span> Agreement
+      <a href="#">ATNS dataset</a> <span aria-hidden="true">/</span> Wickham Motorcross ILUA
     </nav>
 
     <div class="layout">
@@ -492,45 +501,51 @@
           <div class="identity-grid">
             <span class="badge">IRI</span>
             <div class="iri-line">
-              <a href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua</a>
-              <button class="copy-button" type="button" data-copy="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua" aria-label="Copy agreement IRI" title="Copy IRI">⧉</button>
+              <a href="https://data.idnau.org/pid/resource/00129161-6f7d-5a0c-b270-2238ccaf75e5">https://data.idnau.org/pid/resource/00129161-6f7d-5a0c-b270-2238ccaf75e5</a>
+              <button class="copy-button" type="button" data-copy="https://data.idnau.org/pid/resource/00129161-6f7d-5a0c-b270-2238ccaf75e5" aria-label="Copy record IRI" title="Copy IRI">⧉</button>
             </div>
 
             <span class="badge">Type</span>
             <div class="type-list">
-              <a href="http://www.w3.org/ns/odrl/2/Agreement">Agreement</a>
-              <a href="http://www.w3.org/ns/dcat#Resource">Catalogued resource</a>
+              <a href="https://schema.org/CreativeWork">Creative work</a>
+              <a href="https://linked.data.gov.au/def/atns/model/Entity">ATNS entity</a>
+              <a href="http://www.w3.org/ns/odrl/2/Agreement">ODRL Agreement (proposed)</a>
+            </div>
+
+            <span class="badge">Additional type</span>
+            <div class="type-list">
+              <span>Agreement (IDN catalogue object type)</span>
             </div>
           </div>
         </section>
 
         <section aria-labelledby="agreement-details-heading">
-          <h2 class="section-heading" id="agreement-details-heading">Agreement details</h2>
+          <h2 class="section-heading" id="agreement-details-heading">ATNS record</h2>
 
           <div class="panel agreement-details">
             <div class="description-block">
               <div class="description-label"><span class="badge">Description</span></div>
               <div class="description-copy">
-                <p>A demonstration ODRL interpretation of the Telstra Ngaanyatjarra Indigenous Land Use Agreement. It uses public ATNS and IDN reference data to demonstrate navigation between an agreement record, a policy expression, signatory parties and the registered agreement area. It is not an authoritative transcription of the legal agreement.</p>
+                <p>The Wickham Motorcross Indigenous Land Use Agreement (ILUA) is a body corporate agreement involving the Minister for Lands, Ngarluma Aboriginal Corporation and the Shire of Roebourne. The agreement concerns a reserve south of Wickham for a motorcross track. This is an abridged display of the preserved public ATNS description; the source record and full body text remain available.</p>
               </div>
             </div>
 
             <dl class="metadata-fields">
               <div class="field">
-                <dt>Created</dt>
-                <dd><time class="literal-value" datetime="2026-07-30">30 July 2026</time></dd>
+                <dt>ATNS source ID</dt>
+                <dd><span class="literal-value">5618</span></dd>
               </div>
 
               <div class="field">
-                <dt>Modified</dt>
-                <dd><time class="literal-value" datetime="2026-08-13">13 August 2026</time></dd>
+                <dt>Agreement classification</dt>
+                <dd><span class="literal-value">Agreement · IDN catalogue object type</span></dd>
               </div>
 
               <div class="field">
-                <dt>Source</dt>
+                <dt>Spatial coverage</dt>
                 <dd class="value-list">
-                  <a class="value-link" href="https://data.idnau.org/pid/resource/dd9b004b-1c22-5b53-8381-bd93760ee922">
-                    <span><strong>Telstra Ngaanyatjarra Indigenous Land Use Agreement (ILUA)</strong><small>ATNS entity record</small></span>
+                  <a class="value-link" href="https://data.idnau.org/pid/nntt/WI2011-008">
+                    <span><strong>Wickham Motorcross ILUA area</strong><small>NNTT spatial feature · WI2011-008</small></span>
                     <span class="external" aria-hidden="true">↗</span>
                   </a>
                 </dd>
@@ -541,34 +556,23 @@
                 <dd><span class="literal-value">Public</span></dd>
               </div>
 
-              <div class="field">
-                <dt>Conforms to</dt>
-                <dd>
-                  <a class="value-link" href="https://www.w3.org/TR/odrl-model/">
-                    <span><strong>ODRL Information Model 2.2</strong><small>W3C Recommendation</small></span>
-                    <span class="external" aria-hidden="true">↗</span>
-                  </a>
-                </dd>
-              </div>
-
-              <div class="field">
-                <dt>ODRL UID</dt>
-                <dd><a href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua</a></dd>
-              </div>
+              <div class="field"><dt>References and relationships</dt><dd>Linked ATNS references, reviewed party attributions and related entities would follow the preserved record presentation. They are not replaced by the ODRL interpretation below.</dd></div>
             </dl>
           </div>
         </section>
 
         <section aria-labelledby="permissions-heading">
-          <h2 class="section-heading" id="permissions-heading">Permission</h2>
+          <h2 class="section-heading" id="permissions-heading">ODRL interpretation</h2>
+
+          <p class="policy-boundary"><strong>Proposed enrichment, not recovered ATNS data.</strong> This section illustrates what a reviewed, machine-readable ODRL layer could look like on the <em>same record IRI</em>. It is not an authoritative transcription of the operative ILUA. The root title and description above remain the record’s only canonical title and description. Do not add the ODRL type or rule until evidence, parties and target have passed review.</p>
 
           <article class="panel permission-card">
             <header class="permission-header">
-              <div class="permission-icon" aria-hidden="true">P</div>
+              <div class="permission-icon" aria-hidden="true">D</div>
               <div class="permission-title">
-                <span class="badge">Permission</span>
-                <h2>Use of the Telstra Ngaanyatjarra ILUA agreement area</h2>
-                <a class="resource-link" href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-permission-access">https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-permission-access</a>
+                <span class="badge status-badge">Proposed standalone obligation · odrl:Duty</span>
+                <h2>Mutual obligation to fulfil the agreement</h2>
+                <span class="resource-link">Illustrative rule IRI: https://data.idnau.org/pid/resource/wickham-motorcross-mutual-obligation</span>
               </div>
             </header>
 
@@ -576,54 +580,54 @@
               <div class="field">
                 <dt>Action</dt>
                 <dd>
-                  <a class="value-link" href="http://www.w3.org/ns/odrl/2/use">
-                    <span><strong>Use</strong><small>odrl:use</small></span>
-                    <span class="external" aria-hidden="true">↗</span>
-                  </a>
+                  <span class="value-link"><span><strong>Fulfil agreement commitments</strong><small>Proposed, unpublished action concept · https://example.org/odrl/action/fulfil-agreement-commitments</small></span></span>
                 </dd>
               </div>
 
               <div class="field">
                 <dt>Assigner</dt>
                 <dd>
-                  <a class="value-link" href="https://data.idnau.org/pid/policy/telstra-ngaanyatjarra-ilua-party-ngaanyatjarra-signatories">
-                    <span><strong>Ngaanyatjarra signatory parties</strong><small>ODRL Party Collection</small></span>
-                    <span class="external" aria-hidden="true">↗</span>
-                  </a>
+                  <span><strong>Identified Wickham Motorcross ILUA signatories</strong><small>Provisional ODRL Party Collection; member list requires reconciliation with public text.</small></span>
                 </dd>
               </div>
 
               <div class="field">
                 <dt>Assignee</dt>
                 <dd>
-                  <a class="value-link" href="https://data.idnau.org/pid/resource/9c0487c1-a143-57e0-874f-d3566a1b71e3">
-                    <span><strong>Telstra Corporation Limited</strong><small>ODRL Party · ATNS entity</small></span>
-                    <span class="external" aria-hidden="true">↗</span>
-                  </a>
+                  <span><strong>Same provisional Party Collection</strong><small>Reciprocal-role hypothesis, not a claim that every member assigns every action to every other member.</small></span>
+                </dd>
+              </div>
+
+              <div class="field">
+                <dt>Known members</dt>
+                <dd class="value-list">
+                  <span><strong>Ngarluma Aboriginal Corporation RNTBC</strong><small>ODRL Party · schema:Organization</small></span>
+                  <span><strong>State of Western Australia</strong><small>ODRL Party · schema:Organization</small></span>
+                  <small>Public text names further participants; this is not a complete legal party list.</small>
                 </dd>
               </div>
 
               <div class="field">
                 <dt>Target</dt>
                 <dd class="target-value">
-                  <a class="value-link" href="https://data.idnau.org/pid/nntt/WI2004-006">
-                    <span><strong>Telstra Ngaanyatjarra ILUA</strong><small>Registered agreement area · WI2004-006</small></span>
+                  <a class="value-link" href="https://data.idnau.org/pid/nntt/WI2011-008">
+                    <span><strong>Wickham Motorcross ILUA area</strong><small>Proposed governed Asset · geo:Feature / odrl:Asset · WI2011-008</small></span>
                     <span class="external" aria-hidden="true">↗</span>
                   </a>
 
                   <div class="target-actions">
-                    <button class="map-toggle" type="button" aria-expanded="false" aria-controls="target-map-wi2004-006" data-map-toggle>
+                    <button class="map-toggle" type="button" aria-expanded="false" aria-controls="target-map-wi2011-008" data-map-toggle>
                       <span aria-hidden="true">⌖</span> Show map
                     </button>
-                    <a class="detail-link" href="https://data.idnau.org/pid/nntt/WI2004-006">View full feature details →</a>
+                    <a class="detail-link" href="https://data.idnau.org/pid/nntt/WI2011-008">View full feature details →</a>
                   </div>
 
-                  <figure class="target-map" id="target-map-wi2004-006" hidden>
-                    <div class="map-canvas" role="img" aria-label="Map preview of the Telstra Ngaanyatjarra ILUA registered agreement area">
-                      <span class="map-label">WI2004-006</span>
+                  <figure class="target-map" id="target-map-wi2011-008" hidden>
+                    <div class="map-canvas" role="img" aria-label="Illustrative map preview of the Wickham Motorcross ILUA area">
+                      <span class="map-label">WI2011-008</span>
                     </div>
                     <figcaption class="map-caption">
-                      <span>Geometry loaded on demand from the target feature</span>
+                      <span>Geometry requested on demand from the linked feature; preview is illustrative</span>
                       <span>Design placeholder</span>
                     </figcaption>
                   </figure>
@@ -633,9 +637,7 @@
           </article>
         </section>
 
-        <aside class="scope-note">
-          <strong>Profile reach:</strong> all direct Agreement properties are available through <code>shext:allPredicateValues</code>. The profile follows selected paths into each Permission but stops at the Target IRI. For a spatial Target, the page may fetch its feature representation and geometry on demand; the geometry is not copied into the Agreement response.
-        </aside>
+        <aside class="scope-note"><strong>Two distinct links to one place:</strong> <code>schema:spatialCoverage</code> says the CreativeWork concerns this area. The proposed <code>odrl:target</code> says this specific Duty governs the Asset. Retain the first independently; assert the second only if review supports that stronger meaning. A combined Prez profile would return common root metadata and selected nested Rules, parties and action labels. The map remains on demand.</aside>
       </div>
 
       <aside class="panel annotation-panel" aria-labelledby="anatomy-heading">
@@ -644,22 +646,22 @@
           <p>Design notes only — not part of the production page.</p>
         </header>
         <ol>
-          <li><div><strong>Hero title</strong>Use `dcterms:title`, falling back to `schema:name`. The profile selector remains visible in the hero.</div></li>
-          <li><div><strong>Resource identity</strong>Show the agreement IRI, copy control and RDF types before policy details.</div></li>
-          <li><div><strong>Agreement metadata</strong>Present description first, followed by all other direct properties made available by `shext:allPredicateValues`.</div></li>
-          <li><div><strong>Permission grouping</strong>Render each named `odrl:Permission` as a separate card rather than flattening nested predicates into one table.</div></li>
-          <li><div><strong>Permission identity</strong>Use the permission’s title/name as the card heading, with its IRI and type immediately beneath or beside it.</div></li>
-          <li><div><strong>Rule order</strong>Use Action → Assigner → Assignee → Target as the intended presentation order; the profile selects these paths but does not guarantee their visual order.</div></li>
-          <li><div><strong>Spatial target preview</strong>Keep the map inside the Target field. Fetch geometry only after the user requests it and only when the linked Target is a spatial feature. Always retain a link to the full feature page.</div></li>
-          <li><div><strong>Linked values</strong>Prefer resolved labels; retain a compact type or identifier hint so similarly named resources remain distinguishable.</div></li>
+          <li><div><strong>One identity</strong>The preserved ATNS resource IRI remains the only root IRI. No second policy page, duplicate root title, or redundant <code>odrl:uid</code> is introduced.</div></li>
+          <li><div><strong>Two RDF types</strong>Show <code>schema:CreativeWork</code> and <code>odrl:Agreement</code> together only after ODRL enrichment passes its publication gate; retain <code>atns:Entity</code> and the soft Agreement type.</div></li>
+          <li><div><strong>Preserved record first</strong>Present the canonical <code>schema:name</code>, <code>schema:description</code>, source identifier, access status, references and relationships without implying they came from ODRL.</div></li>
+          <li><div><strong>Interpretation boundary</strong>Place reviewed ODRL statements in a visually separate, clearly qualified card. Provenance and review status must distinguish them from recovered source assertions.</div></li>
+          <li><div><strong>Rules, not just Permissions</strong>Render each <code>odrl:permission</code>, <code>odrl:prohibition</code> or standalone <code>odrl:obligation</code> as its own named card. A Duty nested under a Permission has a different meaning.</div></li>
+          <li><div><strong>Reciprocal roles</strong>When justified, display one Party Collection as both assigner and assignee, with its reviewed members and an incompleteness warning. Prefer directional Rules where clause-level direction is known.</div></li>
+          <li><div><strong>Spatial distinction</strong>Show the CreativeWork’s <code>schema:spatialCoverage</code> independently of a Rule’s <code>odrl:target</code>. Fetch a map on demand and keep a link to the full feature record.</div></li>
+          <li><div><strong>Profile work remains</strong>This mockup is not the deployed Prez profile. A future combined-resource profile must select nested Rules, Action labels, Parties and Targets; Prez profile precedence for the multiple RDF types needs testing.</div></li>
         </ol>
-        <p class="annotation-note">If multiple permissions are returned, repeat the card for each one. Missing optional values should remove the row rather than leave an empty placeholder. Non-spatial Targets retain the ordinary linked-resource treatment and do not show a map control.</p>
+        <p class="annotation-note">Illustrative rule and Party Collection IRIs are placeholders, not published resources. The proposed action vocabulary under example.org is also unpublished. If evidence does not support an ODRL Rule, omit the entire ODRL section and do not type the record as an ODRL Agreement. Missing optional values should remove the row; non-spatial Targets remain ordinary links.</p>
       </aside>
     </div>
   </main>
 
   <footer>
-    Static design mockup for review · Indigenous Data Network · ODRL Agreement presentation profile
+    Static future-state design mockup for review · Indigenous Data Network · combined ATNS / ODRL resource
   </footer>
 
   <script>

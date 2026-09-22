@@ -52,7 +52,7 @@ prez:ProfilesGraph {
             [
                 a sh:NodeShape ;
                 sh:targetClass odrl:Agreement ;
-                altr-ext:hasDefaultProfile prez:odrl-agreement ;
+                altr-ext:hasDefaultProfile prez:OdrlAgreementProfile ;
             ] ,
             [
                 a sh:NodeShape ;
@@ -177,42 +177,13 @@ prez:ProfilesGraph {
         ] ;
     .
 
-    prez:odrl-agreement
-        a prof:Profile , prez:ObjectProfile ;
-        dcterms:identifier "odrl-agreement"^^xsd:token ;
-        dcterms:title "ODRL Agreement presentation profile"@en ;
-        dcterms:description "Presents an ODRL Agreement with its named Permission rules and their actions, parties and targets."@en ;
-        altr-ext:constrainsClass odrl:Agreement ;
-        altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
-        altr-ext:hasResourceFormat
-            "application/anot+ld+json" ,
-            "application/ld+json" ,
-            "text/anot+turtle" ,
-            "text/turtle" ;
-        sh:property [
-            sh:path [
-                sh:union (
-                    rdf:type
-                    dcterms:title
-                    schema:name
-                    odrl:permission
-                    ( odrl:permission rdf:type )
-                    ( odrl:permission dcterms:title )
-                    ( odrl:permission schema:name )
-                    ( odrl:permission odrl:action )
-                    ( odrl:permission odrl:assigner )
-                    ( odrl:permission odrl:assignee )
-                    ( odrl:permission odrl:target )
-                )
-            ]
-        ] ;
-    .
-
+    # Canonical deployed ATNS profile. The copy in atns-preservation is a local
+    # test mirror and should be resynchronised from this definition after edits.
     prez:AtnsEntityProfile
-        a prof:Profile , prez:ObjectProfile ;
+        a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
         dcterms:identifier "atns-entity"^^xsd:token ;
         dcterms:title "ATNS Entity presentation profile"@en ;
-        dcterms:description "Presents an ATNS entity with its descriptive metadata, references, relationships, reviewed attributions and spatial coverage. A linked spatial feature's name and geometry are requested for an on-demand map without treating the feature as an ODRL target."@en ;
+        dcterms:description "Presents an ATNS entity with embedded reference metadata, preserved incoming and outgoing relationship rows, and spatial feature details for an on-demand map, while omitting source deletion flags."@en ;
         altr-ext:constrainsClass atns:Entity ;
         altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
         altr-ext:hasResourceFormat
@@ -235,9 +206,33 @@ prez:ProfilesGraph {
                     ( prov:qualifiedAttribution schema:agent )
                     ( prov:qualifiedAttribution schema:roleName )
                     ( prov:qualifiedAttribution schema:agent rdf:type )
+                    ( prov:qualifiedAttribution schema:agent schema:additionalType )
+                    ( prov:qualifiedAttribution schema:agent schema:alternateName )
+                    ( prov:qualifiedAttribution schema:agent schema:identifier )
+                    ( prov:qualifiedAttribution schema:agent schema:memberOf )
                     ( prov:qualifiedAttribution schema:agent schema:name )
+                    ( prov:qualifiedAttribution schema:agent schema:url )
+                    ( prov:qualifiedAttribution schema:agent skos:historyNote )
+                    ( dcterms:relation rdf:type )
+                    ( dcterms:relation dcterms:created )
+                    ( dcterms:relation odrl:permission )
+                    ( dcterms:relation odrl:uid )
+                    ( dcterms:relation schema:description )
+                    ( dcterms:relation schema:name )
+                    ( dcterms:relation odrl:permission rdf:type )
+                    ( dcterms:relation odrl:permission odrl:action )
+                    ( dcterms:relation odrl:permission odrl:assignee )
+                    ( dcterms:relation odrl:permission odrl:assigner )
+                    ( dcterms:relation odrl:permission odrl:target )
+                    ( dcterms:relation odrl:permission schema:description )
+                    ( dcterms:relation odrl:permission schema:name )
                     ( dcterms:references rdf:type )
                     ( dcterms:references atns:referenceType )
+                    ( dcterms:references atns:sourceReferenceId )
+                    ( dcterms:references schema:author )
+                    ( dcterms:references schema:conditionsOfAccess )
+                    ( dcterms:references schema:contributor )
+                    ( dcterms:references schema:datePublished )
                     ( dcterms:references schema:name )
                     ( dcterms:references schema:url )
                     ( [ sh:inversePath atns:subjectEntity ] rdf:type )
@@ -248,14 +243,20 @@ prez:ProfilesGraph {
                     ( [ sh:inversePath atns:objectEntity ] atns:subjectEntity )
                 )
             ]
+        ] ,
+        [
+            sh:maxCount 0 ;
+            sh:path atns:deleted ;
         ] ;
     .
 
-    prez:OdrlAgreement
-        a prof:Profile , prez:ObjectProfile ;
+    # This remains a separate-resource profile for the current deployment. It
+    # does not yet implement the proposed CreativeWork/Agreement dual-type model.
+    prez:OdrlAgreementProfile
+        a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
         dcterms:identifier "odrl-agreement"^^xsd:token ;
         dcterms:title "ODRL Agreement presentation profile"@en ;
-        dcterms:description "Presents an ODRL Agreement with its named Permission rules and their actions, parties and targets."@en ;
+        dcterms:description "Presents an ODRL Agreement with its named Permission rules, actions, parties, targets and available target geometry."@en ;
         altr-ext:constrainsClass odrl:Agreement ;
         altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
         altr-ext:hasResourceFormat
@@ -267,17 +268,19 @@ prez:ProfilesGraph {
             sh:path [
                 sh:union (
                     shext:allPredicateValues
-                    rdf:type
-                    dcterms:title
-                    schema:name
-                    odrl:permission
                     ( odrl:permission rdf:type )
                     ( odrl:permission dcterms:title )
                     ( odrl:permission schema:name )
+                    ( odrl:permission schema:description )
                     ( odrl:permission odrl:action )
                     ( odrl:permission odrl:assigner )
                     ( odrl:permission odrl:assignee )
                     ( odrl:permission odrl:target )
+                    ( odrl:permission odrl:target rdf:type )
+                    ( odrl:permission odrl:target schema:name )
+                    ( odrl:permission odrl:target schema:description )
+                    ( odrl:permission odrl:target geo:hasGeometry )
+                    ( odrl:permission odrl:target geo:hasGeometry geo:asWKT )
                 )
             ]
         ] ;
