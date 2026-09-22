@@ -338,15 +338,7 @@ const navigateToUri = (uri?: string) => {
                             </slot>
                             <slot name="item-middle" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
 
-                            <slot name="item-members" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
-                                <Button
-                                    v-if="currentProfile?.uri !== 'https://prez.dev/OGCSchemesObjectProfile' && !data.data.rdfTypes?.some(t => nonMemberTypes.includes(t.value)) && data.data.members"
-                                    class="mt-6"
-                                    as-child
-                                >
-                                    <ItemLink :to="data.data.members.value">Members</ItemLink>
-                                </Button>
-                            </slot>
+                            <slot name="item-members" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
 
                             <slot name="item-collections" :data="data" :is-concept-scheme="isConceptScheme">
                                 <div class="mt-6" v-if="isConceptScheme && (data.data as PrezConceptSchemeNode).collections.length > 0">
@@ -379,7 +371,7 @@ const navigateToUri = (uri?: string) => {
 	                        </slot>
 
                             <slot name="item-bottom" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
-	                            <StandaloneMembersList v-if="data.data.members" :membersUrl="data.data.members.value" />
+	                            <StandaloneMembersList v-if="data.data.members && !isConceptScheme" :membersUrl="data.data.members.value" />
                             </slot>
                         </slot>
                     </div>
