@@ -96,27 +96,27 @@ prez:SystemGraph {
         ont:hierarchyLevel 3 .
     
     ex:shape-R0-HL3-2 a sh:NodeShape ;
-        sh:property 
-            [ 
-                sh:class dcat:Dataset ;
-                sh:path [ sh:inversePath rdfs:member ] 
+        sh:property
+            [
+                sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
+                sh:path [ sh:inversePath rdfs:member ]
             ],
-            [ 
+            [
                 sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
-                sh:path ( [ sh:inversePath rdfs:member ] [ sh:alternativePath ( [ sh:inversePath dcterms:hasPart ] [ sh:inversePath schema:hasPart ] ) ] ) 
+                sh:path ( [ sh:inversePath rdfs:member ] [ sh:alternativePath ( [ sh:inversePath dcterms:hasPart ] [ sh:inversePath schema:hasPart ] ) ] )
             ] ;
         sh:targetClass geo:FeatureCollection ;
         ont:hierarchyLevel 3 .
     
     ex:shape-R0-HL4 a sh:NodeShape ;
-        sh:property 
+        sh:property
             [
                 sh:class geo:FeatureCollection ;
-                sh:path [ sh:inversePath rdfs:member ] 
+                sh:path [ sh:inversePath rdfs:member ]
             ],
             [
-                sh:class dcat:Dataset ;
-                sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] ) 
+                sh:or ( [ sh:class dcat:Dataset ] [ sh:class schema:Dataset ] ) ;
+                sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] )
             ],
             [
                 sh:or ( [ sh:class dcat:Catalog ] [ sh:class schema:DataCatalog ] ) ;
