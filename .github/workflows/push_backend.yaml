@@ -23,6 +23,7 @@ jobs:
           backend:
             - 'prez-compose.yaml'
             - '.github/workflows/push_backend.yaml'
+            - 'prez_config/'
   # Deploy if files have changed, or if workflow was triggered by another repo/manually
   deploy:
     needs: changes
@@ -43,7 +44,7 @@ jobs:
     - name: Copy files
       run: |
         mkdir -p /home/ubuntu/prez4/
-        cp -Rf prez-compose.yaml /home/ubuntu/prez4/
+        cp -Rf prez-compose.yaml prez_config /home/ubuntu/prez4/
     - name: Deploy Prez
       working-directory: /home/ubuntu/prez4/
       run: docker compose -f prez-compose.yaml up -d

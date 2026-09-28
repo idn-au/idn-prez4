@@ -7,7 +7,31 @@ on:
   workflow_dispatch:
 
 jobs:
+  # Detects changes in specific directories
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - '.github/workflows/push_frontend.yaml'
+              - 'app/'
+              - 'public/'
+              - 'server/'
+              - components.json
+              - nuxt.config.ts
+              - package.json
+              - pnpm-lock.yaml
+              - pnpm-workspace.yaml
+              - tsconfig.json
   build:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' || github.event_name != 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

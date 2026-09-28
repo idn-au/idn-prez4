@@ -1,0 +1,17 @@
+PREFIX cql: <http://www.opengis.net/doc/IS/cql2/1.0/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX prez: <https://prez.dev/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+prez:queryablesGraph {
+    prez:ParentDataset a cql:Queryable , sh:PropertyShape ;
+        dcterms:identifier "parent-dataset" ;
+        sh:datatype xsd:string ;
+        sh:description "Filter by parent dataset" ;
+        sh:name "Parent Dataset" ;
+        sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] ) ;
+    .
+}
+#<http://www.opengis.net/doc/IS/cql2/1.0/Queryable>

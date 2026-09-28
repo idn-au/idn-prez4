@@ -1,0 +1,37 @@
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+[ vann:preferredNamespacePrefix "prez" ;
+    vann:preferredNamespaceUri "https://prez.dev/"
+] .
+
+[ vann:preferredNamespacePrefix "altr-ext" ;
+    vann:preferredNamespaceUri "http://www.w3.org/ns/dx/connegp/altr-ext#"
+] .
+
+[ vann:preferredNamespacePrefix "profile" ;
+    vann:preferredNamespaceUri "https://prez.dev/profile/"
+] .
+
+[ vann:preferredNamespacePrefix "prfl" ;
+    vann:preferredNamespaceUri "https://w3id.org/profile/"
+] .
+
+[ vann:preferredNamespacePrefix "sh" ;
+    vann:preferredNamespaceUri "http://www.w3.org/ns/shacl#"
+] .
+
+[ vann:preferredNamespacePrefix "shext" ;
+    vann:preferredNamespaceUri "http://example.com/shacl-extension#"
+] .
+
+[ vann:preferredNamespacePrefix "exm" ;
+    vann:preferredNamespaceUri "https://example.com/" ;
+] .
+
+[ vann:preferredNamespacePrefix "ex" ;
+    vann:preferredNamespaceUri "http://example.org/" ;
+] .
+
+[ vann:preferredNamespacePrefix "pid" ;
+    vann:preferredNamespaceUri "https://data.idnau.org/pid/" ;
+] .
