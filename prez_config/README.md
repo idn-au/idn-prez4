@@ -61,40 +61,38 @@ The API endpoints defined in the [`endpoints/`](./endpoints) directory are:
 ## Profiles
 The profiles defined in the [`profiles/`](./profiles) directory are:
 
-- Index Profile - `prez:Index`
+- **Index Profile** - `prez:Index`
   - The top-level system profile where default profiles for classes are defined
-- Catalogue Items - `prez:CatalogItemsProfile`
+- **Catalogue Items** - `prez:CatalogItemsProfile`
     - The main listing profile for the catalogue's children, returning:
         - `schema:additionalType`
         - `schema:status`
         - `schema:keywords`
-- Vocabulary Metadata Profile - `prez:VocabProfile`
+- **Vocabulary Metadata Profile** - `prez:VocabProfile`
   - For nicely displaying metadata for vocabularies
-- ATNS Entity presentation profile - `prez:AtnsEntityProfile`
+- **ATNS Entity presentation profile** - `prez:AtnsEntityProfile`
     - Presents an ATNS entity with embedded reference metadata, preserved incoming and outgoing relationship rows, and spatial feature details for an on-demand map, while omitting source deletion flags.
-- ODRL Agreement presentation profile - `prez:OdrlAgreementProfile`
+- **ODRL Agreement presentation profile** - `prez:OdrlAgreementProfile`
     - Presents an ODRL Agreement with its named Permission rules, actions, parties, targets and available target geometry.
-- RiC-O Record presentation profile - `prez:RiCORecordProfile`
+- **RiC-O Record presentation profile** - `prez:RiCORecordProfile`
     - Presents a RiC-O Record and the descriptive metadata of its analogue, digital, derived or otherwise identified Instantiations on the same page.
-- Spatial List Profile - `prez:SpatialListProfile`
+- **Spatial List Profile** - `prez:SpatialListProfile`
   - A listing profile for spatial features
-- Spatial Object Profile - `prez:SpatialObjectProfile`
+- **Spatial Object Profile** - `prez:SpatialObjectProfile`
   - An item profile for spatial features
-- `<https://w3id.org/profile/mem>` - Members
+- **Members** - `<https://w3id.org/profile/mem>`
     - A fallback listing profile that returns no extra metadata
-- Alternates Profile - `altr-ext:alt-profile`
+- **Alternates Profile** - `altr-ext:alt-profile`
     - For returning all alternative profile options for an endpoint
-- Profiles Profile - `prez:ProfileProfile`
-    - For returning metadata for a Profile
-- Open Profile - `prez:OpenProfile`
+- **Profiles Profile** - `prez:ProfileProfile`
+    - For returning metadata for Profiles
+- **Open Profile** - `prez:OpenProfile`
     - A fallback profile for items that returns all metadata
-- CQL List Profile - `prez:CQLListProfile`
+- **CQL List Profile** - `prez:CQLListProfile`
     - A profile defining the metadata returned when using CQL queries
 
 ### Facet Profiles
-These profiles can be used for filtering on list pages, including search.
-
-There is one facet profile defined in the profiles file:
+These profiles can be used for filtering on list pages, including search. There is one facet profile defined in the profiles file:
 
 - IDN Facet Profile - `prez:FacetProfile` (`"idn-facet"`)
   - `rdf:type`
