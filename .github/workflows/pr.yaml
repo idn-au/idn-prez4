@@ -1,0 +1,76 @@
+name: Run PR checks
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    paths-ignore:
+      - '.gitignore'
+      - 'docs/'
+      - 'README.md'
+  workflow_dispatch:
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - '.github/workflows/push_frontend.yaml'
+              - 'app/**'
+              - 'public/**'
+              - 'server/**'
+              - 'components.json'
+              - 'nuxt.config.ts'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+              - 'pnpm-workspace.yaml'
+              - 'tsconfig.json'
+            backend:
+              - '.github/workflows/push_backend.yaml'
+              - 'prez-compose.yaml'
+              - 'prez_config/**'
+  ui_build:
+    name: Build frontend
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' || github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        name: Install pnpm
+        with:
+          version: 11
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Generate static files
+        run: pnpm generate
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+# will re-enable when kurra no longer returns error exit codes on `reformat --check`
+#  api_validate:
+#    name: Validate API config
+#    needs: changes
+#    if: ${{ needs.changes.outputs.backend == 'true' || github.event_name != 'pull_request' }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v7
+#      - name: Install uv
+#        uses: astral-sh/setup-uv@v5
+#      - name: Install kurra
+#        run: uv tool install kurra
+#      - name: Validate API config files
+#        run: kurra file reformat --check prez_config

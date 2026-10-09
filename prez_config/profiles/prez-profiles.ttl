@@ -1,0 +1,649 @@
+PREFIX altr-ext: <http://www.w3.org/ns/dx/connegp/altr-ext#>
+PREFIX atns: <https://linked.data.gov.au/def/atns/model/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX prez: <https://prez.dev/>
+PREFIX prof: <http://www.w3.org/ns/dx/prof/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX schema: <https://schema.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shext: <http://example.com/shacl-extension#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# system classes:
+#prof:Profile
+#prez:SearchResult
+#prez:SPARQLQuery
+#prez:CQLFilterResult
+#prez:AltProfilesList
+#prez:QueryablesList
+#prez:Object # - doesn't do anything
+
+# data classes:
+#schema:DataCatalog
+#schema:Dataset
+#schema:CreativeWork
+#skos:ConceptScheme
+#skos:Concept
+#skos:Collection
+#geo:FeatureCollection
+#geo:Feature
+#schema:Person
+#schema:Organization
+#odrl:Agreement
+#atns:Entity
+#rico:Record
+
+# top-level profile for specifying default profiles
+prez:Index
+    a prof:Profile , prez:IndexProfile ;
+    dcterms:identifier "index"^^xsd:token ;
+    dcterms:description "The system index profile" ;
+    dcterms:title "Index Profile" ;
+    altr-ext:constrainsClass prez:CatPrez ;
+    altr-ext:hasResourceFormat
+        "application/json",
+        "application/ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasNodeShape
+        [
+            a sh:NodeShape ;
+            sh:targetClass
+                skos:ConceptScheme ,
+                schema:CreativeWork ,
+                schema:Dataset ;
+            altr-ext:hasDefaultProfile prez:CatalogItemsProfile ;
+        ],
+        [
+            a sh:NodeShape ;
+            sh:targetClass skos:ConceptScheme ;
+            altr-ext:hasDefaultProfile prez:VocabProfile
+        ],
+        [
+            a sh:NodeShape ;
+            sh:targetClass
+                schema:Person ,
+                schema:Organization ;
+            altr-ext:hasDefaultProfile prez:AgentsProfile ;
+        ],
+        [
+            a sh:NodeShape ;
+            altr-ext:hasDefaultProfile prez:SpatialListProfile ;
+            sh:targetClass
+                geo:FeatureCollection ,
+                geo:Feature ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            altr-ext:hasDefaultProfile prez:SpatialObjectProfile ;
+            sh:targetClass
+                geo:FeatureCollection ,
+                geo:Feature ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass prez:CQLFilterResult ;
+            altr-ext:hasDefaultProfile prez:CQLListProfile ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass odrl:Agreement ;
+            altr-ext:hasDefaultProfile prez:OdrlAgreementProfile ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass atns:Entity ;
+            altr-ext:hasDefaultProfile prez:AtnsEntityProfile ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass rico:Record ;
+            altr-ext:hasDefaultProfile prez:RiCORecordProfile ;
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass prez:SPARQLQuery ;
+            altr-ext:hasDefaultProfile prez:OpenProfile
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass prez:AltProfilesList ;
+            altr-ext:hasDefaultProfile prez:OpenProfile
+        ] ,
+        [
+            a sh:NodeShape ;
+            sh:targetClass prof:Profile ;
+            altr-ext:hasDefaultProfile prez:ProfileProfile
+        ] ;
+.
+
+# regular profiles
+
+prez:OpenProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:identifier "open"^^xsd:token ;
+    dcterms:description "An open profile for objects which will return all direct properties for a resource." ;
+    dcterms:title "Open profile" ;
+    altr-ext:constrainsClass
+        prof:Profile ,
+        prez:SearchResult ,
+        prez:SPARQLQuery ,
+        prez:CQLFilterResult ,
+        prez:Object ,
+        schema:DataCatalog ,
+        schema:Dataset ,
+        schema:CreativeWork ,
+        skos:ConceptScheme ,
+        skos:Concept ,
+        skos:Collection ,
+#        geo:FeatureCollection ,
+#        geo:Feature ,
+        schema:Person ,
+        schema:Organization ,
+        odrl:Agreement ,
+        atns:Entity ,
+        rico:Record ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat "application/ld+json" ,
+    "application/anot+ld+json" ,
+    "application/rdf+xml" ,
+    "text/anot+turtle" ,
+    "text/turtle" ;
+    sh:property
+        [
+            sh:path
+                [
+                    sh:union (
+                        [ shext:bNodeDepth "2" ]
+                        shext:allPredicateValues
+                    )
+                ]
+        ] ;
+.
+
+prez:VocabProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:title "Vocabulary Metadata Profile" ;
+    dcterms:description "A profile for vocabularies" ;
+    dcterms:identifier "vocab"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:constrainsClass skos:ConceptScheme ;
+    sh:property
+        [
+            sh:path
+                [
+                    sh:union (
+                        [ shext:bNodeDepth "2" ]
+                        shext:allPredicateValues
+                        [
+                            sh:path [
+                                sh:union (
+                                    (
+                                        [ sh:inversePath skos:inScheme ]
+                                        rdf:type
+                                    )
+                                )
+                            ] ;
+                            sh:class skos:Collection
+                        ]
+                    )
+                ]
+        ],
+        [
+            sh:maxCount 0 ;
+            sh:path skos:hasTopConcept ;
+        ]
+.
+
+altr-ext:alt-profile
+    a prof:Profile , prez:ListingProfile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:description "The representation of the resource that lists all other representations (profiles and Media Types)" ;
+    dcterms:identifier "alt"^^xsd:token ;
+    dcterms:title "Alternates Profile" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/ld+json" ,
+        "application/anot+ld+json" ,
+        "application/rdf+xml" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    altr-ext:constrainsClass
+        prof:Profile ,
+        schema:DataCatalog ,
+        schema:Dataset ,
+        schema:CreativeWork ,
+        skos:ConceptScheme ,
+        skos:Concept ,
+        skos:Collection ,
+        geo:FeatureCollection ,
+        geo:Feature ,
+        schema:Person ,
+        schema:Organization ,
+        odrl:Agreement ,
+        atns:Entity ,
+        rico:Record ;
+    sh:property [
+        sh:path [
+            sh:union (
+                dcterms:identifier
+                altr-ext:hasDefaultResourceFormat
+                altr-ext:hasResourceFormat
+            )
+        ]
+    ] ;
+.
+
+prez:ProfileProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:description "A Profile for displaying profiles" ;
+    dcterms:identifier "prof"^^xsd:token ;
+    dcterms:title "Profiles Profile" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/ld+json" ,
+        "application/anot+ld+json" ,
+        "application/rdf+xml" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    altr-ext:constrainsClass prof:Profile ;
+    sh:property [
+        sh:path [
+            sh:union (
+                [ shext:bNodeDepth "25" ]
+                rdf:type
+                altr-ext:hasResourceFormat
+                altr-ext:hasDefaultResourceFormat
+                dcterms:description
+                dcterms:title
+                dcterms:identifier
+            )
+        ]
+    ] ;
+.
+
+<https://w3id.org/profile/mem>
+    a prof:Profile , prez:ListingProfile , sh:NodeShape ;
+    dcterms:description "A very basic data model that lists the members of container objects only, i.e. not their other properties" ;
+    dcterms:identifier "mem"^^xsd:token ;
+    dcterms:title "Members" ;
+    altr-ext:constrainsClass
+        prof:Profile ,
+        prez:CQLFilterResult ,
+        prez:QueryablesList ,
+        schema:DataCatalog ,
+        schema:Dataset ,
+        schema:CreativeWork ,
+        skos:ConceptScheme ,
+        skos:Concept ,
+        skos:Collection ,
+        geo:FeatureCollection ,
+        geo:Feature ,
+        schema:Person ,
+        schema:Organization ,
+        odrl:Agreement ,
+        atns:Entity ,
+        rico:Record ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/ld+json" ,
+        "application/anot+ld+json" ,
+        "application/n-triples" ,
+        "application/anot+n-triples" ,
+        "application/rdf+xml" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    sh:property [
+        sh:path rdf:type ;
+    ] ;
+.
+
+prez:CatalogItemsProfile
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
+    dcterms:title "Catalogue Items" ;
+    dcterms:description "A profile for listing items within a catalogue" ;
+    dcterms:identifier "catalog-items"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:constrainsClass
+        prez:CQLFilterResult ,
+        skos:ConceptScheme ,
+        schema:CreativeWork ,
+        schema:Dataset ;
+    sh:property [
+        sh:path [
+            sh:union (
+                rdf:type
+                schema:additionalType
+                schema:status
+                schema:keywords
+            )
+        ]
+    ] ;
+.
+
+prez:AgentsProfile
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
+    dcterms:title "Agents" ;
+    dcterms:description "A profile for listing agents" ;
+    dcterms:identifier "agents"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:constrainsClass
+        prez:CQLFilterResult ,
+        schema:Person ,
+        schema:Organization ;
+    sh:property [
+        sh:path [
+            sh:union (
+                rdf:type
+            )
+        ]
+    ] ;
+.
+
+prez:SpatialListProfile
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
+    dcterms:title "Spatial List Profile" ;
+    dcterms:description "A list profile for GeoSPARQL spatial features" ;
+    dcterms:identifier "spatial-list"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle",
+        "application/n-triples" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    sh:property [ sh:path rdf:type ] ;
+    altr-ext:constrainsClass
+        geo:FeatureCollection ,
+        geo:Feature ;
+.
+
+prez:SpatialObjectProfile
+    a prof:Profile, prez:ObjectProfile , sh:NodeShape ;
+    dcterms:title "Spatial Object Profile" ;
+    dcterms:description "A profile for GeoSPARQL spatial features" ;
+    dcterms:identifier "spatial"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle",
+        "application/n-triples" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    sh:property
+        [
+            sh:path [
+                sh:union (
+                    [ shext:bNodeDepth "2" ]
+                    shext:allPredicateValues
+                    ( geo:hasBoundingBox geo:asWKT )
+                    ( geo:hasGeometry geo:asWKT )
+                    ( [ sh:inversePath rdfs:member ] rdf:type )
+                    ( [ sh:inversePath rdfs:member ] schema:isPartOf )
+                )
+            ] ;
+        ] ,
+        [
+            sh:maxCount 0 ;
+            sh:path rdfs:member ;
+        ] ;
+    altr-ext:constrainsClass
+        geo:FeatureCollection ,
+        geo:Feature ;
+.
+
+prez:CQLListProfile
+    a prof:Profile , prez:ListingProfile , sh:NodeShape ;
+    dcterms:identifier "cqllist"^^xsd:token ;
+    dcterms:description "A CQL profile targeted towards listing CQL results, including geospatial information." ;
+    dcterms:title "CQL List profile" ;
+    altr-ext:constrainsClass prez:CQLFilterResult ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat "application/geo+json" ,
+    "application/ld+json" ,
+    "application/anot+ld+json" ,
+    "application/rdf+xml" ,
+    "text/anot+turtle" ,
+    "text/turtle" ;
+    sh:property [
+        sh:path [
+            sh:union (
+                [ shext:bNodeDepth "2" ]
+                shext:allPredicateValues
+                ( geo:hasGeometry geo:asWKT )
+            )
+        ]
+    ] ;
+.
+
+# Canonical deployed ATNS profile. The copy in atns-preservation is a local
+# test mirror and should be resynchronised from this definition after edits.
+prez:AtnsEntityProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:identifier "atns-entity"^^xsd:token ;
+    dcterms:title "ATNS Entity presentation profile"@en ;
+    dcterms:description "Presents an ATNS entity with embedded reference metadata, preserved incoming and outgoing relationship rows, and spatial feature details for an on-demand map, while omitting source deletion flags."@en ;
+    altr-ext:constrainsClass atns:Entity ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/anot+ld+json" ,
+        "application/ld+json" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    sh:property [
+        sh:path [
+            sh:union (
+                shext:allPredicateValues
+                ( schema:spatialCoverage rdf:type )
+                ( schema:spatialCoverage schema:name )
+                ( schema:spatialCoverage schema:description )
+                ( schema:spatialCoverage geo:hasGeometry )
+                ( schema:spatialCoverage geo:hasGeometry geo:asWKT )
+                ( schema:spatialCoverage geo:hasBoundingBox )
+                ( schema:spatialCoverage geo:hasBoundingBox geo:asWKT )
+                ( prov:qualifiedAttribution rdf:type )
+                ( prov:qualifiedAttribution schema:agent )
+                ( prov:qualifiedAttribution schema:roleName )
+                ( prov:qualifiedAttribution schema:agent rdf:type )
+                ( prov:qualifiedAttribution schema:agent schema:additionalType )
+                ( prov:qualifiedAttribution schema:agent schema:alternateName )
+                ( prov:qualifiedAttribution schema:agent schema:identifier )
+                ( prov:qualifiedAttribution schema:agent schema:memberOf )
+                ( prov:qualifiedAttribution schema:agent schema:name )
+                ( prov:qualifiedAttribution schema:agent schema:url )
+                ( prov:qualifiedAttribution schema:agent skos:historyNote )
+                ( dcterms:relation rdf:type )
+                ( dcterms:relation dcterms:created )
+                ( dcterms:relation odrl:permission )
+                ( dcterms:relation odrl:uid )
+                ( dcterms:relation schema:description )
+                ( dcterms:relation schema:name )
+                ( dcterms:relation odrl:permission rdf:type )
+                ( dcterms:relation odrl:permission odrl:action )
+                ( dcterms:relation odrl:permission odrl:assignee )
+                ( dcterms:relation odrl:permission odrl:assigner )
+                ( dcterms:relation odrl:permission odrl:target )
+                ( dcterms:relation odrl:permission schema:description )
+                ( dcterms:relation odrl:permission schema:name )
+                ( dcterms:references rdf:type )
+                ( dcterms:references atns:referenceType )
+                ( dcterms:references atns:sourceReferenceId )
+                ( dcterms:references schema:author )
+                ( dcterms:references schema:conditionsOfAccess )
+                ( dcterms:references schema:contributor )
+                ( dcterms:references schema:datePublished )
+                ( dcterms:references schema:name )
+                ( dcterms:references schema:url )
+                ( [ sh:inversePath atns:subjectEntity ] rdf:type )
+                ( [ sh:inversePath atns:subjectEntity ] atns:relationshipType )
+                ( [ sh:inversePath atns:subjectEntity ] atns:objectEntity )
+                ( [ sh:inversePath atns:objectEntity ] rdf:type )
+                ( [ sh:inversePath atns:objectEntity ] atns:relationshipType )
+                ( [ sh:inversePath atns:objectEntity ] atns:subjectEntity )
+            )
+        ]
+    ] ,
+    [
+        sh:maxCount 0 ;
+        sh:path atns:deleted ;
+    ] ;
+.
+
+# This remains a separate-resource profile for the current deployment. It
+# does not yet implement the proposed CreativeWork/Agreement dual-type model.
+prez:OdrlAgreementProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:identifier "odrl-agreement"^^xsd:token ;
+    dcterms:title "ODRL Agreement presentation profile"@en ;
+    dcterms:description "Presents an ODRL Agreement with its named Permission rules, actions, parties, targets and available target geometry."@en ;
+    altr-ext:constrainsClass odrl:Agreement ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/anot+ld+json" ,
+        "application/ld+json" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    sh:property [
+        sh:path [
+            sh:union (
+                shext:allPredicateValues
+                ( odrl:permission rdf:type )
+                ( odrl:permission dcterms:title )
+                ( odrl:permission schema:name )
+                ( odrl:permission schema:description )
+                ( odrl:permission odrl:action )
+                ( odrl:permission odrl:assigner )
+                ( odrl:permission odrl:assignee )
+                ( odrl:permission odrl:target )
+                ( odrl:permission odrl:target rdf:type )
+                ( odrl:permission odrl:target schema:name )
+                ( odrl:permission odrl:target schema:description )
+                ( odrl:permission odrl:target geo:hasGeometry )
+                ( odrl:permission odrl:target geo:hasGeometry geo:asWKT )
+            )
+        ]
+    ] ;
+.
+
+_:ricoInstantiationPath
+    sh:alternativePath (
+        rico:hasOrHadInstantiation
+        rico:hasOrHadAnalogueInstantiation
+        rico:hasOrHadDigitalInstantiation
+        rico:hasOrHadDerivedInstantiation
+    ) ;
+.
+
+prez:RiCORecordProfile
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
+    dcterms:identifier "rico-record"^^xsd:token ;
+    dcterms:title "RiC-O Record presentation profile"@en ;
+    dcterms:description "Presents a RiC-O Record and the descriptive metadata of its analogue, digital, derived or otherwise identified Instantiations on the same page."@en ;
+    altr-ext:constrainsClass rico:Record ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:hasResourceFormat
+        "application/anot+ld+json" ,
+        "application/ld+json" ,
+        "application/rdf+xml" ,
+        "text/anot+turtle" ,
+        "text/turtle" ;
+    sh:property [
+        sh:path [
+            sh:union (
+                [ shext:bNodeDepth "2" ]
+                shext:allPredicateValues
+                _:ricoInstantiationPath
+                ( _:ricoInstantiationPath rdf:type )
+                ( _:ricoInstantiationPath schema:name )
+                ( _:ricoInstantiationPath schema:description )
+                ( _:ricoInstantiationPath schema:identifier )
+                ( _:ricoInstantiationPath schema:location )
+                ( _:ricoInstantiationPath schema:materialExtent )
+                ( _:ricoInstantiationPath schema:dateCreated )
+                ( _:ricoInstantiationPath schema:dateModified )
+                ( _:ricoInstantiationPath rico:name )
+                ( _:ricoInstantiationPath rico:identifier )
+                ( _:ricoInstantiationPath rico:instantiationExtent )
+                ( _:ricoInstantiationPath rico:hasCollector )
+                ( _:ricoInstantiationPath rico:conditionsOfAccess )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rdf:type )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:expressedDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:beginningDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:endDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:dateQualifier )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:normalizedDateValue )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rdf:type )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:expressedDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:dateQualifier )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasBeginningDate rico:normalizedDateValue )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rdf:type )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:expressedDate )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:dateQualifier )
+                ( _:ricoInstantiationPath rico:isAssociatedWithDate rico:hasEndDate rico:normalizedDateValue )
+            )
+        ]
+    ] ;
+.
+
+# odrl:Agreement rdfs:label "Agreement" .
+# odrl:permission rdfs:label "Has Permission" .
+# odrl:action rdfs:label "Has Action" .
+# odrl:assigner rdfs:label "Assigner" .
+# odrl:assignee rdfs:label "Assignee" .
+# odrl:target rdfs:label "Target" .
+
+# facet profiles
+
+prez:FacetProfile
+    a prof:Profile, prez:ListingProfile, sh:NodeShape ;
+    dcterms:title "IDN Facet Profile" ;
+    dcterms:description "A facet profile for the IDN" ;
+    dcterms:identifier "idn-facet"^^xsd:token ;
+    sh:property [
+        sh:path [
+            sh:union (
+                rdf:type
+                schema:additionalType
+                schema:status
+                schema:keywords
+            # [
+            #     sh:path ( [ sh:inversePath schema:hasPart ] ) ;
+            #     # sh:alternativePath
+            #     shext:pathAlias <https://example.com/alias/isPartOf> ;
+            # ]
+            )
+        ]
+    ] ;
+.
+
+# <https://example.com/alias/isPartOf> rdfs:label "is part of" .

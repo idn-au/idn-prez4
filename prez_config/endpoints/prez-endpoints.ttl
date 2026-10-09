@@ -1,0 +1,152 @@
+PREFIX ex: <http://example.org/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX ont: <https://prez.dev/ont/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <https://schema.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ex:catalogs-listing a ont:DynamicEndpoint,
+    ont:ListingEndpoint ;
+    rdfs:label "Catalogs Listing" ;
+    ont:apiPath "/catalogs" ;
+    ont:relevantShapes ex:shape-R0-HL1 .
+
+ex:catalogs-object a ont:DynamicEndpoint,
+    ont:ObjectEndpoint ;
+    rdfs:label "Catalogs Object" ;
+    ont:apiPath "/catalogs/{catalogId}" ;
+    ont:relevantShapes ex:shape-R0-HL1 .
+
+ex:collections-listing a ont:DynamicEndpoint,
+    ont:ListingEndpoint ;
+    rdfs:label "Collections Listing" ;
+    ont:apiPath "/catalogs/{catalogId}/collections" ;
+    ont:relevantShapes ex:shape-R0-HL2 .
+
+ex:collections-object a ont:DynamicEndpoint,
+    ont:ObjectEndpoint ;
+    rdfs:label "Collections Object" ;
+    ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}" ;
+    ont:relevantShapes ex:shape-R0-HL2 .
+
+ex:items-listing a ont:DynamicEndpoint,
+    ont:ListingEndpoint ;
+    rdfs:label "Items Listing" ;
+    ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items" ;
+    ont:relevantShapes ex:shape-R0-HL3,
+        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2, ex:shape-R0-HL3-3 .
+
+ex:items-object a ont:DynamicEndpoint,
+    ont:ObjectEndpoint ;
+    rdfs:label "Items Object" ;
+    ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}" ;
+    ont:relevantShapes ex:shape-R0-HL3,
+        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2, ex:shape-R0-HL3-3 .
+
+ex:features-listing a ont:DynamicEndpoint,
+    ont:ListingEndpoint ;
+    rdfs:label "Features Listing" ;
+    ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}/features" ;
+    ont:relevantShapes ex:shape-R0-HL4 .
+
+ex:features-object a ont:DynamicEndpoint,
+    ont:ObjectEndpoint ;
+    rdfs:label "Features Object" ;
+    ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}/features/{featureId}" ;
+    ont:relevantShapes ex:shape-R0-HL4 .
+
+ex:shape-R0-HL1 a sh:NodeShape ;
+    sh:property
+        [
+            sh:or (
+                [ sh:class skos:Collection ]
+                [ sh:class schema:Dataset ]
+                [ sh:class schema:CreativeWork ]
+                [ sh:class skos:ConceptScheme ]
+            ) ;
+            sh:path schema:hasPart
+        ] ;
+    sh:targetClass schema:DataCatalog ;
+    ont:hierarchyLevel 1 .
+
+ex:shape-R0-HL2 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class schema:DataCatalog ;
+            sh:path [ sh:inversePath schema:hasPart ]
+        ] ;
+    sh:targetClass skos:Collection,
+        skos:ConceptScheme,
+        schema:Dataset,
+        schema:CreativeWork ;
+    ont:hierarchyLevel 2 .
+
+ex:shape-R0-HL3 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( skos:inScheme [ sh:inversePath schema:hasPart ] )
+        ],
+        [
+            sh:class skos:ConceptScheme ;
+            sh:path skos:inScheme
+        ] ;
+    sh:targetClass skos:Concept, skos:Collection ;
+    ont:hierarchyLevel 3 .
+
+ex:shape-R0-HL3-1 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class skos:Collection ;
+            sh:path [ sh:inversePath skos:member ]
+        ],
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( [ sh:inversePath skos:member ] [ sh:inversePath schema:hasPart ] )
+        ] ;
+    sh:targetClass skos:Concept ;
+    ont:hierarchyLevel 3 .
+
+ex:shape-R0-HL3-2 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class schema:Dataset ;
+            sh:path [ sh:inversePath rdfs:member ]
+        ],
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath schema:hasPart ] )
+        ] ;
+    sh:targetClass geo:FeatureCollection ;
+    ont:hierarchyLevel 3 .
+
+ex:shape-R0-HL3-3 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class schema:Dataset ;
+            sh:path schema:isPartOf
+        ],
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( schema:isPartOf [ sh:inversePath schema:hasPart ] )
+        ] ;
+    sh:targetClass schema:Person, schema:Organization ;
+    ont:hierarchyLevel 3 .
+
+ex:shape-R0-HL4 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class geo:FeatureCollection ;
+            sh:path [ sh:inversePath rdfs:member ]
+        ],
+        [
+            sh:class schema:Dataset ;
+            sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] )
+        ],
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath rdfs:member ] [ sh:inversePath schema:hasPart ] )
+        ] ;
+    sh:targetClass geo:Feature ;
+    ont:hierarchyLevel 4 .
