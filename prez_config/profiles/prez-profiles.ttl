@@ -69,6 +69,13 @@ prez:Index
         ],
         [
             a sh:NodeShape ;
+            sh:targetClass
+                schema:Person ,
+                schema:Organization ;
+            altr-ext:hasDefaultProfile prez:AgentsProfile ;
+        ],
+        [
+            a sh:NodeShape ;
             altr-ext:hasDefaultProfile prez:SpatialListProfile ;
             sh:targetClass
                 geo:FeatureCollection ,
@@ -308,7 +315,7 @@ prez:CatalogItemsProfile
     a prof:Profile, prez:ListingProfile ;
     dcterms:title "Catalogue Items" ;
     dcterms:description "A profile for listing items within a catalogue" ;
-    dcterms:identifier "vocab-list"^^xsd:token ;
+    dcterms:identifier "catalog-items"^^xsd:token ;
     altr-ext:hasResourceFormat
         "application/ld+json",
         "application/anot+ld+json",
@@ -324,9 +331,35 @@ prez:CatalogItemsProfile
     sh:property [
         sh:path [
             sh:union (
+                rdf:type
                 schema:additionalType
                 schema:status
                 schema:keywords
+            )
+        ]
+    ] ;
+.
+
+prez:AgentsProfile
+    a prof:Profile, prez:ListingProfile ;
+    dcterms:title "Agents" ;
+    dcterms:description "A profile for listing agents" ;
+    dcterms:identifier "agents"^^xsd:token ;
+    altr-ext:hasResourceFormat
+        "application/ld+json",
+        "application/anot+ld+json",
+        "application/rdf+xml",
+        "text/anot+turtle",
+        "text/turtle" ;
+    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+    altr-ext:constrainsClass
+        prez:CQLFilterResult ,
+        schema:Person ,
+        schema:Organization ;
+    sh:property [
+        sh:path [
+            sh:union (
+                rdf:type
             )
         ]
     ] ;

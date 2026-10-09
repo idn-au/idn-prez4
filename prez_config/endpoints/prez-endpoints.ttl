@@ -35,14 +35,14 @@ ex:items-listing a ont:DynamicEndpoint,
     rdfs:label "Items Listing" ;
     ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items" ;
     ont:relevantShapes ex:shape-R0-HL3,
-        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2 .
+        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2, ex:shape-R0-HL3-3 .
 
 ex:items-object a ont:DynamicEndpoint,
     ont:ObjectEndpoint ;
     rdfs:label "Items Object" ;
     ont:apiPath "/catalogs/{catalogId}/collections/{recordsCollectionId}/items/{itemId}" ;
     ont:relevantShapes ex:shape-R0-HL3,
-        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2 .
+        ex:shape-R0-HL3-1, ex:shape-R0-HL3-2, ex:shape-R0-HL3-3 .
 
 ex:features-listing a ont:DynamicEndpoint,
     ont:ListingEndpoint ;
@@ -119,6 +119,19 @@ ex:shape-R0-HL3-2 a sh:NodeShape ;
             sh:path ( [ sh:inversePath rdfs:member ] [ sh:inversePath schema:hasPart ] )
         ] ;
     sh:targetClass geo:FeatureCollection ;
+    ont:hierarchyLevel 3 .
+
+ex:shape-R0-HL3-3 a sh:NodeShape ;
+    sh:property
+        [
+            sh:class schema:CreativeWork ;
+            sh:path schema:isPartOf
+        ],
+        [
+            sh:class schema:DataCatalog ;
+            sh:path ( schema:isPartOf [ sh:inversePath schema:hasPart ] )
+        ] ;
+    sh:targetClass schema:Person, schema:Organization ;
     ont:hierarchyLevel 3 .
 
 ex:shape-R0-HL4 a sh:NodeShape ;
