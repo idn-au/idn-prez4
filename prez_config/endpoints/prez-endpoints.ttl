@@ -124,7 +124,7 @@ ex:shape-R0-HL3-2 a sh:NodeShape ;
 ex:shape-R0-HL3-3 a sh:NodeShape ;
     sh:property
         [
-            sh:class schema:CreativeWork ;
+            sh:class schema:Dataset ;
             sh:path schema:isPartOf
         ],
         [

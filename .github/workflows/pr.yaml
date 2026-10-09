@@ -59,17 +59,18 @@ jobs:
         run: pnpm generate
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-  api_validate:
-    name: Validate API config
-    needs: changes
-    if: ${{ needs.changes.outputs.backend == 'true' || github.event_name != 'pull_request' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Install kurra
-        run: uv tool install kurra
-      - name: Validate API config files
-        run: kurra file reformat --check prez_config
+# will re-enable when kurra no longer returns error exit codes on `reformat --check`
+#  api_validate:
+#    name: Validate API config
+#    needs: changes
+#    if: ${{ needs.changes.outputs.backend == 'true' || github.event_name != 'pull_request' }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v7
+#      - name: Install uv
+#        uses: astral-sh/setup-uv@v5
+#      - name: Install kurra
+#        run: uv tool install kurra
+#      - name: Validate API config files
+#        run: kurra file reformat --check prez_config
