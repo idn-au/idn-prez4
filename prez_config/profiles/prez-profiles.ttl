@@ -128,7 +128,7 @@ prez:Index
 # regular profiles
 
 prez:OpenProfile
-    a prof:Profile , prez:ObjectProfile ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:identifier "open"^^xsd:token ;
     dcterms:description "An open profile for objects which will return all direct properties for a resource." ;
     dcterms:title "Open profile" ;
@@ -170,7 +170,7 @@ prez:OpenProfile
 .
 
 prez:VocabProfile
-    a prof:Profile , prez:ObjectProfile ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:title "Vocabulary Metadata Profile" ;
     dcterms:description "A profile for vocabularies" ;
     dcterms:identifier "vocab"^^xsd:token ;
@@ -210,7 +210,7 @@ prez:VocabProfile
 .
 
 altr-ext:alt-profile
-    a prof:Profile , prez:ListingProfile , prez:ObjectProfile ;
+    a prof:Profile , prez:ListingProfile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:description "The representation of the resource that lists all other representations (profiles and Media Types)" ;
     dcterms:identifier "alt"^^xsd:token ;
     dcterms:title "Alternates Profile" ;
@@ -248,7 +248,7 @@ altr-ext:alt-profile
 .
 
 prez:ProfileProfile
-    a prof:Profile , prez:ObjectProfile ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:description "A Profile for displaying profiles" ;
     dcterms:identifier "prof"^^xsd:token ;
     dcterms:title "Profiles Profile" ;
@@ -276,7 +276,7 @@ prez:ProfileProfile
 .
 
 <https://w3id.org/profile/mem>
-    a prof:Profile , prez:ListingProfile ;
+    a prof:Profile , prez:ListingProfile , sh:NodeShape ;
     dcterms:description "A very basic data model that lists the members of container objects only, i.e. not their other properties" ;
     dcterms:identifier "mem"^^xsd:token ;
     dcterms:title "Members" ;
@@ -312,7 +312,7 @@ prez:ProfileProfile
 .
 
 prez:CatalogItemsProfile
-    a prof:Profile, prez:ListingProfile ;
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
     dcterms:title "Catalogue Items" ;
     dcterms:description "A profile for listing items within a catalogue" ;
     dcterms:identifier "catalog-items"^^xsd:token ;
@@ -341,7 +341,7 @@ prez:CatalogItemsProfile
 .
 
 prez:AgentsProfile
-    a prof:Profile, prez:ListingProfile ;
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
     dcterms:title "Agents" ;
     dcterms:description "A profile for listing agents" ;
     dcterms:identifier "agents"^^xsd:token ;
@@ -366,7 +366,7 @@ prez:AgentsProfile
 .
 
 prez:SpatialListProfile
-    a prof:Profile, prez:ListingProfile ;
+    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
     dcterms:title "Spatial List Profile" ;
     dcterms:description "A list profile for GeoSPARQL spatial features" ;
     dcterms:identifier "spatial-list"^^xsd:token ;
@@ -385,7 +385,7 @@ prez:SpatialListProfile
 .
 
 prez:SpatialObjectProfile
-    a prof:Profile, prez:ObjectProfile ;
+    a prof:Profile, prez:ObjectProfile , sh:NodeShape ;
     dcterms:title "Spatial Object Profile" ;
     dcterms:description "A profile for GeoSPARQL spatial features" ;
     dcterms:identifier "spatial"^^xsd:token ;
@@ -420,7 +420,7 @@ prez:SpatialObjectProfile
 .
 
 prez:CQLListProfile
-    a prof:Profile , prez:ListingProfile ;
+    a prof:Profile , prez:ListingProfile , sh:NodeShape ;
     dcterms:identifier "cqllist"^^xsd:token ;
     dcterms:description "A CQL profile targeted towards listing CQL results, including geospatial information." ;
     dcterms:title "CQL List profile" ;
@@ -446,7 +446,7 @@ prez:CQLListProfile
 # Canonical deployed ATNS profile. The copy in atns-preservation is a local
 # test mirror and should be resynchronised from this definition after edits.
 prez:AtnsEntityProfile
-    a prof:Profile , prez:ObjectProfile  ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:identifier "atns-entity"^^xsd:token ;
     dcterms:title "ATNS Entity presentation profile"@en ;
     dcterms:description "Presents an ATNS entity with embedded reference metadata, preserved incoming and outgoing relationship rows, and spatial feature details for an on-demand map, while omitting source deletion flags."@en ;
@@ -519,7 +519,7 @@ prez:AtnsEntityProfile
 # This remains a separate-resource profile for the current deployment. It
 # does not yet implement the proposed CreativeWork/Agreement dual-type model.
 prez:OdrlAgreementProfile
-    a prof:Profile , prez:ObjectProfile  ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:identifier "odrl-agreement"^^xsd:token ;
     dcterms:title "ODRL Agreement presentation profile"@en ;
     dcterms:description "Presents an ODRL Agreement with its named Permission rules, actions, parties, targets and available target geometry."@en ;
@@ -562,7 +562,7 @@ _:ricoInstantiationPath
 .
 
 prez:RiCORecordProfile
-    a prof:Profile , prez:ObjectProfile  ;
+    a prof:Profile , prez:ObjectProfile , sh:NodeShape ;
     dcterms:identifier "rico-record"^^xsd:token ;
     dcterms:title "RiC-O Record presentation profile"@en ;
     dcterms:description "Presents a RiC-O Record and the descriptive metadata of its analogue, digital, derived or otherwise identified Instantiations on the same page."@en ;

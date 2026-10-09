@@ -70,6 +70,7 @@ The profiles defined in the [`profiles/`](./profiles) directory are:
   - The top-level system profile where default profiles for classes are defined
 - **Catalogue Items** - `prez:CatalogItemsProfile`
     - The main listing profile for the catalogue's children, returning:
+        - `rdf:type`
         - `schema:additionalType`
         - `schema:status`
         - `schema:keywords`
