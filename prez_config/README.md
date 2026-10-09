@@ -32,8 +32,8 @@ The API endpoints defined in the [`endpoints/`](./endpoints) directory are:
 <td><code>skos:Collection</code><br/><code>skos:ConceptScheme</code><br/><code>schema:Dataset</code><br/><code>schema:CreativeWork</code></td>
 </tr>
 <tr>
-<td rowspan="3">3</td>
-<td rowspan="3"><code>../items</code><br/><code>../items/{itemId}</code></td>
+<td rowspan="4">3</td>
+<td rowspan="4"><code>../items</code><br/><code>../items/{itemId}</code></td>
 <td><code>skos:ConceptScheme</code></td>
 <td><code>skos:inScheme</code></td>
 <td><code>skos:Concept</code><br/><code>skos:Collection</code></td>
@@ -47,6 +47,11 @@ The API endpoints defined in the [`endpoints/`](./endpoints) directory are:
 <td><code>schema:Dataset</code></td>
 <td><code>rdfs:member</code></td>
 <td><code>geo:FeatureCollection</code></td>
+</tr>
+<tr>
+<td><code>schema:Dataset</code></td>
+<td><code>^schema:isPartOf</code></td>
+<td><code>schema:Person</code><br/><code>schema:Organization</code></td>
 </tr>
 <tr>
 <td>4</td>
@@ -76,6 +81,8 @@ The profiles defined in the [`profiles/`](./profiles) directory are:
     - Presents an ODRL Agreement with its named Permission rules, actions, parties, targets and available target geometry.
 - **RiC-O Record presentation profile** - `prez:RiCORecordProfile`
     - Presents a RiC-O Record and the descriptive metadata of its analogue, digital, derived or otherwise identified Instantiations on the same page.
+- **Agents** - `prez:AgentsProfile`
+  - A listing profile for agents, returning `rdf:type`
 - **Spatial List Profile** - `prez:SpatialListProfile`
   - A listing profile for spatial features
 - **Spatial Object Profile** - `prez:SpatialObjectProfile`
