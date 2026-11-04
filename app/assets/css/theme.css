@@ -1,7 +1,7 @@
-body {
-    font-family: "Open Sans", sans-serif;
-}
-
 table.item-table tr > td:last-child {
     white-space: normal;
+}
+
+[role="group"] p {
+    margin: 0;
 }
