@@ -5,6 +5,8 @@ import { type ItemTableProps } from "prez-components";
 const props = defineProps<ItemTableProps>();
 const term = props.term as PrezFocusNode;
 
+const odrlObligationPredicate = "http://www.w3.org/ns/odrl/2/obligation";
+
 const hiddenPredicates = [
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
     "https://schema.org/hasPart",
@@ -25,7 +27,7 @@ const descPredicates = [
 const filteredProperties = computed(() => {
     if (term?.properties) {
         return Object.entries(term.properties)
-            .filter(([key, value]) => !hiddenPredicates.includes(key))
+            .filter(([key]) => !hiddenPredicates.includes(key) && key !== odrlObligationPredicate)
             .map(([key, value]) => value)
             .sort((a, b) => {
             if (descPredicates.includes(a.predicate.value)) { // description first

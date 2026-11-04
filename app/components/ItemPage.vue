@@ -53,9 +53,14 @@ const SCHEMA_CREATIVE_WORK = "https://schema.org/CreativeWork";
 const SCHEMA_SPATIAL_COVERAGE = "https://schema.org/spatialCoverage";
 const SCHEMA_NAME = "https://schema.org/name";
 const GEO_AS_WKT = "http://www.opengis.net/ont/geosparql#asWKT";
+const ODRL_AGREEMENT = "http://www.w3.org/ns/odrl/2/Agreement";
 
 const isCreativeWork = computed(() =>
     data.value?.data.rdfTypes?.some(type => type.value === SCHEMA_CREATIVE_WORK),
+);
+
+const isOdrlAgreement = computed(() =>
+    data.value?.data.rdfTypes?.some(type => type.value === ODRL_AGREEMENT),
 );
 
 function termProperties(term: any) {
@@ -334,6 +339,15 @@ const navigateToUri = (uri?: string) => {
                                     :is-concept-scheme="isConceptScheme"
                                     :top-concepts-url="topConceptsUrl"
                                 />
+
+                                <section v-if="isOdrlAgreement" class="mt-8" aria-labelledby="odrl-agreement-heading">
+                                    <h2 id="odrl-agreement-heading" class="mb-3 text-xl font-semibold">ODRL Agreement enrichment</h2>
+                                    <ODRLAgreementDetails
+                                        :term="data.data"
+                                        :store="data.store"
+                                        :show-description="false"
+                                    />
+                                </section>
 
                             </slot>
                             <slot name="item-middle" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
