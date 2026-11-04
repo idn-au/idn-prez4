@@ -20,7 +20,7 @@ prez:ProfilesGraph {
     prez:CustomIndexProfile
         a prof:Profile , prez:IndexProfile ;
         dcterms:identifier "idn"^^xsd:token ;
-        dcterms:description "Selects default IDN presentation profiles by resource class. An atns:Entity uses prez:AtnsEntityProfile as its single default, while prez:OdrlAgreementProfile remains available as a selectable generic presentation rather than competing as a second default for a resource that is also an odrl:Agreement."@en ;
+        dcterms:description "Selects default IDN presentation profiles by resource class."@en ;
         dcterms:title "IDN Index Profile" ;
         altr-ext:constrainsClass prez:CatPrez ;
         altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
