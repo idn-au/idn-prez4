@@ -12,7 +12,7 @@ const props = defineProps<{
 </script>
 
 <template>
-	<Badge variant="secondary">
+	<Badge variant="secondary" class="whitespace-normal">
 		<Term :term="props.term" />
 	</Badge>
 </template>

@@ -1,4 +1,3 @@
-version: "3"
 name: idn-prez4
 services:
   prez4:
@@ -13,12 +12,16 @@ services:
       ENABLE_SPARQL_ENDPOINT: true
       PREZ_TITLE: IDN Catalogue
       PROTOCOL: https
-      CUSTOM_ENDPOINTS: true
+#      CUSTOM_ENDPOINTS: true
       ENDPOINT_STRUCTURE: '["catalogs","collections","items","features"]'
       OTHER_PREDICATES: '["https://schema.org/color","https://schema.org/status"]'
       ORDER_LISTS_BY_LABEL: true
       SEARCH_METHOD: fts_fuseki
       DISABLE_PREFIX_GENERATION: true
+    volumes:
+      - ./prez_config/profiles:/opt/venv/lib/python3.13/site-packages/prez/reference_data/profiles
+      - ./prez_config/endpoints:/opt/venv/lib/python3.13/site-packages/prez/reference_data/endpoints/data_endpoints_default
+      - ./prez_config/prefixes:/opt/venv/lib/python3.13/site-packages/prez/reference_data/prefixes
     networks:
       - network
 

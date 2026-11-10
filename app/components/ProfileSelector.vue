@@ -110,8 +110,12 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 					<DropdownMenuContent align="end">
 						<DropdownMenuRadioGroup :modelValue="currentProfile?.token">
 							<DropdownMenuLabel class="text-xs text-muted-foreground">Select a profile</DropdownMenuLabel>
-							<DropdownMenuRadioItem v-for="profile in sortedProfiles.filter(p => canSelectProfile(p))" :value="profile.token" @select="navigateTo(`?${uriComponent}_profile=${profile.token}`)">
-								{{ profile.title }}
+							<DropdownMenuRadioItem
+							    v-for="profile in sortedProfiles.filter(p => p.uri === currentProfile?.uri || canSelectProfile(p))"
+								:value="profile.token"
+								@select="navigateTo(`?${uriComponent}_profile=${profile.token}`)"
+							>
+							    {{ profile.title }}
 								<Badge v-if="profile.default" variant="outline" class="text-muted-foreground">Default</Badge>
 							</DropdownMenuRadioItem>
 						</DropdownMenuRadioGroup>

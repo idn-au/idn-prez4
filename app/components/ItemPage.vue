@@ -201,7 +201,7 @@ const navigateToUri = (uri?: string) => {
         </template>
 
 	    <template #profiles>
-		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+		    <ProfileSelector :key="status" :objectUri="route.path === '/object' ? data?.data.value : undefined" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
 	    </template>
 
         <template #default>
@@ -229,7 +229,7 @@ const navigateToUri = (uri?: string) => {
                             <div class="flex flex-row gap-3" v-if="data?.data.rdfTypes">
                                 <Badge variant="secondary" class="self-start rounded-md">Type</Badge>
                                 <div>
-                                    <div v-for="rdfType in data.data.rdfTypes"><Node :term="rdfType" /></div>
+                                    <div v-for="rdfType in data.data.rdfTypes.filter(t => !t.value.startsWith('https://olis.dev/'))"><Node :term="rdfType" /></div>
                                 </div>
                             </div>
                         </slot>
@@ -334,8 +334,8 @@ const navigateToUri = (uri?: string) => {
                             <slot name="item-table" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 
                                 <ItemTable
-                                    :term="data.data" 
-                                    :key="urlPath + globalProfiles?.length + currentProfile?.uri" 
+                                    :term="data.data"
+                                    :key="urlPath + globalProfiles?.length + currentProfile?.uri"
                                     :is-concept-scheme="isConceptScheme"
                                     :top-concepts-url="topConceptsUrl"
                                 />
@@ -368,7 +368,7 @@ const navigateToUri = (uri?: string) => {
                                     <p><b>Concept Hierarchy</b></p>
                                     <div class="mt-4">
                                         <ConceptHierarchy
-                                            :base-url="apiEndpoint" 
+                                            :base-url="apiEndpoint"
                                             :url-path="topConceptsUrl"
                                         />
                                     </div>
@@ -390,7 +390,7 @@ const navigateToUri = (uri?: string) => {
                         </slot>
                     </div>
                 </div>
-                
+
                 <slot name="bottom" :data="data" :status="status" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
             </slot>
         </template>
