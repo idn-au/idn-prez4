@@ -121,18 +121,18 @@ ex:shape-R0-HL3-2 a sh:NodeShape ;
     sh:targetClass geo:FeatureCollection ;
     ont:hierarchyLevel 3 .
 
-ex:shape-R0-HL3-3 a sh:NodeShape ;
-    sh:property
-        [
-            sh:class schema:Dataset ;
-            sh:path schema:isPartOf
-        ],
-        [
-            sh:class schema:DataCatalog ;
-            sh:path ( schema:isPartOf [ sh:inversePath schema:hasPart ] )
-        ] ;
-    sh:targetClass schema:Person, schema:Organization ;
-    ont:hierarchyLevel 3 .
+#ex:shape-R0-HL3-3 a sh:NodeShape ;
+#    sh:property
+#        [
+#            sh:class schema:Dataset ;
+#            sh:path schema:isPartOf
+#        ],
+#        [
+#            sh:class schema:DataCatalog ;
+#            sh:path ( schema:isPartOf [ sh:inversePath schema:hasPart ] )
+#        ] ;
+#    sh:targetClass schema:Person, schema:Organization ;
+#    ont:hierarchyLevel 3 .
 
 ex:shape-R0-HL4 a sh:NodeShape ;
     sh:property

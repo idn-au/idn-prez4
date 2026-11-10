@@ -67,13 +67,13 @@ prez:Index
             sh:targetClass skos:ConceptScheme ;
             altr-ext:hasDefaultProfile prez:VocabProfile
         ],
-        [
-            a sh:NodeShape ;
-            sh:targetClass
-                schema:Person ,
-                schema:Organization ;
-            altr-ext:hasDefaultProfile prez:AgentsProfile ;
-        ],
+#        [
+#            a sh:NodeShape ;
+#            sh:targetClass
+#                schema:Person ,
+#                schema:Organization ;
+#            altr-ext:hasDefaultProfile prez:AgentsProfile ;
+#        ],
         [
             a sh:NodeShape ;
             altr-ext:hasDefaultProfile prez:SpatialListProfile ;
@@ -340,30 +340,30 @@ prez:CatalogItemsProfile
     ] ;
 .
 
-prez:AgentsProfile
-    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
-    dcterms:title "Agents" ;
-    dcterms:description "A profile for listing agents" ;
-    dcterms:identifier "agents"^^xsd:token ;
-    altr-ext:hasResourceFormat
-        "application/ld+json",
-        "application/anot+ld+json",
-        "application/rdf+xml",
-        "text/anot+turtle",
-        "text/turtle" ;
-    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
-    altr-ext:constrainsClass
-        prez:CQLFilterResult ,
-        schema:Person ,
-        schema:Organization ;
-    sh:property [
-        sh:path [
-            sh:union (
-                rdf:type
-            )
-        ]
-    ] ;
-.
+#prez:AgentsProfile
+#    a prof:Profile, prez:ListingProfile , sh:NodeShape ;
+#    dcterms:title "Agents" ;
+#    dcterms:description "A profile for listing agents" ;
+#    dcterms:identifier "agents"^^xsd:token ;
+#    altr-ext:hasResourceFormat
+#        "application/ld+json",
+#        "application/anot+ld+json",
+#        "application/rdf+xml",
+#        "text/anot+turtle",
+#        "text/turtle" ;
+#    altr-ext:hasDefaultResourceFormat "text/anot+turtle" ;
+#    altr-ext:constrainsClass
+#        prez:CQLFilterResult ,
+#        schema:Person ,
+#        schema:Organization ;
+#    sh:property [
+#        sh:path [
+#            sh:union (
+#                rdf:type
+#            )
+#        ]
+#    ] ;
+#.
 
 prez:SpatialListProfile
     a prof:Profile, prez:ListingProfile , sh:NodeShape ;

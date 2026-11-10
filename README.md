@@ -4,6 +4,9 @@ This repository contains the [Prez UI](https://github.com/RDFLib/prez-ui) theme 
 Available at - [data.idnau.org](https://data.idnau.org/)
 
 ## Development
+> [!IMPORTANT]
+> Installing this repo locally requires installing `@idn-au` NPM packages on the GitHub registry, which requires a token with permissions to access.
+> Read the [GitHub docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package) for more info.
 
 > [!NOTE]
 > The UI requires [PNPM](https://pnpm.io/) to be installed on your machine to install & run locally
