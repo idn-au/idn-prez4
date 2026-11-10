@@ -34,7 +34,6 @@ const globalConfig = useGlobalConfig(); // needed for checking if SPARQL is enab
 		    </div>
 	    </main>
 	    <Acknowledgement />
-	    <ARDCFooter />
 	    <IDCFooter />
 	    <div class="dark bg-secondary text-secondary-foreground">
 		    <div class="mx-auto max-w-[1200px] text-sm flex flex-row gap-2 items-center justify-center p-1">
