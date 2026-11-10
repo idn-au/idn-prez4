@@ -15,7 +15,7 @@ const globalConfig = useGlobalConfig(); // needed for checking if SPARQL is enab
         <IDCHeader baseUrl="https://data.idnau.org/search" />
         <IDNNav />
 	    <main class="grow mb-12">
-		    <div class="min-h-[300px] py-0 px-2 mb-6 flex flex-col justify-end bg-cover bg-no-repeat bg-center bg-blend-multiply relative -z-1 isolate" :style="{ background: `linear-gradient(transparent 75%, hsl(156 7.25% 13.53% / 60%)), url(${defaultImage})`, backgroundBlendMode: 'multiply', backgroundSize: 'cover', backgroundPosition: 'center' }">
+		    <div class="min-h-[300px] py-0 px-2 mb-6 flex flex-col justify-end bg-cover bg-no-repeat bg-center bg-blend-multiply relative" :style="{ background: `linear-gradient(transparent 75%, hsl(156 7.25% 13.53% / 60%)), url(${defaultImage})`, backgroundBlendMode: 'multiply', backgroundSize: 'cover', backgroundPosition: 'center' }">
 			    <div class="mx-auto max-w-[1400px] w-full flex flex-row items-end">
 				    <h1 class="text-white text-5xl mt-6">
 					    <slot name="header-text" />
@@ -24,7 +24,7 @@ const globalConfig = useGlobalConfig(); // needed for checking if SPARQL is enab
 					    <slot name="profiles" />
 				    </div>
 			    </div>
-			    <IDCLogo class="fill-white absolute h-[750px] w-auto -top-[50px] right-0 opacity-20 saturate-10 brightness-140 -z-1" />
+			    <!-- <IDCLogo class="fill-white absolute h-[750px] w-auto -top-[50px] right-0 opacity-20 saturate-10 brightness-140 -z-1" /> -->
 		    </div>
 		    <div class="mx-auto px-2 max-w-[1400px]">
 			    <div class="mb-6">

@@ -201,7 +201,7 @@ const navigateToUri = (uri?: string) => {
         </template>
 
 	    <template #profiles>
-		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+		    <ProfileSelector :key="status" :objectUri="route.path === '/object' ? data?.data.value : undefined" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
 	    </template>
 
         <template #default>
