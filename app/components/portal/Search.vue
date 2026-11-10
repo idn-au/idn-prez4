@@ -209,9 +209,15 @@ function handleResultMapFocus(iri: string) {
 <template>
 	<div>
 		<h2 class="text-2xl my-4">IDN Search Portal</h2>
+    <p class="mb-4">
+      Use the search box below to locate Indigenous data held in Australia. The search portal uses a spatial data catalogue to provide information (metadata) about data, including where it is located, the type of data collected, who owns or manages it, and whether and how it can be accessed.
+    </p>
 		<p class="mb-4">
-			Search via the search field below. More fields are available to filter by in the advanced search form. You can also search within an area by drawing a polygon on the map below by selecting the <Pentagon class="inline size-4" /> button.
+      You can search for data in several ways; by either entering a location in the search box, or by using the Polygon tool, <Pentagon class="inline size-4" />, to delineate a search area on the map, (use your mouse to make a polygon shape, single click at each corner, then double click once you've defined your area and then click 'Search’.
 		</p>
+    <p class="mb-4">
+      Alternatively, you can use the zoom slider on the left side of the map to explore an area of interest. Once you have zoomed in to the desired location, click Search. The location name and links to related data will appear in the search results. Select a link to view more information about the available data. Additional search and filtering options are available through the Advanced Search form. Use the erasure to clear your polygon search.
+    </p>
 		<AdvancedSearchForm v-model="formData" @submit="refresh" />
 		<div class="flex flex-row items-end gap-2 bg-background">
 <!--			<Button :variant="showFilters ? 'secondary' : 'ghost'" @click="showFilters = !showFilters">-->
