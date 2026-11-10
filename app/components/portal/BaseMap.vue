@@ -451,7 +451,7 @@ onMounted(() => {
 			        </MapButton>
 <!--			        <ButtonGroupSeparator />-->
 		        </template>
-		        <MapButton
+		        <!-- <MapButton
 			        size="icon"
 			        variant="outline"
 			        :active="clickThroughModeEnabled"
@@ -461,7 +461,7 @@ onMounted(() => {
 			        @click="toggleClickThroughMode"
 		        >
 			        <ChevronsDown class="size-4" />
-		        </MapButton>
+		        </MapButton> -->
 		        <template v-if="enableClearFeatures">
 <!--			        <ButtonGroupSeparator />-->
 			        <MapButton

@@ -40,7 +40,7 @@ const btnClass = "absolute z-[1]";
 				</Button>
 			</TooltipTrigger>
 			<TooltipContent :side="props.tooltipSide">
-				<p>{{props.tooltip}}</p>
+				<p class="m-0!">{{props.tooltip}}</p>
 			</TooltipContent>
 		</Tooltip>
 	</TooltipProvider>

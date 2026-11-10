@@ -50,6 +50,7 @@
     "devDependencies": {
         "@types/geojson": "^7946.0.16",
         "prez-ui": "^4.3.3",
+        "sass-embedded": "^1.108.1",
         "typescript": "6.0.3"
     }
 }

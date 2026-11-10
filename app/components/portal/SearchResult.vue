@@ -20,7 +20,7 @@ const dateObj = computed(() => props.created ? new Date(props.created) : undefin
 </script>
 
 <template>
-	<Item variant="outline">
+	<Item variant="outline" class="bg-background">
 		<!--						<ItemMedia>x</ItemMedia>-->
 		<ItemContent>
 			<ItemTitle class="text-lg">
@@ -82,3 +82,9 @@ const dateObj = computed(() => props.created ? new Date(props.created) : undefin
 		</ItemActions>
 	</Item>
 </template>
+
+<style scoped>
+p {
+    margin: 0;
+}
+</style>

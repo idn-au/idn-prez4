@@ -21,16 +21,16 @@ const props = defineProps<ItemListProps>();
         <TableBody>
             <template v-for="(item, index) in props.list">
                 <TableRow :class="`hover:bg-unset border-none ${index % 2 ? 'bg-transparent' : 'bg-muted/50'}`">
-                    <TableCell class="pb-1 font-bold">
+                    <TableCell class="pb-1 font-bold max-w-xl whitespace-normal">
                         <Node :term="item" variant="item-list" />
                     </TableCell>
                     <template v-if="fields">
-                        <TableCell v-for="col in fields" class="pb-1">
+                        <TableCell v-for="col in fields" class="pb-1 max-w-md whitespace-normal">
                             <Objects
                                 v-if="item.properties?.[col.node.value]?.objects"
                                 :term="col.node"
                                 :predicate="col.node"
-                                :objects="item.properties[col.node.value]?.objects"
+                                :objects="item.properties[col.node.value]?.objects.filter(o => !o.value.startsWith('https://olis.dev/'))"
                                 variant="item-list"
                             />
                         </TableCell>
