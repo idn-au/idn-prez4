@@ -30,7 +30,7 @@ const dateObj = computed(() => props.created ? new Date(props.created) : undefin
 			<ItemDescription class="flex flex-row gap-1 flex-wrap">
 				<Skeleton v-if="props.loading" v-for="_ in 3" class="h-5 w-16" />
 				<template v-else>
-					<Badge v-for="type in props.type">{{type}}</Badge>
+					<Badge v-for="type in props.type.filter(t => !t.startsWith('https://olis.dev/'))">{{type}}</Badge>
 					<Badge v-for="addType in props.addType" variant="secondary">{{addType}}</Badge>
 				</template>
 			</ItemDescription>

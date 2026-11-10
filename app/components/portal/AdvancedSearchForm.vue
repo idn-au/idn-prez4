@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import {Search, X, ChevronDown, MapPin} from "lucide-vue-next";
+import {Search, X, ChevronDown, MapPin, LoaderCircle} from "lucide-vue-next";
 import ConceptSelect from "./ConceptSelect.vue";
 import FormSelect from "./FormSelect.vue";
+
+const props = defineProps<{
+    loading?: boolean;
+}>();
 
 const typeOptions: Option[] = [
 	{
@@ -119,9 +123,10 @@ const emit = defineEmits<{
 				<ChevronDown :class="`size-4 transition-transform ${showAdvancedSearch ? 'rotate-180' : ''}`" />
 				Advanced Search
 			</Button>
-			<Button size="lg" @click="emit('submit')">
+			<Button size="lg" :disabled="props.loading" @click="emit('submit')">
 				<Search class="size-5" />
 				Search
+				<LoaderCircle v-if="props.loading" class="animate-spin" />
 			</Button>
 		</div>
 	</div>

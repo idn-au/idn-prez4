@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {X, ArrowDownUp, ArrowDownAZ, ArrowUpAZ, Filter, Search, SearchSlash, CircleAlert, Timer, Pentagon} from "lucide-vue-next";
+import {X, ArrowDownUp, ArrowDownAZ, ArrowUpAZ, Filter, Search, SearchSlash, CircleAlert, Timer, Pentagon, Eraser } from "lucide-vue-next";
 import {sparqlQuery} from "~/utils/helpers";
 import Map from "./Map.vue";
 import AdvancedSearchForm from "./AdvancedSearchForm.vue";
@@ -216,9 +216,9 @@ function handleResultMapFocus(iri: string) {
       You can search for data in several ways; by either entering a location in the search box, or by using the Polygon tool, <Pentagon class="inline size-4" />, to delineate a search area on the map, (use your mouse to make a polygon shape, single click at each corner, then double click once you've defined your area and then click 'Search’.
 		</p>
     <p class="mb-4">
-      Alternatively, you can use the zoom slider on the left side of the map to explore an area of interest. Once you have zoomed in to the desired location, click Search. The location name and links to related data will appear in the search results. Select a link to view more information about the available data. Additional search and filtering options are available through the Advanced Search form. Use the erasure to clear your polygon search.
+      Alternatively, you can use the zoom slider on the left side of the map to explore an area of interest. Once you have zoomed in to the desired location, click Search. The location name and links to related data will appear in the search results. Select a link to view more information about the available data. Additional search and filtering options are available through the Advanced Search form. Use the eraser, <Eraser class="inline size-4" />, to clear your polygon search.
     </p>
-		<AdvancedSearchForm v-model="formData" @submit="refresh" />
+		<AdvancedSearchForm v-model="formData" :loading="status === 'pending'" @submit="refresh" />
 		<div class="flex flex-row items-end gap-2 bg-background">
 <!--			<Button :variant="showFilters ? 'secondary' : 'ghost'" @click="showFilters = !showFilters">-->
 <!--				<Filter />-->
