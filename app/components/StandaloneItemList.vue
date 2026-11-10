@@ -34,15 +34,7 @@ function toggleSort(predicate: string) {
                 </TableHead>
                 <template v-if="fields">
                     <TableHead v-for="col in fields">
-                        <b>
-                            <template v-if="col.node.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'">
-                                Type
-                                <a href="https://www.w3.org/1999/02/22-rdf-syntax-ns#type" title="The subject is an instance of a class." target="_blank">
-                                    <ExternalLink class="size-4 inline" />
-                                </a>
-                            </template>
-                            <Predicate v-else :predicate="col.node" :objects="[]" />
-                        </b>
+                        <b><Predicate :predicate="col.node" :objects="[]" /></b>
                         <Button :variant="sortBy === col.node.value ? 'secondary' : 'ghost'" size="icon" @click="toggleSort(col.node.value)">
 		                    <template v-if="sortBy === col.node.value">
 			                    <ArrowDownAZ v-if="sortByDirection === 'ASC'" class="size-4" />

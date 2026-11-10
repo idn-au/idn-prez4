@@ -51,11 +51,11 @@ const { data, status, error } = useLazyAsyncData(fullUrl.value, () => getList(ap
 
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
 const filteredMembers = computed(() => {
-    let sorted = data.value?.data.filter(n => (n.label?.value || n.value).toLowerCase().includes(q.value.toLowerCase())) || [];
+    const sorted = data.value?.data.filter(n => (n.label?.value || n.value).toLowerCase().includes(q.value.toLowerCase())) || [];
 	if (sortBy.value === "label") {
-		sorted = data.value.data.toSorted(sortNodesByLabel);
+		sorted.sort(sortNodesByLabel);
 	} else {
-		sorted = data.value.data.toSorted((a, b) => {
+		sorted.sort((a, b) => {
 			if (a.properties && sortBy.value in a.properties && b.properties && sortBy.value in b.properties) {
 				if (a.properties[sortBy.value].objects.every(o => o.termType === "NamedNode") && b.properties[sortBy.value].objects.every(o => o.termType === "NamedNode")) {
 					(a.properties[sortBy.value].objects as PrezNode[]).sort(sortNodesByLabel);

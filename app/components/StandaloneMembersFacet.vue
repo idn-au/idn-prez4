@@ -14,7 +14,7 @@ const q = ref("");
 
 const filteredValues = computed(() => {
     return props.facet.facetValues
-        .filter(v => getTermDisplay(v.term).toLowerCase().includes(q.value.toLowerCase()))
+        .filter(v => !v.term.value.startsWith("https://olis.dev/") && getTermDisplay(v.term).toLowerCase().includes(q.value.toLowerCase()))
         .sort((a, b) => {
     		if (a.count === b.count) {
     			return sortNodesByLabel(a.term, b.term);
@@ -38,7 +38,7 @@ function handleFacetValueClick(facetName: PrezNode, facetValue: PrezFacetValue) 
 		<DropdownMenuTrigger as-child>
 			<Button variant="outline" size="sm" class="inline-flex items-center">
 			    <Funnel class="size-4 text-muted-foreground" />
-				{{getTermDisplay(props.facet.facetName) === "a" ? "Type" : getTermDisplay(props.facet.facetName)}}
+				{{getTermDisplay(props.facet.facetName)}}
 				<ChevronDown class="ml-1 size-4 text-muted-foreground" aria-hidden="true" />
 			</Button>
 		</DropdownMenuTrigger>
